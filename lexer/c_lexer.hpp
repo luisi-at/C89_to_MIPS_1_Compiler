@@ -4,13 +4,14 @@
 #include <string>
 
 enum TokenType{
-  None = 0,
-  Keyword = 1,
-  Identifier,
-  Operator,
-  Constant,
-  StringLiteral,
-  Invalid
+    None = 0,
+    Keyword = 1,
+    Identifier,
+    Operator,
+    Constant,
+    StringLiteral,
+    Invalid,
+    StreamlineUpdate
 };
 
 // to get the value, line number and column (eventually)

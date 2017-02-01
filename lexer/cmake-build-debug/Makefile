@@ -123,32 +123,32 @@ lexer/fast:
 	$(MAKE) -f CMakeFiles/lexer.dir/build.make CMakeFiles/lexer.dir/build
 .PHONY : lexer/fast
 
-main.o: main.cpp.o
+lexer_main.o: lexer_main.cpp.o
 
-.PHONY : main.o
+.PHONY : lexer_main.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/lexer.dir/build.make CMakeFiles/lexer.dir/main.cpp.o
-.PHONY : main.cpp.o
+lexer_main.cpp.o:
+	$(MAKE) -f CMakeFiles/lexer.dir/build.make CMakeFiles/lexer.dir/lexer_main.cpp.o
+.PHONY : lexer_main.cpp.o
 
-main.i: main.cpp.i
+lexer_main.i: lexer_main.cpp.i
 
-.PHONY : main.i
+.PHONY : lexer_main.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/lexer.dir/build.make CMakeFiles/lexer.dir/main.cpp.i
-.PHONY : main.cpp.i
+lexer_main.cpp.i:
+	$(MAKE) -f CMakeFiles/lexer.dir/build.make CMakeFiles/lexer.dir/lexer_main.cpp.i
+.PHONY : lexer_main.cpp.i
 
-main.s: main.cpp.s
+lexer_main.s: lexer_main.cpp.s
 
-.PHONY : main.s
+.PHONY : lexer_main.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/lexer.dir/build.make CMakeFiles/lexer.dir/main.cpp.s
-.PHONY : main.cpp.s
+lexer_main.cpp.s:
+	$(MAKE) -f CMakeFiles/lexer.dir/build.make CMakeFiles/lexer.dir/lexer_main.cpp.s
+.PHONY : lexer_main.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... lexer"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... lexer_main.o"
+	@echo "... lexer_main.i"
+	@echo "... lexer_main.s"
 .PHONY : help
 
 

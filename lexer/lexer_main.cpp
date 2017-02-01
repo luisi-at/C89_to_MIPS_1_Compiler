@@ -8,10 +8,13 @@ struct jsonContainer{
     std::string tokenClass;
     std::string text;
     int streamline;
+    int columnline;
     std::string sourcefile;
 
 
 };
+
+jsonContainer serialize(std::string className, std::string text, int streamline, std::string sfile);
 
 TokenContainer yylval;
 
@@ -20,30 +23,42 @@ int main() {
     std::vector<jsonContainer> foundValues;
     std::string className;
 
+    int sline = 1;
+    bool serialize = false;
 
     while(1){
         TokenType type = (TokenType)yylex();
+        serialize = false;
 
         if(type == None){
             break;
         }
         if(type == Keyword){
             className = "Keyword";
+            serialize = true;
         }
         if(type == Identifier){
             className = "Identifier";
+            serialize = true;
         }
         if(type == Operator){
             className = "Operator";
+            serialize = true;
         }
         if(type == Constant){
             className = "Constant";
+            serialize = true;
         }
         if(type == StringLiteral){
             className = "StringLiteral";
+            serialize = true;
         }
         if(type == Invalid){
             className = "Invalid";
+            serialize = true;
+        }
+        if(type == StreamlineUpdate){
+            sline++;
         }
 
         /*switch(type){
@@ -56,11 +71,15 @@ int main() {
             case Invalid: className = "Invalid";
         } why does this not work? */
 
-        jsonContainer temp{
-                .tokenClass = className,
-                .text = *yylval.value
-        };
-        foundValues.push_back(temp);
+        if(serialize){
+            jsonContainer temp{
+                    .tokenClass = className,
+                    .text = *yylval.value,
+                    .streamline = sline
+
+            };
+            foundValues.push_back(temp);
+        }
 
     }
 
@@ -69,7 +88,8 @@ int main() {
     std::stringstream ss;
     ss << "[" << std::endl;
     for(std::vector<jsonContainer>::iterator iter = foundValues.begin(); iter != foundValues.end(); ++iter){
-        ss << "{" << "\"Class\": \t" << "\"" << iter->tokenClass <<"\"" << ",\t" << "\"Text:\"\t" << "\"" << iter->text << "\"" << "\t}," << std::endl;
+        ss << "{" << "\"Class\": \t" << "\"" << iter->tokenClass <<"\"\t" << ",\t" << "\"Text:\"\t" << "\"" << iter->text << "\",\t";
+        ss << "\"Streamline\": \t" << iter->streamline << "\t}" << std::endl;
     }
     ss << "{}" << std::endl << "]";
     std::string jsonString = ss.str();
@@ -77,3 +97,7 @@ int main() {
     return 0;
 }
 
+jsonContainer serialize(std::string className, std::string text, int streamline, std::string sfile){
+
+
+}

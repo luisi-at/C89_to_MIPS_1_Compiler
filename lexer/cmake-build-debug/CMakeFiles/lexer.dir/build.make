@@ -57,38 +57,38 @@ include CMakeFiles/lexer.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/lexer.dir/flags.make
 
-CMakeFiles/lexer.dir/main.cpp.o: CMakeFiles/lexer.dir/flags.make
-CMakeFiles/lexer.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/lexer.dir/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lexer.dir/main.cpp.o -c "/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/main.cpp"
+CMakeFiles/lexer.dir/lexer_main.cpp.o: CMakeFiles/lexer.dir/flags.make
+CMakeFiles/lexer.dir/lexer_main.cpp.o: ../lexer_main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/lexer.dir/lexer_main.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lexer.dir/lexer_main.cpp.o -c "/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/lexer_main.cpp"
 
-CMakeFiles/lexer.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lexer.dir/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/main.cpp" > CMakeFiles/lexer.dir/main.cpp.i
+CMakeFiles/lexer.dir/lexer_main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lexer.dir/lexer_main.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/lexer_main.cpp" > CMakeFiles/lexer.dir/lexer_main.cpp.i
 
-CMakeFiles/lexer.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lexer.dir/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/main.cpp" -o CMakeFiles/lexer.dir/main.cpp.s
+CMakeFiles/lexer.dir/lexer_main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lexer.dir/lexer_main.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/lexer_main.cpp" -o CMakeFiles/lexer.dir/lexer_main.cpp.s
 
-CMakeFiles/lexer.dir/main.cpp.o.requires:
+CMakeFiles/lexer.dir/lexer_main.cpp.o.requires:
 
-.PHONY : CMakeFiles/lexer.dir/main.cpp.o.requires
+.PHONY : CMakeFiles/lexer.dir/lexer_main.cpp.o.requires
 
-CMakeFiles/lexer.dir/main.cpp.o.provides: CMakeFiles/lexer.dir/main.cpp.o.requires
-	$(MAKE) -f CMakeFiles/lexer.dir/build.make CMakeFiles/lexer.dir/main.cpp.o.provides.build
-.PHONY : CMakeFiles/lexer.dir/main.cpp.o.provides
+CMakeFiles/lexer.dir/lexer_main.cpp.o.provides: CMakeFiles/lexer.dir/lexer_main.cpp.o.requires
+	$(MAKE) -f CMakeFiles/lexer.dir/build.make CMakeFiles/lexer.dir/lexer_main.cpp.o.provides.build
+.PHONY : CMakeFiles/lexer.dir/lexer_main.cpp.o.provides
 
-CMakeFiles/lexer.dir/main.cpp.o.provides.build: CMakeFiles/lexer.dir/main.cpp.o
+CMakeFiles/lexer.dir/lexer_main.cpp.o.provides.build: CMakeFiles/lexer.dir/lexer_main.cpp.o
 
 
 # Object files for target lexer
 lexer_OBJECTS = \
-"CMakeFiles/lexer.dir/main.cpp.o"
+"CMakeFiles/lexer.dir/lexer_main.cpp.o"
 
 # External object files for target lexer
 lexer_EXTERNAL_OBJECTS =
 
-lexer: CMakeFiles/lexer.dir/main.cpp.o
+lexer: CMakeFiles/lexer.dir/lexer_main.cpp.o
 lexer: CMakeFiles/lexer.dir/build.make
 lexer: CMakeFiles/lexer.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable lexer"
@@ -99,7 +99,7 @@ CMakeFiles/lexer.dir/build: lexer
 
 .PHONY : CMakeFiles/lexer.dir/build
 
-CMakeFiles/lexer.dir/requires: CMakeFiles/lexer.dir/main.cpp.o.requires
+CMakeFiles/lexer.dir/requires: CMakeFiles/lexer.dir/lexer_main.cpp.o.requires
 
 .PHONY : CMakeFiles/lexer.dir/requires
 

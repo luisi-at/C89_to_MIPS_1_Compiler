@@ -80,7 +80,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/main.cpp">
+		<Unit filename="/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/lexer_main.cpp">
 			<Option target="lexer"/>
 		</Unit>
 		<Unit filename="/Users/alexluisi/Documents/University/2.Second Year/Language Processors/Lexer/lexer/CMakeLists.txt">

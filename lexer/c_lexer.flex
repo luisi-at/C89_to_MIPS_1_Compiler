@@ -11,7 +11,8 @@ need to include any header files that may be needed */
 
 /* Definitions as defined by the C89/C90 Specification */
 
-delim                         [ \t\n\r]
+delim                         [ \t\r]
+carriage_return               [\n]
 whitespace                    {delim}+
 
 nondigit                      [_a-zA-Z]
@@ -53,7 +54,7 @@ string_literal                (\"[^\'\\\n]*\")
 operator_square               (\[).*(\])
 operator_parenthesis          \(.*\)
 operator_brackets             (\{).*(\})
-single_operator               [&*+-~!^|,:;=#%<>]
+single_operator               [&*+-~!\^|,:;=#%<>]
 operator                      {single_operator}|{operator_square}|{operator_parenthesis}|{operator_brackets}
 /* are there more ^^? */
 
@@ -129,7 +130,9 @@ while                         {yylval.value = new std::string(yytext); return Ke
 ">>"                          {yylval.value = new std::string(yytext); return Operator;}
 "->"                          {yylval.value = new std::string(yytext); return Operator;}
 
-{operator}                    {fprintf(stderr, "OPERATOR\n"); yylval.value = new std::string(yytext); return Operator;} //return operator
+{operator}                    {yylval.value = new std::string(yytext); return Operator;} //return operator
+
+{carriage_return}             {return StreamlineUpdate;}
 
 .                             {yylval.value = new std::string(yytext); return Invalid;}
 %%

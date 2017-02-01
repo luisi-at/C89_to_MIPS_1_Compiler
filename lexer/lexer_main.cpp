@@ -8,7 +8,7 @@ struct jsonContainer{
     std::string tokenClass;
     std::string text;
     int streamline;
-    int columnline;
+    int columnNumber;
     std::string sourcefile;
 
 
@@ -24,6 +24,7 @@ int main() {
     std::string className;
 
     int sline = 1;
+    int colnum = 0;
     bool serialize = false;
 
     while(1){
@@ -35,30 +36,37 @@ int main() {
         }
         if(type == Keyword){
             className = "Keyword";
+            colnum++;
             serialize = true;
         }
         if(type == Identifier){
             className = "Identifier";
+            colnum++;
             serialize = true;
         }
         if(type == Operator){
             className = "Operator";
+            colnum++;
             serialize = true;
         }
         if(type == Constant){
             className = "Constant";
+            colnum++;
             serialize = true;
         }
         if(type == StringLiteral){
             className = "StringLiteral";
+            colnum++;
             serialize = true;
         }
         if(type == Invalid){
             className = "Invalid";
+            colnum++;
             serialize = true;
         }
         if(type == StreamlineUpdate){
             sline++;
+            colnum = 0;
         }
 
         /*switch(type){
@@ -75,7 +83,8 @@ int main() {
             jsonContainer temp{
                     .tokenClass = className,
                     .text = *yylval.value,
-                    .streamline = sline
+                    .streamline = sline,
+                    .columnNumber = colnum
 
             };
             foundValues.push_back(temp);
@@ -89,7 +98,8 @@ int main() {
     ss << "[" << std::endl;
     for(std::vector<jsonContainer>::iterator iter = foundValues.begin(); iter != foundValues.end(); ++iter){
         ss << "{" << "\"Class\": \t" << "\"" << iter->tokenClass <<"\"\t" << ",\t" << "\"Text:\"\t" << "\"" << iter->text << "\",\t";
-        ss << "\"Streamline\": \t" << iter->streamline << "\t}" << std::endl;
+        ss << "\"Streamline\": \t" << iter->streamline << ",\t";
+        ss << "\"SourceCol\": \t" << iter->columnNumber << "\t}" << std::endl;
     }
     ss << "{}" << std::endl << "]";
     std::string jsonString = ss.str();

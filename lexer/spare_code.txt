@@ -2,3 +2,7 @@ c_char                        [^\'\\\n]
 c_char_sequence               {c_char}+
 character_constant            ('{c_char_sequence}')|(L'{c_char_sequence}')
 {character_constant}          {yylval.value = new std::string(yytext); return Constant;} //return constant and value
+
+operator_square               (\[).*(\])
+operator_parenthesis          \(.*\)
+operator_brackets             (\{).*(\})

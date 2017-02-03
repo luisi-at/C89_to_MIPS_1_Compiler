@@ -11,7 +11,9 @@ enum TokenType{
     Constant,
     StringLiteral,
     Invalid,
-    StreamlineUpdate
+    PreProcessor,
+    AddCol,
+    ResetCol
 };
 
 // to get the value, line number and column (eventually)
@@ -24,5 +26,9 @@ struct TokenContainer{
 extern TokenContainer yylval;
 
 extern int yylex();
+
+extern int yylineno;
+
+extern unsigned long yyleng;
 
 #endif

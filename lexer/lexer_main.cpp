@@ -10,9 +10,11 @@ struct jsonContainer{
     int streamline;
     int columnNumber;
     std::string sourcefile;
-
-
+    int sourceLine;
 };
+
+// source column ahead too many characters
+// source line lags by 1
 
 jsonContainer serialize(std::string className, std::string text, int streamline, std::string sfile);
 
@@ -23,70 +25,96 @@ int main() {
     std::vector<jsonContainer> foundValues;
     std::string className;
 
-    int sline = 1;
-    int colnum = 0;
+    std::string tempsfile;
+    int sline = 0;
+
+    int colnum = 1;
+    int prevcol;
     bool serialize = false;
 
     while(1){
         TokenType type = (TokenType)yylex();
         serialize = false;
 
+        prevcol = colnum;
+
         if(type == None){
             break;
         }
         if(type == Keyword){
             className = "Keyword";
-            colnum++;
+            colnum += yyleng;
             serialize = true;
         }
         if(type == Identifier){
             className = "Identifier";
-            colnum++;
+            colnum += yyleng;
             serialize = true;
         }
         if(type == Operator){
             className = "Operator";
-            colnum++;
+            colnum += yyleng;
             serialize = true;
         }
         if(type == Constant){
             className = "Constant";
-            colnum++;
+            colnum += yyleng;
             serialize = true;
         }
         if(type == StringLiteral){
             className = "StringLiteral";
-            colnum++;
+            colnum += yyleng;
             serialize = true;
         }
         if(type == Invalid){
             className = "Invalid";
-            colnum++;
+            colnum += yyleng;
             serialize = true;
         }
-        if(type == StreamlineUpdate){
+        if(type == PreProcessor){
+            //className = "Invalid";
+            //colnum += yylval.value.size();
+            //serialize = true;
+            // take the line number
+            // then take the filename
+            //std::cout << *yylval.value << std::endl;
+            std::stringstream ss(*yylval.value);
+            std::string buffer;
+            std::vector<std::string> temptok;
+            while(ss >> buffer){
+                temptok.push_back(buffer);
+            }
+
+            //know that preproc is tokens separated by spaces
+            // pos0 = #
+            // pos1 = lineno
+            // pos2 = fileno
+            // pos3 = NA
+            sline = std::stoi(temptok[1]) - 1;
+            tempsfile = temptok[2];
+            //std::cout << temptok[3] << std::endl;
+            serialize = false;
+        }
+        if(type == AddCol){
+            colnum++;
+            serialize = false;
+        }
+        if(type == ResetCol){
+            colnum = 1;
             sline++;
-            colnum = 0;
+            serialize = false;
         }
 
-        /*switch(type){
-            case None: break;
-            case Keyword: className = "Keyword";
-            case Identifier: className = "Identifier";
-            case Operator: className = "Operator";
-            case Constant: className = "Constant";
-            case StringLiteral: className = "StringLiteral";
-            case Invalid: className = "Invalid";
-        } why does this not work? */
-
         if(serialize){
-            jsonContainer temp{
-                    .tokenClass = className,
-                    .text = *yylval.value,
-                    .streamline = sline,
-                    .columnNumber = colnum
 
-            };
+            jsonContainer temp;
+            temp.tokenClass = className;
+            temp.text = *yylval.value;
+            temp.streamline = yylineno;
+            temp.columnNumber = prevcol;
+            temp.sourceLine = sline;
+            temp.sourcefile = tempsfile;
+
             foundValues.push_back(temp);
         }
 
@@ -99,7 +127,9 @@ int main() {
     for(std::vector<jsonContainer>::iterator iter = foundValues.begin(); iter != foundValues.end(); ++iter){
         ss << "{" << "\"Class\": \t" << "\"" << iter->tokenClass <<"\"\t" << ",\t" << "\"Text:\"\t" << "\"" << iter->text << "\",\t";
         ss << "\"Streamline\": \t" << iter->streamline << ",\t";
-        ss << "\"SourceCol\": \t" << iter->columnNumber << "\t}" << std::endl;
+        ss << "\"SourceFile\": \t" << iter->sourcefile << "\t";
+        ss << "\"SourceLine\": \t" << iter->sourceLine << "\t}";
+        ss << "\"SourceCol\": \t" << iter->columnNumber << "\t" << std::endl;
     }
     ss << "{}" << std::endl << "]";
     std::string jsonString = ss.str();
@@ -107,7 +137,4 @@ int main() {
     return 0;
 }
 
-jsonContainer serialize(std::string className, std::string text, int streamline, std::string sfile){
 
-
-}

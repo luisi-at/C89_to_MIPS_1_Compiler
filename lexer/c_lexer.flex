@@ -58,6 +58,7 @@ preprocessor                  #[ ]{digit_sequence}[ ]\".*\"([ ]{digit_sequence})
 string_literal                (\"[^\'\\\n]*\")
 
 single_operator               [&*+-~!\^|,:;=#%<>\{\}\[\]\(\)]
+ellipsis                      (\.\.\.)
 operator                      {single_operator}
 /* are there more ^^? */
 
@@ -139,6 +140,7 @@ while                         {yylval.value = new std::string(yytext); return Ke
 ">>"                          {yylval.value = new std::string(yytext); return Operator;}
 "->"                          {yylval.value = new std::string(yytext); return Operator;}
 
+{ellipsis}                    {yylval.value = new std::string(yytext); return Operator;}
 {operator}                    {yylval.value = new std::string(yytext); return Operator;} //return operator
 
 {whitespace}                  {return AddCol;}

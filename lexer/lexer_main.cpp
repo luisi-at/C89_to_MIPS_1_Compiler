@@ -125,11 +125,11 @@ int main() {
     std::stringstream ss;
     ss << "[" << std::endl;
     for(std::vector<jsonContainer>::iterator iter = foundValues.begin(); iter != foundValues.end(); ++iter){
-        ss << "{" << "\"Class\": \t" << "\"" << iter->tokenClass <<"\"\t" << ",\t" << "\"Text:\"\t" << "\"" << iter->text << "\",\t";
-        ss << "\"Streamline\": \t" << iter->streamline << ",\t";
-        ss << "\"SourceFile\": \t" << iter->sourcefile << "\t";
-        ss << "\"SourceLine\": \t" << iter->sourceLine << "\t}";
-        ss << "\"SourceCol\": \t" << iter->columnNumber << "\t" << std::endl;
+        ss << "{" << "\"Class\"" << ":" << "\"" << iter->tokenClass << "\", " << "\"Text\"" << ":" << "\"" << iter->text << "\", ";
+        ss << "\"StreamLine\"" << ":" << iter->streamline << ", ";
+        ss << "\"SourceFile\"" << ":" << iter->sourcefile << ", ";
+        ss << "\"SourceLine\"" << ":" << iter->sourceLine << ", ";
+        ss << "\"SourceCol\"" << ":" << iter->columnNumber << "}," << std::endl;
     }
     ss << "{}" << std::endl << "]";
     std::string jsonString = ss.str();

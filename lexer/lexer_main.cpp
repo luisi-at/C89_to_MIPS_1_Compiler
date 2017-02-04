@@ -1,6 +1,6 @@
 #include <iostream>
 #include "c_lexer.hpp"
-
+#include <algorithm>
 #include <vector>
 #include <sstream>
 
@@ -24,6 +24,7 @@ int main() {
 
     std::vector<jsonContainer> foundValues;
     std::string className;
+    std::string assignString;
 
     std::string tempsfile;
     int sline = 0;
@@ -43,38 +44,48 @@ int main() {
         }
         if(type == Keyword){
             className = "Keyword";
+            assignString = *yylval.value;
             colnum += yyleng;
             serialize = true;
         }
         if(type == Identifier){
             className = "Identifier";
             colnum += yyleng;
+            assignString = *yylval.value;
             serialize = true;
         }
         if(type == Operator){
             className = "Operator";
             colnum += yyleng;
+            assignString = *yylval.value;
             serialize = true;
         }
         if(type == Constant){
             className = "Constant";
-            colnum += yyleng;
+            if(*yylval.value == "\t"){
+                std::cout << "TAB" << std::endl;
+                colnum += 8; // - (colnum % 8);
+            }
+            else{
+                colnum += yyleng;
+            }
+            assignString = *yylval.value;
             serialize = true;
         }
         if(type == StringLiteral){
             className = "StringLiteral";
             colnum += yyleng;
+            assignString = *yylval.value;
+            assignString.erase(remove(assignString.begin(), assignString.end(), '\"'), assignString.end());
             serialize = true;
         }
         if(type == Invalid){
             className = "Invalid";
             colnum += yyleng;
+            assignString = *yylval.value;
             serialize = true;
         }
         if(type == PreProcessor){
-            //className = "Invalid";
-            //colnum += yylval.value.size();
-            //serialize = true;
             // take the line number
             // then take the filename
             //std::cout << *yylval.value << std::endl;
@@ -84,7 +95,6 @@ int main() {
             while(ss >> buffer){
                 temptok.push_back(buffer);
             }
-
             //know that preproc is tokens separated by spaces
             // pos0 = #
             // pos1 = lineno
@@ -96,7 +106,13 @@ int main() {
             serialize = false;
         }
         if(type == AddCol){
-            colnum++;
+            if(*yylval.value == "\t"){
+                std::cout << "TAB" << std::endl;
+                colnum += 8; // - (colnum % 8);
+            }
+            else{
+                colnum++;
+            }
             serialize = false;
         }
         if(type == ResetCol){
@@ -109,7 +125,7 @@ int main() {
 
             jsonContainer temp;
             temp.tokenClass = className;
-            temp.text = *yylval.value;
+            temp.text = assignString;
             temp.streamline = yylineno;
             temp.columnNumber = prevcol;
             temp.sourceLine = sline;

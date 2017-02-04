@@ -14,7 +14,7 @@ need to include any header files that may be needed */
 
 /* Definitions as defined by the C89/C90 Specification */
 
-delim                         [ \t\r]
+delim                         [ \t\r\f]
 carriage_return               [\n]
 whitespace                    {delim}+
 
@@ -47,6 +47,7 @@ enumeration_constant          {identifier}
 simple_escape_sequence        \\['"?abfnrtv]
 octal_escape_sequence         \\{octal_digit}+
 hexadecimal_escape_sequence   \\{hexadecimal_digit}+
+escape_sequence               {simple_escape_sequence}|{octal_escape_sequence}|{hexadecimal_escape_sequence}
 
 character_constant            (\'[^\'\\\n]+\')|(L\'[^\'\\\n]+\')
 
@@ -55,7 +56,7 @@ preprocessor                  #[ ]{digit_sequence}[ ]\".*\"([ ]{digit_sequence})
 /* s_char_sequence essentially takes the c_char sequence but bundles it within quotation marks */
 /* this may need further investigation */
 
-string_literal                (\"[^\'\\\n]*\")
+string_literal                L?\"({escape_sequence}|[^\\"])*\"
 
 single_operator               [&*+-~!\^|,:;=#%<>\{\}\[\]\(\)]
 ellipsis                      (\.\.\.)
@@ -66,6 +67,8 @@ operator                      {single_operator}
 
 {preprocessor}                {yylval.value = new std::string(yytext); return PreProcessor;}
 
+{digit_sequence}              {yylval.value = new std::string(yytext); return Constant;}
+
 {hexadecimal_constant}        {yylval.value = new std::string(yytext); return Constant;} //return constant and the value
 
 {integer_constant}            {yylval.value = new std::string(yytext); return Constant;}
@@ -74,13 +77,9 @@ operator                      {single_operator}
 
 {character_constant}          {yylval.value = new std::string(yytext); return Constant;} //return constant and value
 
-{simple_escape_sequence}      {yylval.value = new std::string(yytext); return Constant;}
-
-{octal_escape_sequence}       {yylval.value = new std::string(yytext); return Constant;}
-
-{hexadecimal_escape_sequence} {yylval.value = new std::string(yytext); return Constant;}
-
 {string_literal}              {yylval.value = new std::string(yytext); return StringLiteral;} //return constant and value
+
+{escape_sequence}             {yylval.value = new std::string(yytext); return Constant;}
 
 auto                          {yylval.value = new std::string(yytext); return Keyword;}
 double                        {yylval.value = new std::string(yytext); return Keyword;}
@@ -144,7 +143,6 @@ while                         {yylval.value = new std::string(yytext); return Ke
 {operator}                    {yylval.value = new std::string(yytext); return Operator;} //return operator
 
 {whitespace}                  {return AddCol;}
-
 {carriage_return}             {return ResetCol;}
 
 .                             {yylval.value = new std::string(yytext); return Invalid;}

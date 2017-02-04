@@ -16,7 +16,7 @@ need to include any header files that may be needed */
 
 delim                         [ \t\r\f]
 carriage_return               [\n]
-whitespace                    {delim}+
+whitespace                    {delim}
 
 nondigit                      [_a-zA-Z]
 digit                         [0-9]
@@ -64,6 +64,8 @@ operator                      {single_operator}
 /* are there more ^^? */
 
 %%
+
+{whitespace}                  {yylval.value = new std::string(yytext); return AddCol;}
 
 {preprocessor}                {yylval.value = new std::string(yytext); return PreProcessor;}
 
@@ -142,7 +144,7 @@ while                         {yylval.value = new std::string(yytext); return Ke
 {ellipsis}                    {yylval.value = new std::string(yytext); return Operator;}
 {operator}                    {yylval.value = new std::string(yytext); return Operator;} //return operator
 
-{whitespace}                  {return AddCol;}
+
 {carriage_return}             {return ResetCol;}
 
 .                             {yylval.value = new std::string(yytext); return Invalid;}

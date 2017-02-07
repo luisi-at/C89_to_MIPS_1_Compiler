@@ -1,0 +1,42 @@
+Note that each submission has not been looked at manually, they
+have only been randomly sampled to get an idea if the test automation.
+is working for most submission. If the build system appears
+to be broken, please raise an issue (though stability of these
+runs is not a huge priority).
+
+al3515 : Cloning repo
+Cloning into 'al3515'...
+al3515 : Fetching repo
+al3515 : Checking out branch soft-2017-02-06 if it exists...
+error: pathspec 'soft-2017-02-06' did not match any file(s) known to git.
+al3515 : Checking out specified hash and creating new branch soft-2017-02-06
+Switched to a new branch 'soft-2017-02-06'
+Already on 'soft-2017-02-06'
+al3515 : Checking we're on the right hash 2168be7cd74a62d2a25478a0cd0b8bd7da105312...
+cd tmp/$U && git rev-parse $RUN
+al3515 : Downloading latest spec
+Cloning into 'spec'...
+
+log_msg "########################################################"
+al3515 : ########################################################
+log_msg "## Building"
+al3515 : ## Building
+
+log_msg "Cleaning"
+al3515 : Cleaning
+(cd $REPO && rm bin/c_lexer)
+rm: cannot remove 'bin/c_lexer': No such file or directory
+(cd $REPO && make clean)
+make: *** No rule to make target 'clean'.  Stop.
+
+log_msg "Building"
+al3515 : Building
+(cd $REPO && make bin/c_lexer)
+make: *** No rule to make target 'bin/c_lexer'.  Stop.
+
+if [[ ! -f $REPO/bin/c_lexer ]]; then
+    log_msg "No executable build"
+    exit 0;
+fi
+al3515 : No executable build
+al3515 : Test Complete

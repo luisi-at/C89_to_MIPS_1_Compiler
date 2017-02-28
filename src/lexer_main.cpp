@@ -143,8 +143,8 @@ int main() {
     for(std::vector<jsonContainer>::iterator iter = foundValues.begin(); iter != foundValues.end(); ++iter){
         ss << "{" << "\"Class\"" << ":" << "\"" << iter->tokenClass << "\", " << "\"Text\"" << ":" << "\"" << iter->text << "\", ";
         ss << "\"StreamLine\"" << ":" << iter->streamline << ", ";
-        ss << "\"SourceFile\"" << ":" << iter->sourcefile << ", ";
-        ss << "\"SourceLine\"" << ":" << iter->sourceLine << ", ";
+        ss << "\"SourceFile\"" << ":\"" << iter->sourcefile << "\", "; // DT10
+        ss << "\"SourceLine\"" << ": " << iter->sourceLine << ", ";
         ss << "\"SourceCol\"" << ":" << iter->columnNumber << "}," << std::endl;
     }
     ss << "{}" << std::endl << "]";

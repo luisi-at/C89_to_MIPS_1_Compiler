@@ -1,0 +1,17 @@
+    Token type | Percentage
+          char |  66.67
+          expr | 100.00
+         float |  25.00
+       include |   0.00
+           int | 100.00
+       pointer | 100.00
+          stat | 100.00
+        string |  56.25
+        struct | 100.00
+      var-decl | 100.00
+                     |    Raw | Weight | Contrib
+ Parts (token types) |  74.79 |  0.6 |  44.87
+ StreamLine + Column |  70.00 |  0.2 |  14.00
+ SourceFile+Line     |   0.00 |  0.2 |   0.00
+
+Total :  58.87%

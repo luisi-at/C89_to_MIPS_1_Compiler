@@ -1,0 +1,8 @@
+[
+{"Class":"Keyword", "Text":"int", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":1},
+{"Class":"Identifier", "Text":"x", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":5},
+{"Class":"Operator", "Text":"=", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":6},
+{"Class":"Constant", "Text":"' '", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":7},
+{"Class":"Operator", "Text":";", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":10},
+{}
+]

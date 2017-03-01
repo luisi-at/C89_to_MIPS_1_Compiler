@@ -1,0 +1,17 @@
+[
+{"Class":"Keyword", "Text":"int", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":1},
+{"Class":"Identifier", "Text":"main", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":5},
+{"Class":"Operator", "Text":"(", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":9},
+{"Class":"Operator", "Text":")", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":10},
+{"Class":"Operator", "Text":"{", "StreamLine":2, "SourceFile":"", "SourceLine": 1, "SourceCol":1},
+{"Class":"Keyword", "Text":"do", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":3},
+{"Class":"Operator", "Text":"{", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":5},
+{"Class":"Operator", "Text":"}", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":6},
+{"Class":"Keyword", "Text":"while", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":7},
+{"Class":"Operator", "Text":"(", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":12},
+{"Class":"Constant", "Text":"1", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":13},
+{"Class":"Operator", "Text":")", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":14},
+{"Class":"Operator", "Text":";", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":15},
+{"Class":"Operator", "Text":"}", "StreamLine":4, "SourceFile":"", "SourceLine": 3, "SourceCol":1},
+{}
+]

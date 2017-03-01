@@ -1,0 +1,17 @@
+Note: removing empty dict from end of JSON.
+Note: removing empty dict from end of JSON.
+refIdx=0, gotIdx=0, text='int' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Text': 'int', 'SourceCol': 1, 'SourceLine': 1, 'StreamLine': 1, 'Class': 'Keyword', 'SourceFile': ''}
+   got = {'Text': 'int', 'SourceCol': 1, 'SourceLine': 0, 'StreamLine': 1, 'Class': 'Keyword', 'SourceFile': ''}
+refIdx=1, gotIdx=1, text='x' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Text': 'x', 'SourceCol': 5, 'SourceLine': 1, 'StreamLine': 1, 'Class': 'Identifier', 'SourceFile': ''}
+   got = {'Text': 'x', 'SourceCol': 5, 'SourceLine': 0, 'StreamLine': 1, 'Class': 'Identifier', 'SourceFile': ''}
+refIdx=2, gotIdx=2, text='=' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Text': '=', 'SourceCol': 6, 'SourceLine': 1, 'StreamLine': 1, 'Class': 'Operator', 'SourceFile': ''}
+   got = {'Text': '=', 'SourceCol': 6, 'SourceLine': 0, 'StreamLine': 1, 'Class': 'Operator', 'SourceFile': ''}
+refIdx=3, gotIdx=3, text='0' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Text': '0', 'SourceCol': 7, 'SourceLine': 1, 'StreamLine': 1, 'Class': 'Constant', 'SourceFile': ''}
+   got = {'Text': '0', 'SourceCol': 7, 'SourceLine': 0, 'StreamLine': 1, 'Class': 'Constant', 'SourceFile': ''}
+refIdx=4, gotIdx=4, text=';' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Text': ';', 'SourceCol': 8, 'SourceLine': 1, 'StreamLine': 1, 'Class': 'Operator', 'SourceFile': ''}
+   got = {'Text': ';', 'SourceCol': 8, 'SourceLine': 0, 'StreamLine': 1, 'Class': 'Operator', 'SourceFile': ''}

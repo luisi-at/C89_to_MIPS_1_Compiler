@@ -1,0 +1,2 @@
+User, Test, TestCategory, ValidJSON, TotalTokens,   EditDistanceAbs, ClassAbs, StreamLineAbs, SourceFileAbs, SourceLineAbs, SourceColAbs,   EditDistanceRel, ClassRel, StreamLineRel, SourceFileRel, SourceLineRel, SourceColRel
+al3515, string-8, string, 1, 7,   1, 6, 6, 6, 0, 6,    0.14285714285714285, 0.8571428571428571, 0.8571428571428571, 0.8571428571428571, 0.0, 0.8571428571428571

@@ -1,0 +1,5 @@
+[
+{ "Text":"union", "Class":"Keyword", "StreamLine":9, "SourceFile":"", "SourceLine":9, "SourceCol":1 }, 
+{ "Text":"x", "Class":"Identifier", "StreamLine":9, "SourceFile":"", "SourceLine":9, "SourceCol":7 }, 
+{ "Text":";", "Class":"Operator", "StreamLine":9, "SourceFile":"", "SourceLine":9, "SourceCol":8 }, 
+{}]

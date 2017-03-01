@@ -1,0 +1,25 @@
+Note: removing empty dict from end of JSON.
+Note: removing empty dict from end of JSON.
+
+Found edit distance of 2 between Text fields of reference and got tokens.
+      | ReferenceTokens  | GotTokens       
+------|------------------|------------------
+      | 'float'          | 'float'         
+      | 'x'              | 'x'             
+      | '='              | '='             
+DEL   |                  | '0'             
+SUBST | '0.'             | '.'             
+      | ';'              | ';'             
+
+refIdx=0, gotIdx=0, text='float' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'SourceLine': 1, 'Text': 'float', 'StreamLine': 1, 'SourceFile': '', 'SourceCol': 1, 'Class': 'Keyword'}
+   got = {'SourceLine': 0, 'Text': 'float', 'StreamLine': 1, 'SourceFile': '', 'SourceCol': 1, 'Class': 'Keyword'}
+refIdx=1, gotIdx=1, text='x' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'SourceLine': 1, 'Text': 'x', 'StreamLine': 1, 'SourceFile': '', 'SourceCol': 7, 'Class': 'Identifier'}
+   got = {'SourceLine': 0, 'Text': 'x', 'StreamLine': 1, 'SourceFile': '', 'SourceCol': 7, 'Class': 'Identifier'}
+refIdx=2, gotIdx=2, text='=' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'SourceLine': 1, 'Text': '=', 'StreamLine': 1, 'SourceFile': '', 'SourceCol': 8, 'Class': 'Operator'}
+   got = {'SourceLine': 0, 'Text': '=', 'StreamLine': 1, 'SourceFile': '', 'SourceCol': 8, 'Class': 'Operator'}
+refIdx=5, gotIdx=4, text=';' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'SourceLine': 1, 'Text': ';', 'StreamLine': 1, 'SourceFile': '', 'SourceCol': 11, 'Class': 'Operator'}
+   got = {'SourceLine': 0, 'Text': ';', 'StreamLine': 1, 'SourceFile': '', 'SourceCol': 11, 'Class': 'Operator'}

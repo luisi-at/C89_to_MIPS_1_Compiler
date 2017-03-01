@@ -38,7 +38,7 @@ hexadecimal_constant          (0x|0X){hexadecimal_digit}+
 integer_constant              ({decimal_constant}({unsigned_suffix}|{long_suffix})?)|({octal_constant}({unsigned_suffix}|{long_suffix})?)|({hexadecimal_constant}({unsigned_suffix}|{long_suffix})?)
 
 digit_sequence                {digit}+
-fractional_constant           {digit_sequence}\\.{digit_sequence}
+fractional_constant           ({digit_sequence}?\\.{digit_sequence}|{digit_sequence}\\.)
 exponent_part                 {exponent}{sign}?{digit_sequence}
 floating_constant             ({fractional_constant}{exponent_part}?{floating_suffix}?)|({digit_sequence}{exponent_part}{floating_suffix}?)
 

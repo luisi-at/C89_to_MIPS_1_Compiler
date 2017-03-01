@@ -1,0 +1,7 @@
+[
+{ "Text":"float", "Class":"Keyword", "StreamLine":1, "SourceFile":"", "SourceLine":1, "SourceCol":1 }, 
+{ "Text":"x", "Class":"Identifier", "StreamLine":1, "SourceFile":"", "SourceLine":1, "SourceCol":7 }, 
+{ "Text":"=", "Class":"Operator", "StreamLine":2, "SourceFile":"", "SourceLine":2, "SourceCol":1 }, 
+{ "Text":"440.1342342", "Class":"Constant", "StreamLine":8, "SourceFile":"", "SourceLine":8, "SourceCol":52 }, 
+{ "Text":";", "Class":"Operator", "StreamLine":8, "SourceFile":"", "SourceLine":8, "SourceCol":63 }, 
+{}]

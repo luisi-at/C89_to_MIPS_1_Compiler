@@ -1,0 +1,6 @@
+[
+{"Class":"Keyword", "Text":"struct", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":1},
+{"Class":"Identifier", "Text":"x", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":8},
+{"Class":"Operator", "Text":";", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":9},
+{}
+]

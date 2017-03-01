@@ -1,0 +1,2 @@
+User, Test, TestCategory, ValidJSON, TotalTokens,   EditDistanceAbs, ClassAbs, StreamLineAbs, SourceFileAbs, SourceLineAbs, SourceColAbs,   EditDistanceRel, ClassRel, StreamLineRel, SourceFileRel, SourceLineRel, SourceColRel
+al3515, struct-2, struct, 1, 10,   0, 10, 10, 10, 0, 10,    0.0, 1.0, 1.0, 1.0, 0.0, 1.0

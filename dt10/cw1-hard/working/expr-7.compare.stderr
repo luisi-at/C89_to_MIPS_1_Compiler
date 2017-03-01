@@ -1,0 +1,71 @@
+Note: removing empty dict from end of JSON.
+Note: removing empty dict from end of JSON.
+refIdx=0, gotIdx=0, text='int' : Expected SourceLine = 2, got SourceLine = 1
+   ref = {'SourceLine': 2, 'SourceCol': 1, 'Text': 'int', 'StreamLine': 2, 'SourceFile': '', 'Class': 'Keyword'}
+   got = {'SourceLine': 1, 'SourceCol': 1, 'Text': 'int', 'StreamLine': 2, 'SourceFile': '', 'Class': 'Keyword'}
+refIdx=1, gotIdx=1, text='main' : Expected SourceLine = 2, got SourceLine = 1
+   ref = {'SourceLine': 2, 'SourceCol': 5, 'Text': 'main', 'StreamLine': 2, 'SourceFile': '', 'Class': 'Identifier'}
+   got = {'SourceLine': 1, 'SourceCol': 5, 'Text': 'main', 'StreamLine': 2, 'SourceFile': '', 'Class': 'Identifier'}
+refIdx=2, gotIdx=2, text='(' : Expected SourceLine = 2, got SourceLine = 1
+   ref = {'SourceLine': 2, 'SourceCol': 9, 'Text': '(', 'StreamLine': 2, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 1, 'SourceCol': 9, 'Text': '(', 'StreamLine': 2, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=3, gotIdx=3, text=')' : Expected SourceLine = 2, got SourceLine = 1
+   ref = {'SourceLine': 2, 'SourceCol': 10, 'Text': ')', 'StreamLine': 2, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 1, 'SourceCol': 10, 'Text': ')', 'StreamLine': 2, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=4, gotIdx=4, text='{' : Expected SourceLine = 3, got SourceLine = 2
+   ref = {'SourceLine': 3, 'SourceCol': 1, 'Text': '{', 'StreamLine': 3, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 2, 'SourceCol': 1, 'Text': '{', 'StreamLine': 3, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=5, gotIdx=5, text='int' : Expected SourceLine = 5, got SourceLine = 4
+   ref = {'SourceLine': 5, 'SourceCol': 3, 'Text': 'int', 'StreamLine': 5, 'SourceFile': '', 'Class': 'Keyword'}
+   got = {'SourceLine': 4, 'SourceCol': 3, 'Text': 'int', 'StreamLine': 5, 'SourceFile': '', 'Class': 'Keyword'}
+refIdx=6, gotIdx=6, text='xx' : Expected SourceLine = 5, got SourceLine = 4
+   ref = {'SourceLine': 5, 'SourceCol': 7, 'Text': 'xx', 'StreamLine': 5, 'SourceFile': '', 'Class': 'Identifier'}
+   got = {'SourceLine': 4, 'SourceCol': 7, 'Text': 'xx', 'StreamLine': 5, 'SourceFile': '', 'Class': 'Identifier'}
+refIdx=7, gotIdx=7, text='=' : Expected SourceLine = 5, got SourceLine = 4
+   ref = {'SourceLine': 5, 'SourceCol': 9, 'Text': '=', 'StreamLine': 5, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 4, 'SourceCol': 9, 'Text': '=', 'StreamLine': 5, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=8, gotIdx=8, text='10' : Expected SourceLine = 5, got SourceLine = 4
+   ref = {'SourceLine': 5, 'SourceCol': 10, 'Text': '10', 'StreamLine': 5, 'SourceFile': '', 'Class': 'Constant'}
+   got = {'SourceLine': 4, 'SourceCol': 10, 'Text': '10', 'StreamLine': 5, 'SourceFile': '', 'Class': 'Constant'}
+refIdx=9, gotIdx=9, text=';' : Expected SourceLine = 5, got SourceLine = 4
+   ref = {'SourceLine': 5, 'SourceCol': 12, 'Text': ';', 'StreamLine': 5, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 4, 'SourceCol': 12, 'Text': ';', 'StreamLine': 5, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=10, gotIdx=10, text='xx' : Expected SourceLine = 7, got SourceLine = 6
+   ref = {'SourceLine': 7, 'SourceCol': 3, 'Text': 'xx', 'StreamLine': 7, 'SourceFile': '', 'Class': 'Identifier'}
+   got = {'SourceLine': 6, 'SourceCol': 3, 'Text': 'xx', 'StreamLine': 7, 'SourceFile': '', 'Class': 'Identifier'}
+refIdx=11, gotIdx=11, text='++' : Expected SourceLine = 7, got SourceLine = 6
+   ref = {'SourceLine': 7, 'SourceCol': 5, 'Text': '++', 'StreamLine': 7, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 6, 'SourceCol': 5, 'Text': '++', 'StreamLine': 7, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=12, gotIdx=12, text=';' : Expected SourceLine = 7, got SourceLine = 6
+   ref = {'SourceLine': 7, 'SourceCol': 7, 'Text': ';', 'StreamLine': 7, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 6, 'SourceCol': 7, 'Text': ';', 'StreamLine': 7, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=13, gotIdx=13, text='--' : Expected SourceLine = 8, got SourceLine = 7
+   ref = {'SourceLine': 8, 'SourceCol': 3, 'Text': '--', 'StreamLine': 8, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 7, 'SourceCol': 3, 'Text': '--', 'StreamLine': 8, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=14, gotIdx=14, text='xx' : Expected SourceLine = 8, got SourceLine = 7
+   ref = {'SourceLine': 8, 'SourceCol': 5, 'Text': 'xx', 'StreamLine': 8, 'SourceFile': '', 'Class': 'Identifier'}
+   got = {'SourceLine': 7, 'SourceCol': 5, 'Text': 'xx', 'StreamLine': 8, 'SourceFile': '', 'Class': 'Identifier'}
+refIdx=15, gotIdx=15, text=';' : Expected SourceLine = 8, got SourceLine = 7
+   ref = {'SourceLine': 8, 'SourceCol': 7, 'Text': ';', 'StreamLine': 8, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 7, 'SourceCol': 7, 'Text': ';', 'StreamLine': 8, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=16, gotIdx=16, text='++' : Expected SourceLine = 9, got SourceLine = 8
+   ref = {'SourceLine': 9, 'SourceCol': 3, 'Text': '++', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 8, 'SourceCol': 3, 'Text': '++', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=17, gotIdx=17, text='xx' : Expected SourceLine = 9, got SourceLine = 8
+   ref = {'SourceLine': 9, 'SourceCol': 5, 'Text': 'xx', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Identifier'}
+   got = {'SourceLine': 8, 'SourceCol': 5, 'Text': 'xx', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Identifier'}
+refIdx=18, gotIdx=18, text=';' : Expected SourceLine = 9, got SourceLine = 8
+   ref = {'SourceLine': 9, 'SourceCol': 7, 'Text': ';', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 8, 'SourceCol': 7, 'Text': ';', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=19, gotIdx=19, text='--' : Expected SourceLine = 9, got SourceLine = 8
+   ref = {'SourceLine': 9, 'SourceCol': 8, 'Text': '--', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 8, 'SourceCol': 8, 'Text': '--', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=20, gotIdx=20, text='xx' : Expected SourceLine = 9, got SourceLine = 8
+   ref = {'SourceLine': 9, 'SourceCol': 10, 'Text': 'xx', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Identifier'}
+   got = {'SourceLine': 8, 'SourceCol': 10, 'Text': 'xx', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Identifier'}
+refIdx=21, gotIdx=21, text=';' : Expected SourceLine = 9, got SourceLine = 8
+   ref = {'SourceLine': 9, 'SourceCol': 12, 'Text': ';', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 8, 'SourceCol': 12, 'Text': ';', 'StreamLine': 9, 'SourceFile': '', 'Class': 'Operator'}
+refIdx=22, gotIdx=22, text='}' : Expected SourceLine = 11, got SourceLine = 10
+   ref = {'SourceLine': 11, 'SourceCol': 1, 'Text': '}', 'StreamLine': 11, 'SourceFile': '', 'Class': 'Operator'}
+   got = {'SourceLine': 10, 'SourceCol': 1, 'Text': '}', 'StreamLine': 11, 'SourceFile': '', 'Class': 'Operator'}

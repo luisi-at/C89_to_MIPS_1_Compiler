@@ -1,0 +1,19 @@
+[
+{"Class":"Keyword", "Text":"long", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":1},
+{"Class":"Keyword", "Text":"int", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":6},
+{"Class":"Identifier", "Text":"y", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":10},
+{"Class":"Operator", "Text":";", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":11},
+{"Class":"Keyword", "Text":"float", "StreamLine":2, "SourceFile":"", "SourceLine": 1, "SourceCol":1},
+{"Class":"Identifier", "Text":"z", "StreamLine":2, "SourceFile":"", "SourceLine": 1, "SourceCol":7},
+{"Class":"Operator", "Text":";", "StreamLine":2, "SourceFile":"", "SourceLine": 1, "SourceCol":8},
+{"Class":"Keyword", "Text":"double", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":1},
+{"Class":"Identifier", "Text":"a", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":8},
+{"Class":"Operator", "Text":";", "StreamLine":3, "SourceFile":"", "SourceLine": 2, "SourceCol":9},
+{"Class":"Keyword", "Text":"char", "StreamLine":4, "SourceFile":"", "SourceLine": 3, "SourceCol":1},
+{"Class":"Identifier", "Text":"zzz", "StreamLine":4, "SourceFile":"", "SourceLine": 3, "SourceCol":6},
+{"Class":"Operator", "Text":";", "StreamLine":4, "SourceFile":"", "SourceLine": 3, "SourceCol":9},
+{"Class":"Keyword", "Text":"unsigned", "StreamLine":5, "SourceFile":"", "SourceLine": 4, "SourceCol":1},
+{"Class":"Identifier", "Text":"u", "StreamLine":5, "SourceFile":"", "SourceLine": 4, "SourceCol":10},
+{"Class":"Operator", "Text":";", "StreamLine":5, "SourceFile":"", "SourceLine": 4, "SourceCol":11},
+{}
+]

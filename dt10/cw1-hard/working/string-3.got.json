@@ -1,0 +1,11 @@
+[
+{"Class":"Keyword", "Text":"const", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":1},
+{"Class":"Keyword", "Text":"char", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":7},
+{"Class":"Operator", "Text":"*", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":12},
+{"Class":"Identifier", "Text":"x", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":13},
+{"Class":"Operator", "Text":"=", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":14},
+{"Class":"StringLiteral", "Text":"X Y", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":15},
+{"Class":"StringLiteral", "Text":"wibble", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":21},
+{"Class":"Operator", "Text":";", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":29},
+{}
+]

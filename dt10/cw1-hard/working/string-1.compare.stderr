@@ -1,0 +1,23 @@
+Note: removing empty dict from end of JSON.
+Note: removing empty dict from end of JSON.
+refIdx=0, gotIdx=0, text='const' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'StreamLine': 1, 'Class': 'Keyword', 'SourceCol': 1, 'SourceFile': '', 'SourceLine': 1, 'Text': 'const'}
+   got = {'StreamLine': 1, 'Text': 'const', 'SourceCol': 1, 'SourceFile': '', 'Class': 'Keyword', 'SourceLine': 0}
+refIdx=1, gotIdx=1, text='char' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'StreamLine': 1, 'Class': 'Keyword', 'SourceCol': 7, 'SourceFile': '', 'SourceLine': 1, 'Text': 'char'}
+   got = {'StreamLine': 1, 'Text': 'char', 'SourceCol': 7, 'SourceFile': '', 'Class': 'Keyword', 'SourceLine': 0}
+refIdx=2, gotIdx=2, text='*' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'StreamLine': 1, 'Class': 'Operator', 'SourceCol': 12, 'SourceFile': '', 'SourceLine': 1, 'Text': '*'}
+   got = {'StreamLine': 1, 'Text': '*', 'SourceCol': 12, 'SourceFile': '', 'Class': 'Operator', 'SourceLine': 0}
+refIdx=3, gotIdx=3, text='x' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'StreamLine': 1, 'Class': 'Identifier', 'SourceCol': 13, 'SourceFile': '', 'SourceLine': 1, 'Text': 'x'}
+   got = {'StreamLine': 1, 'Text': 'x', 'SourceCol': 13, 'SourceFile': '', 'Class': 'Identifier', 'SourceLine': 0}
+refIdx=4, gotIdx=4, text='=' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'StreamLine': 1, 'Class': 'Operator', 'SourceCol': 14, 'SourceFile': '', 'SourceLine': 1, 'Text': '='}
+   got = {'StreamLine': 1, 'Text': '=', 'SourceCol': 14, 'SourceFile': '', 'Class': 'Operator', 'SourceLine': 0}
+refIdx=5, gotIdx=5, text='X' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'StreamLine': 1, 'Class': 'StringLiteral', 'SourceCol': 15, 'SourceFile': '', 'SourceLine': 1, 'Text': 'X'}
+   got = {'StreamLine': 1, 'Text': 'X', 'SourceCol': 15, 'SourceFile': '', 'Class': 'StringLiteral', 'SourceLine': 0}
+refIdx=6, gotIdx=6, text=';' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'StreamLine': 1, 'Class': 'Operator', 'SourceCol': 18, 'SourceFile': '', 'SourceLine': 1, 'Text': ';'}
+   got = {'StreamLine': 1, 'Text': ';', 'SourceCol': 18, 'SourceFile': '', 'Class': 'Operator', 'SourceLine': 0}

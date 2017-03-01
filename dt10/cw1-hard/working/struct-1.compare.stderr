@@ -1,0 +1,11 @@
+Note: removing empty dict from end of JSON.
+Note: removing empty dict from end of JSON.
+refIdx=0, gotIdx=0, text='struct' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Keyword', 'SourceFile': '', 'SourceLine': 1, 'Text': 'struct', 'SourceCol': 1, 'StreamLine': 1}
+   got = {'Class': 'Keyword', 'SourceFile': '', 'SourceLine': 0, 'Text': 'struct', 'SourceCol': 1, 'StreamLine': 1}
+refIdx=1, gotIdx=1, text='x' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Identifier', 'SourceFile': '', 'SourceLine': 1, 'Text': 'x', 'SourceCol': 8, 'StreamLine': 1}
+   got = {'Class': 'Identifier', 'SourceFile': '', 'SourceLine': 0, 'Text': 'x', 'SourceCol': 8, 'StreamLine': 1}
+refIdx=2, gotIdx=2, text=';' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Operator', 'SourceFile': '', 'SourceLine': 1, 'Text': ';', 'SourceCol': 9, 'StreamLine': 1}
+   got = {'Class': 'Operator', 'SourceFile': '', 'SourceLine': 0, 'Text': ';', 'SourceCol': 9, 'StreamLine': 1}

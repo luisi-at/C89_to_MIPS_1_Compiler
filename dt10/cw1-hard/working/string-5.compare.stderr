@@ -1,0 +1,32 @@
+Note: removing empty dict from end of JSON.
+Note: removing empty dict from end of JSON.
+
+Found edit distance of 1 between Text fields of reference and got tokens.
+      | ReferenceTokens  | GotTokens       
+------|------------------|------------------
+      | 'const'          | 'const'         
+      | 'char'           | 'char'          
+      | '*'              | '*'             
+      | 'x'              | 'x'             
+      | '='              | '='             
+SUBST | '  X \t   '      | '  X 	   '      
+      | ';'              | ';'             
+
+refIdx=0, gotIdx=0, text='const' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Keyword', 'SourceFile': '', 'SourceCol': 1, 'SourceLine': 1, 'Text': 'const', 'StreamLine': 1}
+   got = {'Class': 'Keyword', 'SourceFile': '', 'SourceCol': 1, 'SourceLine': 0, 'Text': 'const', 'StreamLine': 1}
+refIdx=1, gotIdx=1, text='char' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Keyword', 'SourceFile': '', 'SourceCol': 7, 'SourceLine': 1, 'Text': 'char', 'StreamLine': 1}
+   got = {'Class': 'Keyword', 'SourceFile': '', 'SourceCol': 7, 'SourceLine': 0, 'Text': 'char', 'StreamLine': 1}
+refIdx=2, gotIdx=2, text='*' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Operator', 'SourceFile': '', 'SourceCol': 12, 'SourceLine': 1, 'Text': '*', 'StreamLine': 1}
+   got = {'Class': 'Operator', 'SourceFile': '', 'SourceCol': 12, 'SourceLine': 0, 'Text': '*', 'StreamLine': 1}
+refIdx=3, gotIdx=3, text='x' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Identifier', 'SourceFile': '', 'SourceCol': 13, 'SourceLine': 1, 'Text': 'x', 'StreamLine': 1}
+   got = {'Class': 'Identifier', 'SourceFile': '', 'SourceCol': 13, 'SourceLine': 0, 'Text': 'x', 'StreamLine': 1}
+refIdx=4, gotIdx=4, text='=' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Operator', 'SourceFile': '', 'SourceCol': 14, 'SourceLine': 1, 'Text': '=', 'StreamLine': 1}
+   got = {'Class': 'Operator', 'SourceFile': '', 'SourceCol': 14, 'SourceLine': 0, 'Text': '=', 'StreamLine': 1}
+refIdx=6, gotIdx=6, text=';' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Operator', 'SourceFile': '', 'SourceCol': 26, 'SourceLine': 1, 'Text': ';', 'StreamLine': 1}
+   got = {'Class': 'Operator', 'SourceFile': '', 'SourceCol': 26, 'SourceLine': 0, 'Text': ';', 'StreamLine': 1}

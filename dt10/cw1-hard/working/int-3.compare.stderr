@@ -1,0 +1,20 @@
+Note: removing empty dict from end of JSON.
+Note: removing empty dict from end of JSON.
+refIdx=0, gotIdx=0, text='int' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Keyword', 'SourceLine': 1, 'SourceFile': '', 'Text': 'int', 'SourceCol': 1, 'StreamLine': 1}
+   got = {'Class': 'Keyword', 'SourceLine': 0, 'SourceFile': '', 'Text': 'int', 'SourceCol': 1, 'StreamLine': 1}
+refIdx=1, gotIdx=1, text='x' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Identifier', 'SourceLine': 1, 'SourceFile': '', 'Text': 'x', 'SourceCol': 5, 'StreamLine': 1}
+   got = {'Class': 'Identifier', 'SourceLine': 0, 'SourceFile': '', 'Text': 'x', 'SourceCol': 5, 'StreamLine': 1}
+refIdx=2, gotIdx=2, text='=' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Operator', 'SourceLine': 1, 'SourceFile': '', 'Text': '=', 'SourceCol': 6, 'StreamLine': 1}
+   got = {'Class': 'Operator', 'SourceLine': 0, 'SourceFile': '', 'Text': '=', 'SourceCol': 6, 'StreamLine': 1}
+refIdx=3, gotIdx=3, text='-' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Operator', 'SourceLine': 1, 'SourceFile': '', 'Text': '-', 'SourceCol': 7, 'StreamLine': 1}
+   got = {'Class': 'Operator', 'SourceLine': 0, 'SourceFile': '', 'Text': '-', 'SourceCol': 7, 'StreamLine': 1}
+refIdx=4, gotIdx=4, text='1000' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Constant', 'SourceLine': 1, 'SourceFile': '', 'Text': '1000', 'SourceCol': 8, 'StreamLine': 1}
+   got = {'Class': 'Constant', 'SourceLine': 0, 'SourceFile': '', 'Text': '1000', 'SourceCol': 8, 'StreamLine': 1}
+refIdx=5, gotIdx=5, text=';' : Expected SourceLine = 1, got SourceLine = 0
+   ref = {'Class': 'Operator', 'SourceLine': 1, 'SourceFile': '', 'Text': ';', 'SourceCol': 12, 'StreamLine': 1}
+   got = {'Class': 'Operator', 'SourceLine': 0, 'SourceFile': '', 'Text': ';', 'SourceCol': 12, 'StreamLine': 1}

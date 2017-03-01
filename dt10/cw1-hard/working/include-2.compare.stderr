@@ -1,0 +1,27 @@
+Note: removing empty dict from end of JSON.
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/include-2.ci"' to 'test-data/src/include-2.ci' for token index 0 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/include-2.ci"' to 'test-data/src/include-2.ci' for token index 1 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/include-2.ci"' to 'test-data/src/include-2.ci' for token index 2 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 3 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 4 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 5 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 6 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 7 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 8 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 9 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 10 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 11 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 12 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 13 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 14 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 15 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 16 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 17 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 18 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 19 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 20 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 21 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 22 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 23 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/mini-stdio.h"' to 'test-data/src/mini-stdio.h' for token index 24 due to mild ambiguity in the spec
+Expecting ',' delimiter: line 2 column 66 (char 67)

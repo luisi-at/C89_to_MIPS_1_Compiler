@@ -1,0 +1,10 @@
+[
+{"Class":"Keyword", "Text":"long", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":1},
+{"Class":"Keyword", "Text":"int", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":6},
+{"Class":"Identifier", "Text":"y", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":10},
+{"Class":"Operator", "Text":";", "StreamLine":1, "SourceFile":"", "SourceLine": 0, "SourceCol":11},
+{"Class":"Keyword", "Text":"float", "StreamLine":2, "SourceFile":"", "SourceLine": 1, "SourceCol":1},
+{"Class":"Identifier", "Text":"z", "StreamLine":2, "SourceFile":"", "SourceLine": 1, "SourceCol":7},
+{"Class":"Operator", "Text":";", "StreamLine":2, "SourceFile":"", "SourceLine": 1, "SourceCol":8},
+{}
+]

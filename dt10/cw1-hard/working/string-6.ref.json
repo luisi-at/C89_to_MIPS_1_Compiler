@@ -1,0 +1,9 @@
+[
+{ "Text":"const", "Class":"Keyword", "StreamLine":1, "SourceFile":"", "SourceLine":1, "SourceCol":1 }, 
+{ "Text":"char", "Class":"Keyword", "StreamLine":1, "SourceFile":"", "SourceLine":1, "SourceCol":7 }, 
+{ "Text":"*", "Class":"Operator", "StreamLine":1, "SourceFile":"", "SourceLine":1, "SourceCol":12 }, 
+{ "Text":"x", "Class":"Identifier", "StreamLine":1, "SourceFile":"", "SourceLine":1, "SourceCol":13 }, 
+{ "Text":"=", "Class":"Operator", "StreamLine":1, "SourceFile":"", "SourceLine":1, "SourceCol":14 }, 
+{ "Text":"  X \\\" 10    ", "Class":"StringLiteral", "StreamLine":1, "SourceFile":"", "SourceLine":1, "SourceCol":15 }, 
+{ "Text":";", "Class":"Operator", "StreamLine":1, "SourceFile":"", "SourceLine":1, "SourceCol":30 }, 
+{}]

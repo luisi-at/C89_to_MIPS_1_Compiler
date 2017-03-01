@@ -1,0 +1,5 @@
+Note: removing empty dict from end of JSON.
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/var-decl-1.c"' to 'test-data/src/var-decl-1.c' for token index 0 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/var-decl-1.c"' to 'test-data/src/var-decl-1.c' for token index 1 due to mild ambiguity in the spec
+Note: stripping surrounding quotes for SourceFile from '"test-data/src/var-decl-1.c"' to 'test-data/src/var-decl-1.c' for token index 2 due to mild ambiguity in the spec
+Expecting ',' delimiter: line 2 column 66 (char 67)

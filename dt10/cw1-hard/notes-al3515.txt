@@ -1,0 +1,22 @@
+The initial submission doesn't product valid JSON, so
+I get errors like:
+
+     Expecting value: line 2 column 64 (char 65)
+
+for this output:
+
+     [
+    {"Class":"Keyword", "Text":"int", "StreamLine":1, "SourceFile":, "SourceLine":0, "SourceCol":1},
+    {"Class":"Identifier", "Text":"x", "StreamLine":1, "SourceFile":, "SourceLine":0, "SourceCol":5},
+    {"Class":"Operator", "Text":"=", "StreamLine":1, "SourceFile":, "SourceLine":0, "SourceCol":6},
+    {"Class":"Constant", "Text":"'x'", "StreamLine":1, "SourceFile":, "SourceLine":0, "SourceCol":7},
+    {"Class":"Operator", "Text":";", "StreamLine":1, "SourceFile":, "SourceLine":0, "SourceCol":10},
+    {}
+    ]
+
+
+This doesn't match the JSON grammar, and is flagged by any JSON validator
+or parser. I went and edited the generation code to make the output
+parseable.
+
+%Penalty: -20%

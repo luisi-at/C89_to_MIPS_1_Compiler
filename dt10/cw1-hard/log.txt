@@ -1,0 +1,3 @@
+To git@github.com:LangProc/langproc-2016-cw-al3515.git
+ * [new branch]      cw1-hard -> cw1-hard
+Branch cw1-hard set up to track remote branch cw1-hard from origin.

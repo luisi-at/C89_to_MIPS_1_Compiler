@@ -8,6 +8,12 @@
   void yyerror(const char *);
 }
 
+%union{
+  const Program *expr;
+  double number;
+  std::string *string_value;
+}
+
 %token IDENTIFIER CONSTANT STRING_LITERAL SIZEOF
 
 %token PTR_OP INC_OP DEC_OP LEFT_OP RIGHT_OP LE_OP GE_OP EQ_OP NE_OP
@@ -21,15 +27,21 @@
 
 %token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR GOTO CONTINUE BREAK RETURN
 
-%start primary_expression
+%type <expr> primary_expression
+%type <string_value> IDENTIFIER CONSTANT STRING_LITERAL
+
+%start ROOT
 
 %%
 
+ROOT : primary_expression { prog_root = $1; }
+
 primary_expression
-  : IDENTIFIER
-  | CONSTANT
-  | STRING_LITERAL
+  : IDENTIFIER            { $$ = new Identifier( *$1 ); }
+  | CONSTANT              { $$ = new Constant( *$1 ); }
+  | STRING_LITERAL        { $$ = new StringLiteral( *$1 ); }
   ;
+
 
 %%
 

@@ -58,20 +58,22 @@ Terminals unused in grammar
 
 Grammar
 
-    0 $accept: primary_expression $end
+    0 $accept: ROOT $end
 
-    1 primary_expression: IDENTIFIER
-    2                   | CONSTANT
-    3                   | STRING_LITERAL
+    1 ROOT: primary_expression
+
+    2 primary_expression: IDENTIFIER
+    3                   | CONSTANT
+    4                   | STRING_LITERAL
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-IDENTIFIER (258) 1
-CONSTANT (259) 2
-STRING_LITERAL (260) 3
+IDENTIFIER (258) 2
+CONSTANT (259) 3
+STRING_LITERAL (260) 4
 SIZEOF (261)
 PTR_OP (262)
 INC_OP (263)
@@ -132,51 +134,61 @@ Nonterminals, with rules where they appear
 
 $accept (60)
     on left: 0
-primary_expression (61)
-    on left: 1 2 3, on right: 0
+ROOT (61)
+    on left: 1, on right: 0
+primary_expression (62)
+    on left: 2 3 4, on right: 1
 
 
 State 0
 
-    0 $accept: . primary_expression $end
+    0 $accept: . ROOT $end
 
     IDENTIFIER      shift, and go to state 1
     CONSTANT        shift, and go to state 2
     STRING_LITERAL  shift, and go to state 3
 
-    primary_expression  go to state 4
+    ROOT                go to state 4
+    primary_expression  go to state 5
 
 
 State 1
 
-    1 primary_expression: IDENTIFIER .
-
-    $default  reduce using rule 1 (primary_expression)
-
-
-State 2
-
-    2 primary_expression: CONSTANT .
+    2 primary_expression: IDENTIFIER .
 
     $default  reduce using rule 2 (primary_expression)
 
 
-State 3
+State 2
 
-    3 primary_expression: STRING_LITERAL .
+    3 primary_expression: CONSTANT .
 
     $default  reduce using rule 3 (primary_expression)
 
 
+State 3
+
+    4 primary_expression: STRING_LITERAL .
+
+    $default  reduce using rule 4 (primary_expression)
+
+
 State 4
 
-    0 $accept: primary_expression . $end
+    0 $accept: ROOT . $end
 
-    $end  shift, and go to state 5
+    $end  shift, and go to state 6
 
 
 State 5
 
-    0 $accept: primary_expression $end .
+    1 ROOT: primary_expression .
+
+    $default  reduce using rule 1 (ROOT)
+
+
+State 6
+
+    0 $accept: ROOT $end .
 
     $default  accept

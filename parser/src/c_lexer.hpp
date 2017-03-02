@@ -63,11 +63,6 @@ enum TokenType{
     STRING_LITERAL
 };
 
-
-
-
-
-
 // to get the value, line number and column (eventually)
 struct TokenContainer{
   std::string *value;

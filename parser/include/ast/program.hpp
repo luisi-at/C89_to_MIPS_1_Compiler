@@ -1,5 +1,5 @@
-#ifndef ast_expression_hpp
-#define ast_expression_hpp
+#ifndef ast_program_hpp
+#define ast_program_hpp
 
 #include <string>
 #include <iostream>

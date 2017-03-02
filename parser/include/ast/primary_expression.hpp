@@ -1,25 +1,25 @@
-#ifndef ast_expression_hpp
-#define ast_expression_hpp
+#ifndef ast_primary_expression_hpp
+#define ast_primary_expression_hpp
+
+#include "expression.hpp"
 
 #include <string>
 #include <iostream>
 #include <map>
-
-#include "expression.hpp"
 
 class Identifier : public Expression
 {
 private:
   std::string id;
 public:
-  Identifier(std::string _id) : id(_id)
+  Identifier(const std::string _id) : id(_id)
   {}
 
   std::string GetValue() const
   { return id ; }
 
   virtual void print_xml() const override
-  { /*xml printy stuff in here */ }
+  { std::cout << this->GetValue() << std::endl;  }
 };
 
 class Constant : public Expression
@@ -27,7 +27,7 @@ class Constant : public Expression
 private:
   std::string value;
 public:
-  Constant(std::string _value) : value(_value)
+  Constant(const std::string _value) : value(_value)
   {}
 
   std::string GetValue() const
@@ -42,7 +42,7 @@ class StringLiteral : public Expression
 private:
   std::string value;
 public:
-  Constant(std::string _value) : value(_value)
+  StringLiteral(const std::string _value) : value(_value)
   {}
 
   std::string GetValue() const
@@ -57,7 +57,7 @@ class BracketedExpression : public Expression
 private:
   const Expression *sub_expression;
 public:
-  Constant(const Expression *_sub_expression) : sub_expression(_sub_expression)
+  BracketedExpression(const Expression *_sub_expression) : sub_expression(_sub_expression)
   {}
 
   virtual void print_xml() const override

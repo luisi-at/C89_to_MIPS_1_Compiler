@@ -1,0 +1,11 @@
+#include "ast.hpp"
+
+int main()
+{
+    const Program *ast=parseAST();
+
+    ast->print_xml();
+    std::cout<<std::endl;
+
+    return 0;
+}

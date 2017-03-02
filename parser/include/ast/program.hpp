@@ -4,12 +4,12 @@
 #include <string>
 #include <iostream>
 #include <map>
-#include "program.hpp"
 
-class Expression : public Program
+
+class Program
 {
 public:
-    virtual ~Expression()
+    virtual ~Program()
     {}
 
     virtual void print_xml() const = 0;

@@ -1,11 +1,11 @@
 #ifndef ast_expression_hpp
 #define ast_expression_hpp
 
-#include "expression.hpp"
-
 #include <string>
 #include <iostream>
 #include <map>
+
+#include "expression.hpp"
 
 class Identifier : public Expression
 {

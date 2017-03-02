@@ -65,11 +65,11 @@ operator                      {single_operator}
 
 %%
 
-/* {whitespace}                  { yylval.value = new std::string(yytext); return AddCol; } */
+{whitespace}                  { }
 
-{preprocessor}                { yylval.value = new std::string(yytext); return PreProcessor; }
+{preprocessor}                { }
 
-/* {digit_sequence}              {yylval.value = new std::string(yytext); return Constant; } */
+{digit_sequence}              { }
 
 {hexadecimal_constant}        { yylval.value = new std::string(yytext); return CONSTANT; } //return constant and the value
 
@@ -81,7 +81,7 @@ operator                      {single_operator}
 
 {string_literal}              { yylval.value = new std::string(yytext); return STRING_LITERAL; } //return constant and value
 
-/* {escape_sequence}             { yylval.value = new std::string(yytext); return Constant; } */
+{escape_sequence}             { }
 
 auto                          { return AUTO; }
 double                        { return DOUBLE; }
@@ -140,43 +140,44 @@ while                         { return WHILE; }
 ">>"                          { return RIGHT_OP; }
 "->"                          { return PTR_OP; }
 
-"<"                           { return('<'; }
-">"                           { return '>'; }
-"{"                           { return '{'; }
-"}"                           { return '}'; }
-"["                           { return '['; }
-"]"                           { return ']'; }
-"("                           { return '('; }
-")"                           { return ')'; }
-"+"                           { return '+'; }
-"-"                           { return '-'; }
-"*"                           { return '*'; }
-"/"                           { return '/'; }
-"="                           { return '='; }
-"%"                           { return '%'; }
-"."                           { return '.'; }
-","                           { return ','; }
-":"                           { return ':'; }
-";"                           { return ';'; }
-"~"                           { return '~'; }
-"&"                           { return '&'; }
-"!"                           { return '!'; }
-"|"                           { return '|'; }
-"?"                           { return '?'; }
+"<"                           { return('<'); }
+">"                           { return('>'); }
+"{"                           { return('{'); }
+"}"                           { return('}'); }
+"["                           { return('['); }
+"]"                           { return(']'); }
+"("                           { return('('); }
+")"                           { return(')'); }
+"+"                           { return('+'); }
+"-"                           { return('-'); }
+"*"                           { return('*'); }
+"/"                           { return('/'); }
+"="                           { return('='); }
+"%"                           { return('%'); }
+"."                           { return('.'); }
+","                           { return(','); }
+":"                           { return(':'); }
+";"                           { return(';'); }
+"~"                           { return('~'); }
+"&"                           { return('&'); }
+"!"                           { return('!'); }
+"|"                           { return('|'); }
+"?"                           { return('?'); }
 
 
 {ellipsis}                    { yylval.value = new std::string(yytext); return ELLIPSIS; }
 
 
 
-{carriage_return}             { return ResetCol; }
+{carriage_return}             {  }
 
-.                             { yylval.value = new std::string(yytext); return Invalid; }
+.                             {  }
 %%
 
 /* Error handler. This will get called if none of the rules match. */
 void yyerror (char const *s)
 {
+  fprintf (stderr, "Token Value: %s\n", yytext);
   fprintf (stderr, "Flex Error: %s\n", s); /* s is the text that wasn't matched */
   exit(1);
 }

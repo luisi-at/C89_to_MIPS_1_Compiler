@@ -42,6 +42,15 @@ primary_expression
   | STRING_LITERAL        { $$ = new StringLiteral( *$1 ); }
   ;
 
+  postfix_expression
+    : primary_expression          { $$ = New PostfixEmpty( $1, NULL); }
+    | postfix_expression '(' ')'  { $$ = New PostfixEmpty( $1, NULL); }
+    | postfix_expression          { $$ = New PostfixEmpty( $1, NULL); }
+    | postfix_expression '.' IDENTIFIER     { $$ = New PostfixPeriod( $1, $3); }
+    | postfix_expression PTR_OP IDENTIFIER  { $$ = New PostfixPtrOp( $1, $3); }
+    | postfix_expression INC_OP IDENTIFIER  { $$ = New PostfixIncOp( $1, $3); }
+    | postfix_expression DEC_OP IDENTIFIER  { $$ = New PostfixEmpty( $1, $3); }
+    ;
 
 %%
 

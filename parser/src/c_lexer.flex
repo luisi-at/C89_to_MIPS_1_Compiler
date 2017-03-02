@@ -80,13 +80,13 @@ operator                      {single_operator}
 
 {character_constant}          { yylval.string_value = new std::string(yytext); return CONSTANT; } //return constant and value
 
-{string_literal}              { fprintf(stderr, "STRING_LITERAL!\n"); yylval.string_value = new std::string(yytext); return(STRING_LITERAL); } //return constant and value
+{string_literal}              { yylval.string_value = new std::string(yytext); return(STRING_LITERAL); } //return constant and value
 
 {escape_sequence}             { }
 
 auto                          { return AUTO; }
 double                        { return DOUBLE; }
-int                           { fprintf(stderr, "INTEGER!\n"); return(INT); }
+int                           { return(INT); }
 struct                        { return STRUCT; }
 break                         { return BREAK; }
 else                          { return ELSE; }
@@ -117,7 +117,7 @@ if                            { return IF; }
 static                        { return STATIC; }
 while                         { return WHILE; }
 
-{identifier}                  { fprintf(stderr, "IDENTIFIER!\n"); yylval.string_value = new std::string(yytext); return(IDENTIFIER); } //return identifier
+{identifier}                  { yylval.string_value = new std::string(yytext); return(IDENTIFIER); } //return identifier
 
 "++"                          { return INC_OP; }
 "--"                          { return DEC_OP; }

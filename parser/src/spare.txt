@@ -1,9 +1,6 @@
 primary_expression
   : IDENTIFIER
-  | HEX_CONSTANT
-  | INT_CONSTANT
-  | FLT_CONSTANT
-  | CHAR_CONSTANT
+  | CONSTANT
   | STRING_LITERAL
   | '(' expression ')'
   ;
@@ -16,7 +13,7 @@ postfix_expression
   | postfix_expression '.' IDENTIFIER
   | postfix_expression PTR_OP IDENTIFIER
   | postfix_expression INC_OP IDENTIFIER
-  | postfix_expression DEC_OP IDENTFIER
+  | postfix_expression DEC_OP IDENTIFIER
   ;
 
 argument_expression_list

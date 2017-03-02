@@ -11,10 +11,9 @@ class PostfixExpression : public Expression
 {
 private:
   const Expression *left;
-  const Expression *right;
+  const std::string right;
 protected:
-  PostfixExpression(const Expression *_left,
-    const std::string _middle, const Expression *_right)
+  PostfixExpression(const Expression *_left, const std::string _right)
   : left(_left)
   , right(_right)
 {}
@@ -22,7 +21,6 @@ public:
   virtual ~PostfixExpression()
     {
         delete left;
-        delete right;
     }
 
     virtual const char *getOperator() const =0;
@@ -30,82 +28,82 @@ public:
     const Expression *getLeft() const
     { return left; }
 
-    const Expression *getRight() const
-    { return right; }
-
     virtual void print_xml() const override
     {
-        // xml printing info here- look at spec
+      std::cout << "left" << std::endl;
+      left->print_xml();
+      std::cout << getOperator() << std::endl;
+      std::cout << right;
     }
 
 };
 
-class PostfixPrimary : public PostfixExpression
+class PostfixEmpty
+  : public PostfixExpression
 {
 protected:
   virtual const char *getOperator() const override
   { return ""; }
 
 public:
-  PostfixPrimary(const Expression *_left, const Expression *_right)
-  : left(_left)
-  , right(_right)
+  PostfixEmpty(const Expression *_left, const std::string _right)
+    :PostfixExpression(_left, _right)
   {}
 
 };
 
-class PostfixPeriod : public PostfixExpression
+class PostfixPeriod
+  : public PostfixExpression
 {
 protected:
   virtual const char *getOperator() const override
   { return "."; }
 
 public:
-  PostfixPrimary(const Expression *_left, const Expression *_right)
-  : left(_left)
-  , right(_right)
+  PostfixPeriod(const Expression *_left, const std::string _right)
+  :PostfixExpression(_left, _right)
   {}
 
 };
 
-class PostfixPtrOp : public PostfixExpression
+class PostfixPtrOp
+  : public PostfixExpression
 {
 protected:
   virtual const char *getOperator() const override
   { return "->"; }
 
 public:
-  PostfixPrimary(const Expression *_left, const Expression *_right)
-  : left(_left)
-  , right(_right)
+  PostfixPtrOp(const Expression *_left, const std::string _right)
+  :PostfixExpression(_left, _right)
   {}
 
 };
 
-class PostfixIncOp : public PostfixExpression
+class PostfixIncOp
+  : public PostfixExpression
 {
 protected:
   virtual const char *getOperator() const override
   { return "++"; }
 
 public:
-  PostfixPrimary(const Expression *_left, const Expression *_right)
-  : left(_left)
-  , right(_right)
+  PostfixIncOp(const Expression *_left, const std::string _right)
+  :PostfixExpression(_left, _right)
   {}
 
 };
 
-class PostfixDecOp : public PostfixExpression
+class PostfixDecOp
+  : public PostfixExpression
 {
 protected:
   virtual const char *getOperator() const override
   { return "--"; }
 
 public:
-  PostfixPrimary(const Expression *_left, const Expression *_right)
-  : left(_left)
-  , right(_right)
+  PostfixDecOp(const Expression *_left, const std::string _right)
+  :PostfixExpression(_left, _right)
   {}
 
 };

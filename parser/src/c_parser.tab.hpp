@@ -45,7 +45,7 @@ extern int yydebug;
   #include "ast.hpp"
   #include <cassert>
 
-  extern const Program *prog_root;
+  extern const Expression *prog_root;
 
   int yylex(void);
   void yyerror(const char *);
@@ -124,7 +124,7 @@ union YYSTYPE
 {
 #line 11 "src/c_parser.y" /* yacc.c:1909  */
 
-  const Program *expr;
+  const Expression *expr;
   double number;
   std::string *string_value;
 

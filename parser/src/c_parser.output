@@ -1,9 +1,6 @@
 Terminals unused in grammar
 
    SIZEOF
-   PTR_OP
-   INC_OP
-   DEC_OP
    LEFT_OP
    RIGHT_OP
    LE_OP
@@ -56,28 +53,47 @@ Terminals unused in grammar
    RETURN
 
 
+Rules useless in parser due to conflicts
+
+    7 postfix_expression: postfix_expression
+
+
+State 6 conflicts: 5 shift/reduce, 1 reduce/reduce
+
+
 Grammar
 
     0 $accept: ROOT $end
 
-    1 ROOT: primary_expression
+    1 ROOT: postfix_expression
 
     2 primary_expression: IDENTIFIER
     3                   | CONSTANT
     4                   | STRING_LITERAL
 
+    5 postfix_expression: primary_expression
+    6                   | postfix_expression '(' ')'
+    7                   | postfix_expression
+    8                   | postfix_expression '.' IDENTIFIER
+    9                   | postfix_expression PTR_OP IDENTIFIER
+   10                   | postfix_expression INC_OP
+   11                   | postfix_expression DEC_OP
+
 
 Terminals, with rules where they appear
 
 $end (0) 0
+'(' (40) 6
+')' (41) 6
+'.' (46) 8
 error (256)
-IDENTIFIER (258) 2
+IDENTIFIER (258) 2 8 9
 CONSTANT (259) 3
 STRING_LITERAL (260) 4
 SIZEOF (261)
-PTR_OP (262)
-INC_OP (263)
-DEC_OP (264)
+PTR_OP (262) 9
+INC_OP (263) 10
+DEC_OP (264) 11
 LEFT_OP (265)
 RIGHT_OP (266)
 LE_OP (267)
@@ -132,12 +148,14 @@ RETURN (314)
 
 Nonterminals, with rules where they appear
 
-$accept (60)
+$accept (63)
     on left: 0
-ROOT (61)
+ROOT (64)
     on left: 1, on right: 0
-primary_expression (62)
-    on left: 2 3 4, on right: 1
+primary_expression (65)
+    on left: 2 3 4, on right: 5
+postfix_expression (66)
+    on left: 5 6 7 8 9 10 11, on right: 1 6 7 8 9 10 11
 
 
 State 0
@@ -150,6 +168,7 @@ State 0
 
     ROOT                go to state 4
     primary_expression  go to state 5
+    postfix_expression  go to state 6
 
 
 State 1
@@ -177,18 +196,100 @@ State 4
 
     0 $accept: ROOT . $end
 
-    $end  shift, and go to state 6
+    $end  shift, and go to state 7
 
 
 State 5
 
-    1 ROOT: primary_expression .
+    5 postfix_expression: primary_expression .
 
-    $default  reduce using rule 1 (ROOT)
+    $default  reduce using rule 5 (postfix_expression)
 
 
 State 6
 
+    1 ROOT: postfix_expression .
+    6 postfix_expression: postfix_expression . '(' ')'
+    7                   | postfix_expression .
+    8                   | postfix_expression . '.' IDENTIFIER
+    9                   | postfix_expression . PTR_OP IDENTIFIER
+   10                   | postfix_expression . INC_OP
+   11                   | postfix_expression . DEC_OP
+
+    PTR_OP  shift, and go to state 8
+    INC_OP  shift, and go to state 9
+    DEC_OP  shift, and go to state 10
+    '('     shift, and go to state 11
+    '.'     shift, and go to state 12
+
+    $end      reduce using rule 1 (ROOT)
+    $end      [reduce using rule 7 (postfix_expression)]
+    PTR_OP    [reduce using rule 7 (postfix_expression)]
+    INC_OP    [reduce using rule 7 (postfix_expression)]
+    DEC_OP    [reduce using rule 7 (postfix_expression)]
+    '('       [reduce using rule 7 (postfix_expression)]
+    '.'       [reduce using rule 7 (postfix_expression)]
+    $default  reduce using rule 1 (ROOT)
+
+
+State 7
+
     0 $accept: ROOT $end .
 
     $default  accept
+
+
+State 8
+
+    9 postfix_expression: postfix_expression PTR_OP . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 13
+
+
+State 9
+
+   10 postfix_expression: postfix_expression INC_OP .
+
+    $default  reduce using rule 10 (postfix_expression)
+
+
+State 10
+
+   11 postfix_expression: postfix_expression DEC_OP .
+
+    $default  reduce using rule 11 (postfix_expression)
+
+
+State 11
+
+    6 postfix_expression: postfix_expression '(' . ')'
+
+    ')'  shift, and go to state 14
+
+
+State 12
+
+    8 postfix_expression: postfix_expression '.' . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 15
+
+
+State 13
+
+    9 postfix_expression: postfix_expression PTR_OP IDENTIFIER .
+
+    $default  reduce using rule 9 (postfix_expression)
+
+
+State 14
+
+    6 postfix_expression: postfix_expression '(' ')' .
+
+    $default  reduce using rule 6 (postfix_expression)
+
+
+State 15
+
+    8 postfix_expression: postfix_expression '.' IDENTIFIER .
+
+    $default  reduce using rule 8 (postfix_expression)

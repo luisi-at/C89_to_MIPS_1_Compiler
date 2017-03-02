@@ -19,7 +19,7 @@ public:
   { return id ; }
 
   virtual void print_xml() const override
-  { std::cout << "<" << this->GetValue() << ">" << std::endl;  }
+  { std::cout << "<" << this->GetValue() << ">";  }
 };
 
 class Constant : public Expression

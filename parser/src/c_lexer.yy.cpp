@@ -1151,7 +1151,7 @@ YY_RULE_SETUP
 case 8:
 YY_RULE_SETUP
 #line 83 "src/c_lexer.flex"
-{ fprintf(stderr, "STRING_LITERAL!\n"); yylval.string_value = new std::string(yytext); return(STRING_LITERAL); } //return constant and value
+{ yylval.string_value = new std::string(yytext); return(STRING_LITERAL); } //return constant and value
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
@@ -1171,7 +1171,7 @@ YY_RULE_SETUP
 case 12:
 YY_RULE_SETUP
 #line 89 "src/c_lexer.flex"
-{ fprintf(stderr, "INTEGER!\n"); return(INT); }
+{ return(INT); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
@@ -1321,7 +1321,7 @@ YY_RULE_SETUP
 case 42:
 YY_RULE_SETUP
 #line 120 "src/c_lexer.flex"
-{ fprintf(stderr, "IDENTIFIER!\n"); yylval.string_value = new std::string(yytext); return(IDENTIFIER); } //return identifier
+{ yylval.string_value = new std::string(yytext); return(IDENTIFIER); } //return identifier
 	YY_BREAK
 case 43:
 YY_RULE_SETUP

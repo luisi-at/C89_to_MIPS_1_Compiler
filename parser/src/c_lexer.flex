@@ -71,13 +71,13 @@ operator                      {single_operator}
 
 /* {digit_sequence}              {yylval.value = new std::string(yytext); return Constant; } */
 
-{hexadecimal_constant}        { yylval.value = new std::string(yytext); return HEX_CONSTANT; } //return constant and the value
+{hexadecimal_constant}        { yylval.value = new std::string(yytext); return CONSTANT; } //return constant and the value
 
-{integer_constant}            { yylval.value = new std::string(yytext); return INT_CONSTANT; }
+{integer_constant}            { yylval.value = new std::string(yytext); return CONSTANT; }
 
-{floating_constant}           { yylval.value = new std::string(yytext); return FLT_CONSTANT; }
+{floating_constant}           { yylval.value = new std::string(yytext); return CONSTANT; }
 
-{character_constant}          { yylval.value = new std::string(yytext); return CHAR_CONSTANT; } //return constant and value
+{character_constant}          { yylval.value = new std::string(yytext); return CONSTANT; } //return constant and value
 
 {string_literal}              { yylval.value = new std::string(yytext); return STRING_LITERAL; } //return constant and value
 

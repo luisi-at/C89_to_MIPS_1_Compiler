@@ -21,7 +21,7 @@
 
 %token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR GOTO CONTINUE BREAK RETURN
 
-%start translation_unit
+%start primary_expression
 
 %%
 
@@ -33,7 +33,6 @@ primary_expression
   | CHAR_CONSTANT
   | STRING_LITERAL
   ;
-
 
 
 const Program *prog_root; // match variable defined earlier

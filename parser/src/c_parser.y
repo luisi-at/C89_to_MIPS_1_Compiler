@@ -27,14 +27,14 @@
 
 %token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR GOTO CONTINUE BREAK RETURN
 
-%type <expr> primary_expression postfix_expression
-%type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP
+%type <expr> primary_expression postfix_expression unary_expression
+%type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
 
 %start ROOT
 
 %%
 
-ROOT : postfix_expression { prog_root = $1; }
+ROOT : unary_expression { prog_root = $1; }
 
 primary_expression
   : IDENTIFIER            { $$ = new Identifier( *$1 ); }
@@ -42,15 +42,20 @@ primary_expression
   | STRING_LITERAL        { $$ = new StringLiteral( *$1 ); }
   ;
 
-  postfix_expression
-    : primary_expression          { $$ = new PostfixEmpty( $1, "" ); }
-    | postfix_expression '(' ')'  { $$ = new PostfixEmpty( $1, "" ); }
-    | postfix_expression          { $$ = new PostfixEmpty( $1, "" ); }
-    | postfix_expression '.' IDENTIFIER     { $$ = new PostfixPeriod( $1, *$3 ); }
-    | postfix_expression PTR_OP IDENTIFIER  { $$ = new PostfixPtrOp( $1, *$3 ); }
-    | postfix_expression INC_OP   { $$ = new PostfixIncOp( $1, "" ); }
-    | postfix_expression DEC_OP   { $$ = new PostfixDecOp( $1, ""); }
-    ;
+postfix_expression
+  : primary_expression                    { $$ = new PostfixEmpty( $1, "" ); }
+  | postfix_expression '(' ')'            { $$ = new PostfixEmpty( $1, "" ); }
+  | postfix_expression '.' IDENTIFIER     { $$ = new PostfixPeriod( $1, *$3 ); }
+  | postfix_expression PTR_OP IDENTIFIER  { $$ = new PostfixPtrOp( $1, *$3 ); }
+  | postfix_expression INC_OP             { $$ = new PostfixIncOp( $1, "" ); }
+  | postfix_expression DEC_OP             { $$ = new PostfixDecOp( $1, ""); }
+  ;
+
+unary_expression
+  : postfix_expression          { $$ = new UnaryPostfixExpression( $1 ); }
+  | INC_OP unary_expression     { $$ = new UnaryIncExpression( $2 ); }
+  | DEC_OP unary_expression     { $$ = new UnaryDecExpression( $2 ); }
+  ;
 
 %%
 

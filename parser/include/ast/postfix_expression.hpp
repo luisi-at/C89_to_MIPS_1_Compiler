@@ -30,10 +30,12 @@ public:
 
     virtual void print_xml() const override
     {
-      std::cout << "left" << std::endl;
+      //std::cout << "left" << std::endl;
       left->print_xml();
       std::cout << getOperator() << std::endl;
-      std::cout << right;
+      if(right != ""){
+        std::cout << right << std::endl;
+      }
     }
 
 };

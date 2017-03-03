@@ -12,8 +12,8 @@ postfix_expression
   | postfix_expression
   | postfix_expression '.' IDENTIFIER
   | postfix_expression PTR_OP IDENTIFIER
-  | postfix_expression INC_OP IDENTIFIER
-  | postfix_expression DEC_OP IDENTIFIER
+  | postfix_expression INC_OP
+  | postfix_expression DEC_OP
   ;
 
 argument_expression_list
@@ -39,7 +39,7 @@ unary_operator
 
 cast_expression
   : unary_expression
-  |
+  | '(' type_name ')'
   ;
 
 multiplicative_expression

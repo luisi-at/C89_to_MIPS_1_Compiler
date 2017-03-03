@@ -53,19 +53,11 @@ Terminals unused in grammar
    RETURN
 
 
-Rules useless in parser due to conflicts
-
-    7 postfix_expression: postfix_expression
-
-
-State 6 conflicts: 5 shift/reduce, 1 reduce/reduce
-
-
 Grammar
 
     0 $accept: ROOT $end
 
-    1 ROOT: postfix_expression
+    1 ROOT: unary_expression
 
     2 primary_expression: IDENTIFIER
     3                   | CONSTANT
@@ -73,11 +65,14 @@ Grammar
 
     5 postfix_expression: primary_expression
     6                   | postfix_expression '(' ')'
-    7                   | postfix_expression
-    8                   | postfix_expression '.' IDENTIFIER
-    9                   | postfix_expression PTR_OP IDENTIFIER
-   10                   | postfix_expression INC_OP
-   11                   | postfix_expression DEC_OP
+    7                   | postfix_expression '.' IDENTIFIER
+    8                   | postfix_expression PTR_OP IDENTIFIER
+    9                   | postfix_expression INC_OP
+   10                   | postfix_expression DEC_OP
+
+   11 unary_expression: postfix_expression
+   12                 | INC_OP unary_expression
+   13                 | DEC_OP unary_expression
 
 
 Terminals, with rules where they appear
@@ -85,15 +80,15 @@ Terminals, with rules where they appear
 $end (0) 0
 '(' (40) 6
 ')' (41) 6
-'.' (46) 8
+'.' (46) 7
 error (256)
-IDENTIFIER (258) 2 8 9
+IDENTIFIER (258) 2 7 8
 CONSTANT (259) 3
 STRING_LITERAL (260) 4
 SIZEOF (261)
-PTR_OP (262) 9
-INC_OP (263) 10
-DEC_OP (264) 11
+PTR_OP (262) 8
+INC_OP (263) 9 12
+DEC_OP (264) 10 13
 LEFT_OP (265)
 RIGHT_OP (266)
 LE_OP (267)
@@ -155,7 +150,9 @@ ROOT (64)
 primary_expression (65)
     on left: 2 3 4, on right: 5
 postfix_expression (66)
-    on left: 5 6 7 8 9 10 11, on right: 1 6 7 8 9 10 11
+    on left: 5 6 7 8 9 10, on right: 6 7 8 9 10 11
+unary_expression (67)
+    on left: 11 12 13, on right: 1 12 13
 
 
 State 0
@@ -165,10 +162,13 @@ State 0
     IDENTIFIER      shift, and go to state 1
     CONSTANT        shift, and go to state 2
     STRING_LITERAL  shift, and go to state 3
+    INC_OP          shift, and go to state 4
+    DEC_OP          shift, and go to state 5
 
-    ROOT                go to state 4
-    primary_expression  go to state 5
-    postfix_expression  go to state 6
+    ROOT                go to state 6
+    primary_expression  go to state 7
+    postfix_expression  go to state 8
+    unary_expression    go to state 9
 
 
 State 1
@@ -194,102 +194,145 @@ State 3
 
 State 4
 
-    0 $accept: ROOT . $end
+   12 unary_expression: INC_OP . unary_expression
 
-    $end  shift, and go to state 7
+    IDENTIFIER      shift, and go to state 1
+    CONSTANT        shift, and go to state 2
+    STRING_LITERAL  shift, and go to state 3
+    INC_OP          shift, and go to state 4
+    DEC_OP          shift, and go to state 5
+
+    primary_expression  go to state 7
+    postfix_expression  go to state 8
+    unary_expression    go to state 10
 
 
 State 5
+
+   13 unary_expression: DEC_OP . unary_expression
+
+    IDENTIFIER      shift, and go to state 1
+    CONSTANT        shift, and go to state 2
+    STRING_LITERAL  shift, and go to state 3
+    INC_OP          shift, and go to state 4
+    DEC_OP          shift, and go to state 5
+
+    primary_expression  go to state 7
+    postfix_expression  go to state 8
+    unary_expression    go to state 11
+
+
+State 6
+
+    0 $accept: ROOT . $end
+
+    $end  shift, and go to state 12
+
+
+State 7
 
     5 postfix_expression: primary_expression .
 
     $default  reduce using rule 5 (postfix_expression)
 
 
-State 6
+State 8
 
-    1 ROOT: postfix_expression .
     6 postfix_expression: postfix_expression . '(' ')'
-    7                   | postfix_expression .
-    8                   | postfix_expression . '.' IDENTIFIER
-    9                   | postfix_expression . PTR_OP IDENTIFIER
-   10                   | postfix_expression . INC_OP
-   11                   | postfix_expression . DEC_OP
+    7                   | postfix_expression . '.' IDENTIFIER
+    8                   | postfix_expression . PTR_OP IDENTIFIER
+    9                   | postfix_expression . INC_OP
+   10                   | postfix_expression . DEC_OP
+   11 unary_expression: postfix_expression .
 
-    PTR_OP  shift, and go to state 8
-    INC_OP  shift, and go to state 9
-    DEC_OP  shift, and go to state 10
-    '('     shift, and go to state 11
-    '.'     shift, and go to state 12
+    PTR_OP  shift, and go to state 13
+    INC_OP  shift, and go to state 14
+    DEC_OP  shift, and go to state 15
+    '('     shift, and go to state 16
+    '.'     shift, and go to state 17
 
-    $end      reduce using rule 1 (ROOT)
-    $end      [reduce using rule 7 (postfix_expression)]
-    PTR_OP    [reduce using rule 7 (postfix_expression)]
-    INC_OP    [reduce using rule 7 (postfix_expression)]
-    DEC_OP    [reduce using rule 7 (postfix_expression)]
-    '('       [reduce using rule 7 (postfix_expression)]
-    '.'       [reduce using rule 7 (postfix_expression)]
+    $default  reduce using rule 11 (unary_expression)
+
+
+State 9
+
+    1 ROOT: unary_expression .
+
     $default  reduce using rule 1 (ROOT)
 
 
-State 7
+State 10
+
+   12 unary_expression: INC_OP unary_expression .
+
+    $default  reduce using rule 12 (unary_expression)
+
+
+State 11
+
+   13 unary_expression: DEC_OP unary_expression .
+
+    $default  reduce using rule 13 (unary_expression)
+
+
+State 12
 
     0 $accept: ROOT $end .
 
     $default  accept
 
 
-State 8
-
-    9 postfix_expression: postfix_expression PTR_OP . IDENTIFIER
-
-    IDENTIFIER  shift, and go to state 13
-
-
-State 9
-
-   10 postfix_expression: postfix_expression INC_OP .
-
-    $default  reduce using rule 10 (postfix_expression)
-
-
-State 10
-
-   11 postfix_expression: postfix_expression DEC_OP .
-
-    $default  reduce using rule 11 (postfix_expression)
-
-
-State 11
-
-    6 postfix_expression: postfix_expression '(' . ')'
-
-    ')'  shift, and go to state 14
-
-
-State 12
-
-    8 postfix_expression: postfix_expression '.' . IDENTIFIER
-
-    IDENTIFIER  shift, and go to state 15
-
-
 State 13
 
-    9 postfix_expression: postfix_expression PTR_OP IDENTIFIER .
+    8 postfix_expression: postfix_expression PTR_OP . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 18
+
+
+State 14
+
+    9 postfix_expression: postfix_expression INC_OP .
 
     $default  reduce using rule 9 (postfix_expression)
 
 
-State 14
+State 15
+
+   10 postfix_expression: postfix_expression DEC_OP .
+
+    $default  reduce using rule 10 (postfix_expression)
+
+
+State 16
+
+    6 postfix_expression: postfix_expression '(' . ')'
+
+    ')'  shift, and go to state 19
+
+
+State 17
+
+    7 postfix_expression: postfix_expression '.' . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 20
+
+
+State 18
+
+    8 postfix_expression: postfix_expression PTR_OP IDENTIFIER .
+
+    $default  reduce using rule 8 (postfix_expression)
+
+
+State 19
 
     6 postfix_expression: postfix_expression '(' ')' .
 
     $default  reduce using rule 6 (postfix_expression)
 
 
-State 15
+State 20
 
-    8 postfix_expression: postfix_expression '.' IDENTIFIER .
+    7 postfix_expression: postfix_expression '.' IDENTIFIER .
 
-    $default  reduce using rule 8 (postfix_expression)
+    $default  reduce using rule 7 (postfix_expression)

@@ -4,9 +4,8 @@
 #include <string>
 #include <iostream>
 #include <map>
-#include "program.hpp"
 
-class Expression : public Program
+class Expression 
 {
 public:
     virtual ~Expression()

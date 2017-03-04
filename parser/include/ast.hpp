@@ -6,6 +6,10 @@
 #include "ast/primary_expression.hpp"
 #include "ast/postfix_expression.hpp"
 #include "ast/unary_expression.hpp"
+#include "ast/multiplicative_expression.hpp"
+#include "ast/additive_expression.hpp"
+#include "ast/shift_expression.hpp"
+#include "ast/relational_expression.hpp"
 
 extern const Expression *parseAST();
 

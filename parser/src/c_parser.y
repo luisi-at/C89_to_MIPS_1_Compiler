@@ -28,13 +28,16 @@
 %token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR GOTO CONTINUE BREAK RETURN
 
 %type <expr> primary_expression postfix_expression unary_expression
+%type <expr> multiplicative_expression additive_expression shift_expression
+%type <expr> relational_expression
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
+%type <string_value> LEFT_OP RIGHT_OP
 
 %start ROOT
 
 %%
 
-ROOT : unary_expression { prog_root = $1; }
+ROOT : relational_expression { prog_root = $1; }
 
 primary_expression
   : IDENTIFIER            { $$ = new Identifier( *$1 ); }
@@ -68,9 +71,29 @@ unary_operator
 
 multiplicative_expression
   : unary_expression
-  | multiplicative_expression '*' unary_expression
-  | multiplicative_expression '/' unary_expression
-  | multiplicative_expression '%' unary_expression
+  | multiplicative_expression '*' unary_expression    { $$ = new MultiplyMultiplicative( $1, $3); }
+  | multiplicative_expression '/' unary_expression    { $$ = new DivideMultiplicative( $1, $3); }
+  | multiplicative_expression '%' unary_expression    { $$ = new ModMultiplicative( $1, $3); }
+  ;
+
+additive_expression
+  : multiplicative_expression
+  | additive_expression '+' multiplicative_expression   { $$ = new AddAdditive( $1, $3 ); }
+  | additive_expression '-' multiplicative_expression   { $$ = new SubAdditive( $1, $3 ); }
+  ;
+
+shift_expression
+  : additive_expression
+  | shift_expression LEFT_OP additive_expression        { $$ = new LeftOpExpression ( $1, $3 ); }
+  | shift_expression RIGHT_OP additive_expression       { $$ = new RightOpExpression ( $1, $3 ); }
+  ;
+
+relational_expression
+  : shift_expression
+  | relational_expression '<' shift_expression          { $$ = new StrictLessThanExpression ( $1, $3 ); }
+  | relational_expression '>' shift_expression          { $$ = new StrictGreaterThanExpression ( $1, $3 ); }
+  | relational_expression LE_OP shift_expression        { $$ = new LessEqualExpression ( $1, $3 ); }
+  | relational_expression GE_OP shift_expression        { $$ = new GreaterEqualExpression ( $1, $3 ); }
   ;
 
 

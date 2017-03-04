@@ -1,5 +1,5 @@
-#ifndef ast_unary_expression_hpp
-#define ast_unary_expression_hpp
+#ifndef ast_multiplicative_expression_hpp
+#define ast_multiplicative_expression_hpp
 
 #include "expression.hpp"
 
@@ -10,7 +10,7 @@
 class MultiplicativeExpression : public Expression
 {
 private:
-  const Expression *left
+  const Expression *left;
   const Expression *right;
 protected:
   MultiplicativeExpression(const Expression *_left, const Expression *_right)
@@ -18,7 +18,7 @@ protected:
     , right(_right)
 {}
 public:
-  virtual ~UnaryExpression()
+  virtual ~MultiplicativeExpression()
     {
         delete left;
         delete right;
@@ -35,6 +35,9 @@ public:
     virtual void print_xml() const override
     {
       // printy print
+      this->getLeft()->print_xml();
+      std::cout << this->getOperator() << std::endl;
+      this->getRight()->print_xml(); 
     }
 
 };
@@ -77,3 +80,5 @@ public:
   {}
 
 };
+
+#endif

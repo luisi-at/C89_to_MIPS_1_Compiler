@@ -3,7 +3,7 @@
 
 #include "expression.hpp"
 
-#include <string>
+#include <string.h>
 #include <iostream>
 #include <map>
 
@@ -28,9 +28,15 @@ public:
 
     virtual void print_xml() const override
     {
-      fprintf(stderr, "Unary Expression Print\n");
-      std::cout << this->getOperator() << std::endl;
-      this->getRight()->print_xml();
+      //fprintf(stderr, "Unary Expression Print\n");
+      if(strcmp(this->getOperator(), "") == 0){
+        this->getRight()->print_xml();
+      }
+      else{
+        std::cout << this->getOperator() << std::endl;
+        this->getRight()->print_xml();
+      }
+
     }
 
 };

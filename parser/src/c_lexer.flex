@@ -163,6 +163,7 @@ while                         { return WHILE; }
 "&"                           { return('&'); }
 "!"                           { return('!'); }
 "|"                           { return('|'); }
+"^"                           { return('^'); }
 "?"                           { return('?'); }
 
 

@@ -10,6 +10,9 @@
 #include "ast/additive_expression.hpp"
 #include "ast/shift_expression.hpp"
 #include "ast/relational_expression.hpp"
+#include "ast/equality_expression.hpp"
+#include "ast/andorxor_expression.hpp"
+#include "ast/logicalandor_expression.hpp"
 
 extern const Expression *parseAST();
 

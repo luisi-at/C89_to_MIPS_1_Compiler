@@ -29,7 +29,9 @@
 
 %type <expr> primary_expression postfix_expression unary_expression
 %type <expr> multiplicative_expression additive_expression shift_expression
-%type <expr> relational_expression
+%type <expr> relational_expression equality_expression
+%type <expr> and_expression eor_expression or_expression
+%type <expr> logical_and_expression logical_or_expression
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
 %type <string_value> LEFT_OP RIGHT_OP
 
@@ -37,7 +39,7 @@
 
 %%
 
-ROOT : relational_expression { prog_root = $1; }
+ROOT : logical_or_expression { prog_root = $1; }
 
 primary_expression
   : IDENTIFIER            { $$ = new Identifier( *$1 ); }
@@ -95,6 +97,67 @@ relational_expression
   | relational_expression LE_OP shift_expression        { $$ = new LessEqualExpression ( $1, $3 ); }
   | relational_expression GE_OP shift_expression        { $$ = new GreaterEqualExpression ( $1, $3 ); }
   ;
+
+equality_expression
+  : relational_expression
+  | equality_expression EQ_OP relational_expression     { $$ = new EqualOpExpression ( $1, $3); }
+  | equality_expression NE_OP relational_expression     { $$ = new NotEqualOpExpression ( $1, $3); }
+  ;
+
+and_expression
+  : equality_expression
+  | and_expression '&' equality_expression              { $$ = new AndExpression ( $1, $3 ); }
+  ;
+
+eor_expression
+  : and_expression
+  | eor_expression '^' and_expression                 { $$ = new XorExpression ( $1, $3 ); }
+  ;
+
+or_expression
+  : eor_expression
+  | or_expression '|' eor_expression                  { $$ = new OrExpression ( $1, $3 ); }
+  ;
+
+logical_and_expression
+  : or_expression
+  | logical_and_expression AND_OP or_expression           { $$ = new LogicalAndExpression ( $1, $3 ); }
+  ;
+
+logical_or_expression
+  : logical_and_expression
+  | logical_or_expression OR_OP logical_and_expression    { $$ = new LogicalOrExpression ( $1, $3 ); }
+  ;
+
+conditional_expression
+  : logical_or_expression
+  | logical_or_expression '?' expression ':' conditional_expression
+  ;
+
+assignement_expression
+  : conditional_expression
+  | unary_expression assignement_operator assignement_expression
+  ;
+
+assignement_operator
+  : '='
+  | MUL_ASSIGN
+  | DIV_ASSIGN
+  | MOD_ASSIGN
+  | ADD_ASSIGN
+  | SUB_ASSIGN
+  | LEFT_ASSIGN
+  | RIGHT_ASSIGN
+  | AND_ASSIGN
+  | OR_ASSIGN
+  | XOR_ASSIGN
+  ;
+
+expression
+  : assignement_expression
+  | expression ',' assignement_expression
+  ;
+
 
 
 %%

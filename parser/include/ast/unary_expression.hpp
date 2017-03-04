@@ -28,7 +28,7 @@ public:
 
     virtual void print_xml() const override
     {
-      fprintf(stderr, "Unary Expression Print") << std::endl;
+      fprintf(stderr, "Unary Expression Print\n");
       std::cout << this->getOperator() << std::endl;
       this->getRight()->print_xml();
     }
@@ -71,8 +71,8 @@ protected:
   { return "--"; }
 
 public:
-  UnaryDecExpression(const std::string _left, const Expression *_right)
-  : UnaryExpression(_left, _right)
+  UnaryDecExpression(const Expression *_right)
+  : UnaryExpression(_right)
   {}
 };
 

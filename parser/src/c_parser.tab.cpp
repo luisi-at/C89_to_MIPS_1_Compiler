@@ -1362,19 +1362,19 @@ yyreduce:
 
   case 12:
 #line 55 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new UnaryPostfixExpression( "", (yyvsp[0].expr)); }
+    { (yyval.expr) = new UnaryPostfixExpression( (yyvsp[0].expr) ); }
 #line 1367 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 13:
 #line 56 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new UnaryIncExpression( "++", (yyvsp[0].expr) ); }
+    { (yyval.expr) = new UnaryIncExpression( (yyvsp[0].expr) ); }
 #line 1373 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 57 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new UnaryDecExpression( "--", (yyvsp[0].expr) ); }
+    { (yyval.expr) = new UnaryDecExpression( (yyvsp[0].expr) ); }
 #line 1379 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 

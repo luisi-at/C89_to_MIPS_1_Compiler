@@ -57,6 +57,23 @@ unary_expression
   | DEC_OP unary_expression     { $$ = new UnaryDecExpression( $2 ); }
   ;
 
+unary_operator
+  : '&'
+  | '*'
+  | '+'
+  | '-'
+  | '~'
+  | '!'
+  ;
+
+multiplicative_expression
+  : unary_expression
+  | multiplicative_expression '*' unary_expression
+  | multiplicative_expression '/' unary_expression
+  | multiplicative_expression '%' unary_expression
+  ;
+
+
 %%
 
 const Expression *prog_root; // match variable defined earlier

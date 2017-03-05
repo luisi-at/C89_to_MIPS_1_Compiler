@@ -176,7 +176,41 @@ constant_expression
 
 
 
+enum_specifier
+  : ENUM '{' enumerator_list '}'
+  | ENUM IDENTIFIER '{' enumerator_list '}'
+  | ENUM IDENTIFIER
+  ;
 
+enumerator_list
+  : enumerator
+  | enumerator_list ',' enumerator
+  ;
+
+enumerator
+  : IDENTIFIER
+  | IDENTIFIER '=' constant_expression
+  ;
+
+type_qualifier
+  : CONST
+  | VOLATILE
+  ;
+
+declarator
+  : pointer direct_declarator
+  | direct_declarator
+  ;
+
+direct_declarator
+  : IDENTIFIER
+  | '(' declarator ')'                            { $$ = new BracketedDeclarator( $2 ); }
+  | direct_declarator '[' constant_expression ']' { $$ = new ExpressionDeclarator( $1, $3 ); }
+  | direct_declarator '[' ']'                     { $$ = new ExpressionDeclarator( $1, NULL );}
+  | direct_declarator '(' parameter_type_list ')' { $$ = new ParameterTypeDeclarator( $1, $3 ); }
+  | direct_declarator '(' identifier_list ')'     { $$ = new IdentifierListDeclarator( $1, $3 ); }
+  | direct_declarator '(' ')'                     { $$ = new ParameterTypeDeclarator( $1, NULL );}
+  ;
 
 statement
   : labeled_statement
@@ -222,18 +256,18 @@ selection_statement
   ;
 
 iteration_statement
-  : WHILE '(' expression ')' statement
-  | DO statement WHILE '(' expression ')' ';'
-  | FOR '(' expression_statement expression_statement ')' statement
-  | FOR '(' expression_statement expression_statement expression ')' statement
+  : WHILE '(' expression ')' statement                                          { $$ = new WhileIterations( $3, $5 ); }
+  | DO statement WHILE '(' expression ')' ';'                                   { $$ = new DoWhileIteration( $2, $5 ); }
+  | FOR '(' expression_statement expression_statement ')' statement             { $$ = new ForNoExprIteration( $3, $4, $6 ); }
+  | FOR '(' expression_statement expression_statement expression ')' statement  { $$ = new ForExprIteration( $3, $5, $5, $7); }
   ;
 
 jump_statement
-  : GOTO IDENTIFIER
-  | CONTINUE ';'
-  | BREAK ';'
-  | RETURN ';'
-  | RETURN expression ';'
+  : GOTO IDENTIFIER         { $$ = new GotoStatement( $2 ); }
+  | CONTINUE ';'            { $$ = new ContinueStatement( new StringLiteral("") ); }
+  | BREAK ';'               { $$ = new BreakStatement( new StringLiteral("") ); }
+  | RETURN ';'              { $$ = new ReturnStatement( new StringLiteral("") ); }
+  | RETURN expression ';'   { $$ = new ReturnExprStatement( $2 ); }
     ;
 
 

@@ -22,6 +22,8 @@
 #include "ast/selection_statement.hpp"
 #include "ast/iteration_statement.hpp"
 #include "ast/jump_statement.hpp"
+#include "ast/declarator.hpp"
+#include "ast/direct_declarator.hpp"
 
 extern const Expression *parseAST();
 

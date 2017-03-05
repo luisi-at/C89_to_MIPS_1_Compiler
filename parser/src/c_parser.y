@@ -216,9 +216,9 @@ expression_statement
   ;
 
 selection_statement
-  : IF '(' expression ')' statement
-  | IF '(' expression ')' statement ELSE statement
-  | SWITCH '(' expression ')' statement
+  : IF '(' expression ')' statement                 { $$ = new IfSelection( $3, $5 ); }
+  | IF '(' expression ')' statement ELSE statement  { $$ = new IfElseSelection( $3, $5, $7 ); }
+  | SWITCH '(' expression ')' statement             { $$ = new SwitchSelection( $3, $5 ); }
   ;
 
 iteration_statement

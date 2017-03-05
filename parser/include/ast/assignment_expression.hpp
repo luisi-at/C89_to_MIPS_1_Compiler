@@ -1,5 +1,5 @@
-#ifndef ast_conditional_expression_hpp
-#define ast_conditional_expression_hpp
+#ifndef ast_assignment_expression_hpp
+#define ast_assignment_expression_hpp
 
 #include "expression.hpp"
 
@@ -7,32 +7,31 @@
 #include <iostream>
 #include <map>
 
-class ConditionalExpression : public Expression
+class AssignmentExpression : public Expression
 {
 private:
   const Expression *left;
-  const Expression *middle;
+  const std::string assignment_operator;
   const Expression *right;
 public:
-  ConditionalExpression(const Expression *_left
-    , const Expression *_middle
+  AssignmentExpression(const Expression *_left
+    , std::string _assignment_operator
     , const Expression *_right)
     : left(_left)
-    , middle(_middle)
+    , assignment_operator(_assignment_operator)
     , right(_right)
   {}
 
-  ~ConditionalExpression(){
+  ~AssignmentExpression(){
     delete left;
-    delete middle;
     delete right;
   }
 
   const Expression *getLeft() const
   { return left; }
 
-  const Expression *getMiddle() const
-  { return left; }
+  const std::string getOperator() const
+  { return assignment_operator; }
 
   const Expression *getRight() const
   { return right; }
@@ -40,9 +39,8 @@ public:
   virtual void print_xml() const override
   {
     this->getLeft()->print_xml();
-    std::cout << " ? " << std::endl;
-    this->getMiddle()->print_xml();
-    std::cout << " : " << std::endl;
+    std::cout << "OPERATOR COMING!" << std::endl;
+    std::cout << this->getOperator() << std::endl;
     this->getRight()->print_xml();
   }
 };

@@ -121,16 +121,16 @@ while                         { return WHILE; }
 
 "++"                          { return INC_OP; }
 "--"                          { return DEC_OP; }
-"+="                          { return ADD_ASSIGN; }
-"-="                          { return SUB_ASSIGN; }
-"*="                          { return MUL_ASSIGN; }
-"/="                          { return DIV_ASSIGN; }
-"%="                          { return MOD_ASSIGN; }
-"&="                          { return AND_ASSIGN; }
-"|="                          { return OR_ASSIGN; }
-"^="                          { return XOR_ASSIGN; }
-"<<="                         { return LEFT_ASSIGN; }
-">>="                         { return RIGHT_ASSIGN; }
+"+="                          { yylval.string_value = new std::string(yytext); return ADD_ASSIGN; }
+"-="                          { yylval.string_value = new std::string(yytext); return SUB_ASSIGN; }
+"*="                          { yylval.string_value = new std::string(yytext); return MUL_ASSIGN; }
+"/="                          { yylval.string_value = new std::string(yytext); return DIV_ASSIGN; }
+"%="                          { yylval.string_value = new std::string(yytext); return MOD_ASSIGN; }
+"&="                          { yylval.string_value = new std::string(yytext); return AND_ASSIGN; }
+"|="                          { yylval.string_value = new std::string(yytext); return OR_ASSIGN; }
+"^="                          { yylval.string_value = new std::string(yytext); return XOR_ASSIGN; }
+"<<="                         { yylval.string_value = new std::string(yytext); return LEFT_ASSIGN; }
+">>="                         { yylval.string_value = new std::string(yytext); return RIGHT_ASSIGN; }
 "<="                          { return LE_OP; }
 ">="                          { return GE_OP; }
 "=="                          { return EQ_OP; }
@@ -153,7 +153,7 @@ while                         { return WHILE; }
 "-"                           { return('-'); }
 "*"                           { return('*'); }
 "/"                           { return('/'); }
-"="                           { return('='); }
+"="                           { yylval.string_value = new std::string(yytext); return('='); }
 "%"                           { return('%'); }
 "."                           { return('.'); }
 ","                           { return(','); }

@@ -1336,52 +1336,52 @@ YY_RULE_SETUP
 case 45:
 YY_RULE_SETUP
 #line 124 "src/c_lexer.flex"
-{ return ADD_ASSIGN; }
+{ yylval.string_value = new std::string(yytext); return ADD_ASSIGN; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 125 "src/c_lexer.flex"
-{ return SUB_ASSIGN; }
+{ yylval.string_value = new std::string(yytext); return SUB_ASSIGN; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 126 "src/c_lexer.flex"
-{ return MUL_ASSIGN; }
+{ yylval.string_value = new std::string(yytext); return MUL_ASSIGN; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 127 "src/c_lexer.flex"
-{ return DIV_ASSIGN; }
+{ yylval.string_value = new std::string(yytext); return DIV_ASSIGN; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 128 "src/c_lexer.flex"
-{ return MOD_ASSIGN; }
+{ yylval.string_value = new std::string(yytext); return MOD_ASSIGN; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
 #line 129 "src/c_lexer.flex"
-{ return AND_ASSIGN; }
+{ yylval.string_value = new std::string(yytext); return AND_ASSIGN; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
 #line 130 "src/c_lexer.flex"
-{ return OR_ASSIGN; }
+{ yylval.string_value = new std::string(yytext); return OR_ASSIGN; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
 #line 131 "src/c_lexer.flex"
-{ return XOR_ASSIGN; }
+{ yylval.string_value = new std::string(yytext); return XOR_ASSIGN; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
 #line 132 "src/c_lexer.flex"
-{ return LEFT_ASSIGN; }
+{ yylval.string_value = new std::string(yytext); return LEFT_ASSIGN; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 133 "src/c_lexer.flex"
-{ return RIGHT_ASSIGN; }
+{ yylval.string_value = new std::string(yytext); return RIGHT_ASSIGN; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
@@ -1491,7 +1491,7 @@ YY_RULE_SETUP
 case 76:
 YY_RULE_SETUP
 #line 156 "src/c_lexer.flex"
-{ return('='); }
+{ yylval.string_value = new std::string(yytext); return('='); }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP

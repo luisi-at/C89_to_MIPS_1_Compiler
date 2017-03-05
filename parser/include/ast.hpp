@@ -13,6 +13,9 @@
 #include "ast/equality_expression.hpp"
 #include "ast/andorxor_expression.hpp"
 #include "ast/logicalandor_expression.hpp"
+#include "ast/conditional_expression.hpp"
+#include "ast/assignment_expression.hpp"
+#include "ast/main_expression.hpp"
 
 extern const Expression *parseAST();
 

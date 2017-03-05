@@ -32,14 +32,19 @@
 %type <expr> relational_expression equality_expression
 %type <expr> and_expression eor_expression or_expression
 %type <expr> logical_and_expression logical_or_expression
+%type <expr> conditional_expression assignment_expression
+%type <expr> expression
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
 %type <string_value> LEFT_OP RIGHT_OP
+%type <string_value> MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
+%type <string_value> SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
+%type <string_value> OR_ASSIGN XOR_ASSIGN assignment_operator '='
 
 %start ROOT
 
 %%
 
-ROOT : logical_or_expression { prog_root = $1; }
+ROOT : expression { prog_root = $1; }
 
 primary_expression
   : IDENTIFIER            { $$ = new Identifier( *$1 ); }
@@ -132,14 +137,15 @@ logical_or_expression
 conditional_expression
   : logical_or_expression
   | logical_or_expression '?' expression ':' conditional_expression
+    { $$ = new ConditionalExpression ( $1, $5, $5 ); }
   ;
 
-assignement_expression
+assignment_expression
   : conditional_expression
-  | unary_expression assignement_operator assignement_expression
+  | unary_expression assignment_operator assignment_expression     { $$ = new AssignmentExpression ( $1, *$2, $3 ); }
   ;
 
-assignement_operator
+assignment_operator
   : '='
   | MUL_ASSIGN
   | DIV_ASSIGN
@@ -154,8 +160,8 @@ assignement_operator
   ;
 
 expression
-  : assignement_expression
-  | expression ',' assignement_expression
+  : assignment_expression
+  | expression ',' assignment_expression   { $$ = new MainExpression( $1, $3 ); }
   ;
 
 

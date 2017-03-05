@@ -10,6 +10,7 @@
 
 %union{
   const Expression *expr;
+  const Statement *stmt;
   double number;
   std::string *string_value;
 }
@@ -33,7 +34,11 @@
 %type <expr> and_expression eor_expression or_expression
 %type <expr> logical_and_expression logical_or_expression
 %type <expr> conditional_expression assignment_expression
+%type <expr> constant_expression
 %type <expr> expression
+%type <stmt> labeled_statement compound_statement expression_statement
+%type <stmt> selection_statement iteration_statement jump_statement
+%type <stmt> statement
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
 %type <string_value> LEFT_OP RIGHT_OP
 %type <string_value> MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
@@ -164,6 +169,72 @@ expression
   | expression ',' assignment_expression   { $$ = new MainExpression( $1, $3 ); }
   ;
 
+constant_expression
+  : conditional_expression
+  ;
+
+
+
+
+
+
+statement
+  : labeled_statement
+  | compound_statement
+  | expression_statement
+  | selection_statement
+  | iteration_statement
+  | jump_statement
+  ;
+
+labeled_statement
+  : IDENTIFIER ':' statement                { $$ = new IdentifierStatement( $1, $3 ); }
+  | CASE constant_expression ':' statement  { $$ = new CaseStatement( $2, $4 ); }
+  | DEFAULT ':' statement                   { $$ = new DefaultStatement( $3 ); }
+  ;
+
+compound_statement
+  : '{' '}'
+  | '{' statement_list '}'
+  | '{' declaration_list '}'
+  | '{' declaration_list statement_list '}'
+  ;
+
+declaration_list
+  : declaration
+  | declaration_list declaration
+  ;
+
+statement_list
+  : statement
+  | statement_list statement
+  ;
+
+expression_statement
+  : ';'
+  | expression ';'      { $$ = new ExpressionStatement( $1 ); }
+  ;
+
+selection_statement
+  : IF '(' expression ')' statement
+  | IF '(' expression ')' statement ELSE statement
+  | SWITCH '(' expression ')' statement
+  ;
+
+iteration_statement
+  : WHILE '(' expression ')' statement
+  | DO statement WHILE '(' expression ')' ';'
+  | FOR '(' expression_statement expression_statement ')' statement
+  | FOR '(' expression_statement expression_statement expression ')' statement
+  ;
+
+jump_statement
+  : GOTO IDENTIFIER
+  | CONTINUE ';'
+  | BREAK ';'
+  | RETURN ';'
+  | RETURN expression ';'
+    ;
 
 
 %%

@@ -34,7 +34,7 @@ public:
   { return value ; }
 
   virtual void print_xml() const override
-  { /*xml printy stuff in here */ }
+  { std::cout << "<" << this->GetValue() << ">"; }
 };
 
 class StringLiteral : public Expression
@@ -49,7 +49,7 @@ public:
   { return value ; }
 
   virtual void print_xml() const override
-  { /*xml printy stuff in here */ }
+  { std::cout << "<" << this->GetValue() << ">"; }
 };
 
 class BracketedExpression : public Expression

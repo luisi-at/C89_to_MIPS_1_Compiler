@@ -111,11 +111,11 @@ Grammar
    40 logical_or_expression: logical_and_expression
    41                      | logical_or_expression OR_OP logical_and_expression
 
-   42 assignment_expression: conditional_expression
-   43                      | unary_expression assignment_operator assignment_expression
+   42 conditional_expression: logical_or_expression
+   43                       | logical_or_expression '?' expression ':' conditional_expression
 
-   44 conditional_expression: logical_or_expression
-   45                       | logical_or_expression '?' expression ':' conditional_expression
+   44 assignment_expression: conditional_expression
+   45                      | unary_expression assignment_operator assignment_expression
 
    46 assignment_operator: '='
    47                    | MUL_ASSIGN
@@ -147,11 +147,11 @@ $end (0) 0
 '-' (45) 20
 '.' (46) 7
 '/' (47) 16
-':' (58) 45
+':' (58) 43
 '<' (60) 25
 '=' (61) 46
 '>' (62) 26
-'?' (63) 45
+'?' (63) 43
 '^' (94) 35
 '|' (124) 37
 '~' (126)
@@ -226,7 +226,7 @@ primary_expression (81)
 postfix_expression (82)
     on left: 5 6 7 8 9 10, on right: 6 7 8 9 10 11
 unary_expression (83)
-    on left: 11 12 13, on right: 12 13 14 15 16 17 43
+    on left: 11 12 13, on right: 12 13 14 15 16 17 45
 multiplicative_expression (84)
     on left: 14 15 16 17, on right: 15 16 17 18 19 20
 additive_expression (85)
@@ -246,15 +246,15 @@ or_expression (91)
 logical_and_expression (92)
     on left: 38 39, on right: 39 40 41
 logical_or_expression (93)
-    on left: 40 41, on right: 41 44 45
-assignment_expression (94)
-    on left: 42 43, on right: 43 57 58
-conditional_expression (95)
-    on left: 44 45, on right: 42 45
+    on left: 40 41, on right: 41 42 43
+conditional_expression (94)
+    on left: 42 43, on right: 43 44
+assignment_expression (95)
+    on left: 44 45, on right: 45 57 58
 assignment_operator (96)
-    on left: 46 47 48 49 50 51 52 53 54 55 56, on right: 43
+    on left: 46 47 48 49 50 51 52 53 54 55 56, on right: 45
 expression (97)
-    on left: 57 58, on right: 1 45 58
+    on left: 57 58, on right: 1 43 58
 
 
 State 0
@@ -281,8 +281,8 @@ State 0
     or_expression              go to state 17
     logical_and_expression     go to state 18
     logical_or_expression      go to state 19
-    assignment_expression      go to state 20
-    conditional_expression     go to state 21
+    conditional_expression     go to state 20
+    assignment_expression      go to state 21
     expression                 go to state 22
 
 
@@ -372,7 +372,7 @@ State 8
 State 9
 
    14 multiplicative_expression: unary_expression .
-   43 assignment_expression: unary_expression . assignment_operator assignment_expression
+   45 assignment_expression: unary_expression . assignment_operator assignment_expression
 
     MUL_ASSIGN    shift, and go to state 31
     DIV_ASSIGN    shift, and go to state 32
@@ -500,27 +500,27 @@ State 18
 State 19
 
    41 logical_or_expression: logical_or_expression . OR_OP logical_and_expression
-   44 conditional_expression: logical_or_expression .
-   45                       | logical_or_expression . '?' expression ':' conditional_expression
+   42 conditional_expression: logical_or_expression .
+   43                       | logical_or_expression . '?' expression ':' conditional_expression
 
     OR_OP  shift, and go to state 60
     '?'    shift, and go to state 61
 
-    $default  reduce using rule 44 (conditional_expression)
+    $default  reduce using rule 42 (conditional_expression)
 
 
 State 20
 
-   57 expression: assignment_expression .
+   44 assignment_expression: conditional_expression .
 
-    $default  reduce using rule 57 (expression)
+    $default  reduce using rule 44 (assignment_expression)
 
 
 State 21
 
-   42 assignment_expression: conditional_expression .
+   57 expression: assignment_expression .
 
-    $default  reduce using rule 42 (assignment_expression)
+    $default  reduce using rule 57 (expression)
 
 
 State 22
@@ -668,7 +668,7 @@ State 41
 
 State 42
 
-   43 assignment_expression: unary_expression assignment_operator . assignment_expression
+   45 assignment_expression: unary_expression assignment_operator . assignment_expression
 
     IDENTIFIER      shift, and go to state 1
     CONSTANT        shift, and go to state 2
@@ -689,8 +689,8 @@ State 42
     or_expression              go to state 17
     logical_and_expression     go to state 18
     logical_or_expression      go to state 19
+    conditional_expression     go to state 20
     assignment_expression      go to state 66
-    conditional_expression     go to state 21
 
 
 State 43
@@ -1026,7 +1026,7 @@ State 60
 
 State 61
 
-   45 conditional_expression: logical_or_expression '?' . expression ':' conditional_expression
+   43 conditional_expression: logical_or_expression '?' . expression ':' conditional_expression
 
     IDENTIFIER      shift, and go to state 1
     CONSTANT        shift, and go to state 2
@@ -1047,8 +1047,8 @@ State 61
     or_expression              go to state 17
     logical_and_expression     go to state 18
     logical_or_expression      go to state 19
-    assignment_expression      go to state 20
-    conditional_expression     go to state 21
+    conditional_expression     go to state 20
+    assignment_expression      go to state 21
     expression                 go to state 86
 
 
@@ -1075,8 +1075,8 @@ State 62
     or_expression              go to state 17
     logical_and_expression     go to state 18
     logical_or_expression      go to state 19
+    conditional_expression     go to state 20
     assignment_expression      go to state 87
-    conditional_expression     go to state 21
 
 
 State 63
@@ -1102,9 +1102,9 @@ State 65
 
 State 66
 
-   43 assignment_expression: unary_expression assignment_operator assignment_expression .
+   45 assignment_expression: unary_expression assignment_operator assignment_expression .
 
-    $default  reduce using rule 43 (assignment_expression)
+    $default  reduce using rule 45 (assignment_expression)
 
 
 State 67
@@ -1321,7 +1321,7 @@ State 85
 
 State 86
 
-   45 conditional_expression: logical_or_expression '?' expression . ':' conditional_expression
+   43 conditional_expression: logical_or_expression '?' expression . ':' conditional_expression
    58 expression: expression . ',' assignment_expression
 
     ':'  shift, and go to state 88
@@ -1337,7 +1337,7 @@ State 87
 
 State 88
 
-   45 conditional_expression: logical_or_expression '?' expression ':' . conditional_expression
+   43 conditional_expression: logical_or_expression '?' expression ':' . conditional_expression
 
     IDENTIFIER      shift, and go to state 1
     CONSTANT        shift, and go to state 2
@@ -1363,6 +1363,6 @@ State 88
 
 State 89
 
-   45 conditional_expression: logical_or_expression '?' expression ':' conditional_expression .
+   43 conditional_expression: logical_or_expression '?' expression ':' conditional_expression .
 
-    $default  reduce using rule 45 (conditional_expression)
+    $default  reduce using rule 43 (conditional_expression)

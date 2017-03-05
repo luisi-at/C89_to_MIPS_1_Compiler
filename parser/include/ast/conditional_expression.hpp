@@ -32,7 +32,7 @@ public:
   { return left; }
 
   const Expression *getMiddle() const
-  { return left; }
+  { return middle; }
 
   const Expression *getRight() const
   { return right; }

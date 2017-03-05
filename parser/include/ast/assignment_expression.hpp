@@ -39,7 +39,7 @@ public:
   virtual void print_xml() const override
   {
     this->getLeft()->print_xml();
-    std::cout << "OPERATOR COMING!" << std::endl;
+    //std::cout << "ASSIGMENT OPERATOR COMING!" << std::endl;
     std::cout << this->getOperator() << std::endl;
     this->getRight()->print_xml();
   }

@@ -505,8 +505,8 @@ static const yytype_uint8 yyrline[] =
       60,    61,    65,    66,    67,    80,    81,    82,    83,    87,
       88,    89,    93,    94,    95,    99,   100,   101,   102,   103,
      107,   108,   109,   113,   114,   118,   119,   123,   124,   128,
-     129,   133,   134,   138,   139,   143,   144,   151,   152,   153,
-     154,   155,   156,   157,   158,   159,   160,   161,   165,   166
+     129,   133,   134,   138,   139,   144,   145,   149,   150,   151,
+     152,   153,   154,   155,   156,   157,   158,   159,   163,   164
 };
 #endif
 
@@ -531,7 +531,7 @@ static const char *const yytname[] =
   "additive_expression", "shift_expression", "relational_expression",
   "equality_expression", "and_expression", "eor_expression",
   "or_expression", "logical_and_expression", "logical_or_expression",
-  "assignment_expression", "conditional_expression", "assignment_operator",
+  "conditional_expression", "assignment_expression", "assignment_operator",
   "expression", YY_NULLPTR
 };
 #endif
@@ -583,21 +583,21 @@ static const yytype_int8 yypact[] =
 static const yytype_uint8 yydefact[] =
 {
        0,     3,     4,     5,     0,     0,     0,     6,    12,    15,
-      19,    22,    25,    30,    33,    35,    37,    39,    41,    45,
-      58,    43,     2,    13,    14,     1,     0,    10,    11,     0,
+      19,    22,    25,    30,    33,    35,    37,    39,    41,    43,
+      45,    58,     2,    13,    14,     1,     0,    10,    11,     0,
        0,    48,    49,    50,    51,    52,    53,    54,    55,    57,
       56,    47,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     9,     7,     8,    44,    16,    17,    18,
+       0,     0,     0,     9,     7,     8,    46,    16,    17,    18,
       15,    20,    21,    23,    24,    28,    29,    26,    27,    31,
-      32,    34,    36,    38,    40,    42,     0,    59,     0,    46
+      32,    34,    36,    38,    40,    42,     0,    59,     0,    44
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
      -67,   -67,   -67,   -67,     0,     7,     8,   -15,     4,    13,
-      11,    14,    16,    10,   -67,   -39,   -17,   -67,    17
+      11,    14,    16,    10,   -67,   -17,   -39,   -67,    17
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -644,9 +644,9 @@ static const yytype_uint8 yystos[] =
       63,    18,    19,    20,    21,    22,    23,    24,    25,    26,
       27,    60,    96,    65,    70,    71,    66,    67,    10,    11,
       12,    13,    72,    73,    14,    15,    64,    74,    75,    16,
-      17,    76,    78,     3,    62,     3,    94,    83,    83,    83,
+      17,    76,    78,     3,    62,     3,    95,    83,    83,    83,
       83,    84,    84,    85,    85,    86,    86,    86,    86,    87,
-      87,    88,    89,    90,    91,    92,    97,    94,    77,    95
+      87,    88,    89,    90,    91,    92,    97,    95,    77,    94
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
@@ -667,7 +667,7 @@ static const yytype_uint8 yyr2[] =
        2,     2,     1,     2,     2,     1,     3,     3,     3,     1,
        3,     3,     1,     3,     3,     1,     3,     3,     3,     3,
        1,     3,     3,     1,     3,     1,     3,     1,     3,     1,
-       3,     1,     3,     1,     3,     1,     5,     1,     1,     1,
+       3,     1,     3,     1,     5,     1,     3,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     3
 };
 
@@ -1531,19 +1531,19 @@ yyreduce:
     break;
 
   case 44:
-#line 139 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new AssignmentExpression ( (yyvsp[-2].expr), *(yyvsp[-1].string_value), (yyvsp[0].expr) ); }
+#line 140 "src/c_parser.y" /* yacc.c:1646  */
+    { (yyval.expr) = new ConditionalExpression ( (yyvsp[-4].expr), (yyvsp[-2].expr), (yyvsp[0].expr) ); }
 #line 1537 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 46:
 #line 145 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new ConditionalExpression ( (yyvsp[-4].expr), (yyvsp[0].expr), (yyvsp[0].expr) ); }
+    { (yyval.expr) = new AssignmentExpression ( (yyvsp[-2].expr), *(yyvsp[-1].string_value), (yyvsp[0].expr) ); }
 #line 1543 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 166 "src/c_parser.y" /* yacc.c:1646  */
+#line 164 "src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new MainExpression( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
 #line 1549 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
@@ -1777,7 +1777,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 171 "src/c_parser.y" /* yacc.c:1906  */
+#line 169 "src/c_parser.y" /* yacc.c:1906  */
 
 
 const Expression *prog_root; // match variable defined earlier

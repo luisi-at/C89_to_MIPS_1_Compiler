@@ -9,7 +9,7 @@ private:
   const Expression *first_expression;
   const Statement *next_statement;
 public:
-  IfSelection(const Expression _*first, const Statement *_next)
+  IfSelection(const Expression *_first, const Statement *_next)
     : first_expression(_first)
     , next_statement(_next)
     {}
@@ -35,7 +35,7 @@ private:
   const Statement *next_statement;
   const Statement *else_statement;
 public:
-  IfElseSelection(const Expression _*first, const Statement *_next)
+  IfElseSelection(const Expression *_first, const Statement *_next)
     : first_expression(_first)
     , next_statement(_next)
     {}
@@ -62,7 +62,7 @@ private:
   const Expression *first_expression;
   const Statement *next_statement;
 public:
-  SwitchSelection(const Expression _*first, const Statement *_next)
+  SwitchSelection(const Expression *_first, const Statement *_next)
     : first_expression(_first)
     , next_statement(_next)
     {}

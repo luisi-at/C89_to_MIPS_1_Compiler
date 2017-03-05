@@ -19,6 +19,9 @@
 #include "ast/statement.hpp"
 #include "ast/labeled_statement.hpp"
 #include "ast/expression_statement.hpp"
+#include "ast/selection_statement.hpp"
+#include "ast/iteration_statement.hpp"
+#include "ast/jump_statement.hpp"
 
 extern const Expression *parseAST();
 

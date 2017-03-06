@@ -115,7 +115,7 @@ volatile                      { return VOLATILE; }
 do                            { return DO; }
 if                            { return IF; }
 static                        { return STATIC; }
-while                         { return WHILE; }
+while                         { return(WHILE); }
 
 {identifier}                  { yylval.string_value = new std::string(yytext); return(IDENTIFIER); } //return identifier
 

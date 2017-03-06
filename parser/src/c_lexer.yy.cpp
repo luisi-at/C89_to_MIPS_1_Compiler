@@ -1305,7 +1305,7 @@ YY_RULE_SETUP
 case 41:
 YY_RULE_SETUP
 #line 118 "src/c_lexer.flex"
-{ return WHILE; }
+{ return(WHILE); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP

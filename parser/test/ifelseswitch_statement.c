@@ -1,3 +1,1 @@
-if ( x==y ){
-  x=y;
-}
+switch ( x==y ) return x;

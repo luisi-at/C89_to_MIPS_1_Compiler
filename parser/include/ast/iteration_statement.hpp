@@ -23,7 +23,7 @@ public:
 
   virtual void print_xml() const override
   {
-    //printy xml
+    std::cout << "WHILE" << std::endl;
   }
 };
 
@@ -61,8 +61,7 @@ private:
 public:
   ForNoExprIteration(const Statement *_first
     , const Statement *_second
-    , const Statement *_third
-    , const Expression *_loop)
+    , const Statement *_third)
     : first_statement(_first)
     , second_statement(_second)
     , third_statement(_third)

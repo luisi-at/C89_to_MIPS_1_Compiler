@@ -183,6 +183,7 @@ statement
   : jump_statement
   | selection_statement
   | expression_statement
+  | iteration_statement
   ;
 
 expression_statement
@@ -197,10 +198,10 @@ selection_statement
   ;
 
 iteration_statement
-  : WHILE '(' expression ')' statement                                          { $$ = new WhileIterations( $3, $5 ); }
+  : WHILE '(' expression ')' statement                                          { $$ = new WhileIteration( $3, $5 ); }
   | DO statement WHILE '(' expression ')' ';'                                   { $$ = new DoWhileIteration( $2, $5 ); }
   | FOR '(' expression_statement expression_statement ')' statement             { $$ = new ForNoExprIteration( $3, $4, $6 ); }
-  | FOR '(' expression_statement expression_statement expression ')' statement  { $$ = new ForExprIteration( $3, $5, $5, $7); }
+  | FOR '(' expression_statement expression_statement expression ')' statement  { $$ = new ForExprIteration( $3, $4, $7, $5); }
   ;
 
 jump_statement

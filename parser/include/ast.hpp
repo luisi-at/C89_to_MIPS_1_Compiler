@@ -23,7 +23,8 @@
 #include "ast/iteration_statement.hpp"
 #include "ast/jump_statement.hpp"
 #include "ast/declarator.hpp"
-#include "ast/direct_declarator.hpp"
+//include "ast/direct_declarator.hpp"
+#include "ast/enum_expression.hpp"
 
 extern const Expression *parseAST();
 

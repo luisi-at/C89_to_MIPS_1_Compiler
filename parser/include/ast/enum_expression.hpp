@@ -14,11 +14,11 @@ class EnumExpression : public Expression
 private:
   const Expression *left;
   const Expression *right;
-
 public:
   EnumExpression(const Expression *_left, const Expression *_right)
   : left(_left)
   , right(_right)
+  {}
 
   const Expression *getLeft() const
   { return left; }
@@ -27,6 +27,8 @@ public:
   { return right; }
 
   virtual void print_xml() const override
-  { //printy printy  }
+  { /*printy printy*/  }
 
 };
+
+#endif

@@ -43,14 +43,14 @@ public:
 
 };
 
-class ParameterTypeDeclarator : public Declarator
+/*class ParameterTypeDeclarator : public Declarator
 {
 private:
-  std::vector<Declarator*> *param_type_list;
+  std::vector<Declarator*> param_type_list;
   const Declarator *left;
 
 public:
-  ParameterTypeDeclarator(const Declarator *_left, std::vector<Declarator*> *_param_type_list)
+  ParameterTypeDeclarator(const Declarator *_left, std::vector<Declarator*> _param_type_list)
   : param_type_list(_param_type_list)
   , left(_left)
   {}
@@ -65,11 +65,11 @@ public:
 class IdentifierListDeclarator : public Declarator
 {
 private:
-  std::vector<Expression*> *identifier_list;
-  const Declarator *left
+  std::vector<Expression*> identifier_list;
+  const Declarator *left;
 
 public:
-  ParameterTypeDeclarator(const Declarator *_left, std::vector<Declarator*> *_identifier_list)
+  IdentifierListDeclarator(const Declarator *_left, std::vector<Declarator*> _identifier_list)
   : identifier_list(_identifier_list)
   , left(_left)
   {}
@@ -79,6 +79,6 @@ public:
     //printy xml
   }
 
-};
+}; */
 
 #endif

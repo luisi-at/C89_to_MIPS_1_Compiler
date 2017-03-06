@@ -510,8 +510,8 @@ static const yytype_uint8 yyrline[] =
      118,   119,   120,   124,   125,   129,   130,   134,   135,   139,
      140,   144,   145,   149,   150,   155,   156,   160,   161,   162,
      163,   164,   165,   166,   167,   168,   169,   170,   174,   175,
-     183,   184,   185,   189,   190,   194,   195,   196,   202,   203,
-     204,   205,   206,   210,   211
+     183,   184,   185,   189,   190,   194,   195,   196,   207,   208,
+     209,   210,   211,   215,   216
 };
 #endif
 
@@ -1607,31 +1607,31 @@ yyreduce:
     break;
 
   case 68:
-#line 202 "src/c_parser.y" /* yacc.c:1646  */
+#line 207 "src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new GotoStatement( new Identifier( *(yyvsp[-1].string_value) ) ); }
 #line 1613 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 203 "src/c_parser.y" /* yacc.c:1646  */
+#line 208 "src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new ContinueStatement( NULL ); }
 #line 1619 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 204 "src/c_parser.y" /* yacc.c:1646  */
+#line 209 "src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new BreakStatement( NULL ); }
 #line 1625 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 205 "src/c_parser.y" /* yacc.c:1646  */
+#line 210 "src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new ReturnStatement( NULL ); }
 #line 1631 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 206 "src/c_parser.y" /* yacc.c:1646  */
+#line 211 "src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new ReturnExprStatement( (yyvsp[-1].expr) ); }
 #line 1637 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
@@ -1865,7 +1865,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 216 "src/c_parser.y" /* yacc.c:1906  */
+#line 221 "src/c_parser.y" /* yacc.c:1906  */
 
 
 const Unit *prog_root; // match variable defined earlier

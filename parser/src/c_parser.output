@@ -2,6 +2,7 @@ Nonterminals useless in grammar
 
    unary_operator
    constant_expression
+   iteration_statement
 
 
 Terminals unused in grammar
@@ -46,6 +47,11 @@ Rules useless in grammar
    79               | '!'
 
    80 constant_expression: conditional_expression
+
+   81 iteration_statement: WHILE '(' expression ')' statement
+   82                    | DO statement WHILE '(' expression ')' ';'
+   83                    | FOR '(' expression_statement expression_statement ')' statement
+   84                    | FOR '(' expression_statement expression_statement expression ')' statement
 
 
 State 116 conflicts: 1 shift/reduce

@@ -40,7 +40,7 @@
 %type <expr> expression
 
 %type <stmt> expression_statement jump_statement selection_statement statement
-
+%type <stmt> iteration_statement
 
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
 %type <string_value> LEFT_OP RIGHT_OP
@@ -196,7 +196,12 @@ selection_statement
   | SWITCH '(' expression ')' statement             { $$ = new SwitchSelection( $3, $5 ); }
   ;
 
-
+iteration_statement
+  : WHILE '(' expression ')' statement                                          { $$ = new WhileIterations( $3, $5 ); }
+  | DO statement WHILE '(' expression ')' ';'                                   { $$ = new DoWhileIteration( $2, $5 ); }
+  | FOR '(' expression_statement expression_statement ')' statement             { $$ = new ForNoExprIteration( $3, $4, $6 ); }
+  | FOR '(' expression_statement expression_statement expression ')' statement  { $$ = new ForExprIteration( $3, $5, $5, $7); }
+  ;
 
 jump_statement
   : GOTO IDENTIFIER ';'     { $$ = new GotoStatement( new Identifier( *$2 ) ); }

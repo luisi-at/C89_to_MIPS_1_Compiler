@@ -10,7 +10,28 @@
 %type <exdf> external_declaration
 %type <unit> translation_unit
 
+%type <expr> primary_expression postfix_expression unary_expression
+%type <expr> multiplicative_expression additive_expression shift_expression
+%type <expr> relational_expression equality_expression
+%type <expr> and_expression eor_expression or_expression
+%type <expr> logical_and_expression logical_or_expression
+%type <expr> conditional_expression assignment_expression
+%type <expr> constant_expression
+%type <expr> expression
+%type <expr> type_specifier identifier_list
 
+%type <stmt> labeled_statement compound_statement expression_statement
+%type <stmt> selection_statement iteration_statement jump_statement
+%type <stmt> statement_list
+%type <stmt> statement
+
+%type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
+%type <string_value> LEFT_OP RIGHT_OP
+%type <string_value> MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
+%type <string_value> SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
+%type <string_value> OR_ASSIGN XOR_ASSIGN assignment_operator '='
+%type <string_value> VOID CHAR SHORT INT LONG FLOAT DOUBLE SIGNED UNSIGNED
+%type <unit> this_unit
 
 
 declaration

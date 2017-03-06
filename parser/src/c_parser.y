@@ -38,7 +38,9 @@
 %type <expr> conditional_expression assignment_expression
 %type <expr> constant_expression
 %type <expr> expression
-%type <expr> type_specifier identifier_list
+
+%type <stmt> jump_statement statement
+
 
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
 %type <string_value> LEFT_OP RIGHT_OP
@@ -177,8 +179,21 @@ constant_expression
   : conditional_expression
   ;
 
+statement
+  : jump_statement
+  ;
+
+jump_statement
+  : GOTO IDENTIFIER ';'     { $$ = new GotoStatement( new Identifier( *$2 ) ); }
+  | CONTINUE ';'            { $$ = new ContinueStatement( NULL ); }
+  | BREAK ';'               { $$ = new BreakStatement( NULL ); }
+  | RETURN ';'              { $$ = new ReturnStatement( NULL ); }
+  | RETURN expression ';'   { $$ = new ReturnExprStatement( $2 ); }
+
+
 this_unit
   : expression
+  | statement
   ;
 
 

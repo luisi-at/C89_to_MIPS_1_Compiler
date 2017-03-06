@@ -12,13 +12,13 @@ public:
   : jump_identifier(_jump_to)
   {}
 
-  const Expression *getJump() const
-  { return jump_identifier; }
+    const Expression *getJump() const
+    { return jump_identifier; }
 
-  virtual void print_xml() const override
-  {
-    //printy xml
-  }
+    virtual void print_xml() const override
+    {
+      this->getJump()->print_xml();
+    }
 
 };
 
@@ -79,25 +79,22 @@ public:
 
 };
 
-class ReturnExprStatement : public ReturnStatement
+class ReturnExprStatement : public Statement
 {
 private:
   const Expression *return_expression;
 public:
-  ReturnExprStatement(const Expression *_jump_to, const Expression *_return_expr)
-  : ReturnStatement(_jump_to)
-  , return_expression(_return_expr)
+  ReturnExprStatement(const Expression *_jump_to)
+  : return_expression(_jump_to)
   {}
 
   const Expression *getJump() const
-  { return return_point; }
-
-  const Expression *getExpr() const
   { return return_expression; }
+
 
   virtual void print_xml() const override
   {
-    //printy xml
+    this->getJump()->print_xml();
   }
 
 };

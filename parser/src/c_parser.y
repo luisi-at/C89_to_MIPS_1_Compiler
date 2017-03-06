@@ -2,7 +2,7 @@
   #include "ast.hpp"
   #include <cassert>
 
-  extern const Expression *prog_root;
+  extern const Unit *prog_root;
 
   int yylex(void);
   void yyerror(const char *);
@@ -38,22 +38,22 @@
 %type <expr> conditional_expression assignment_expression
 %type <expr> constant_expression
 %type <expr> expression
-%type <expr> type_specifier
-%type <stmt> labeled_statement compound_statement expression_statement
-%type <stmt> selection_statement iteration_statement jump_statement
-%type <stmt> statement
+%type <expr> type_specifier identifier_list
+
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
 %type <string_value> LEFT_OP RIGHT_OP
 %type <string_value> MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
 %type <string_value> SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
 %type <string_value> OR_ASSIGN XOR_ASSIGN assignment_operator '='
-%type <unit> translation_unit
+%type <string_value> VOID CHAR SHORT INT LONG FLOAT DOUBLE SIGNED UNSIGNED
+%type <unit> this_unit
+
 
 %start ROOT
 
 %%
 
-ROOT : translation_unit { prog_root = $1; }
+ROOT : this_unit { prog_root = $1; }
 
 primary_expression
   : IDENTIFIER            { $$ = new Identifier( *$1 ); }
@@ -177,144 +177,17 @@ constant_expression
   : conditional_expression
   ;
 
-declaration
-  : declaration_specifiers ';'                      { $$ = new MainDeclaration( $1, NULL); }
-  | declaration_specifiers init_declarator_list ';' { $$ = new MainDeclaration( $1, $2 ); }
+this_unit
+  : expression
   ;
 
-declaration_specifiers
-  : storage_class_specifier
-  | storage_class_specifier declaration_specifiers
-  | type_specifier                        { $$ = new DeclarationSpecifier( $1, NULL ); }
-  | type_specifier declaration_specifiers { $$ = new DeclarationSpecifier( $1, NULL ); }
-  | type_qualifier
-  | type_qualifier declaration_specifiers
-  ;
-
-init_declarator_list
-  : init_declarator                       { $$ = new InitDeclaratorList(); $$->declaration_list->push_back( $1 ); }
-  | init_declarator ',' init_declarator   { $1->declaration_list->push_back( $3 ); }
-  ;
-
-init_declarator
-  : declarator                            { $$ = new InitDeclarator( $1, NULL ); }
-  | declarator '=' initializer            { $$ = new InitDeclarator( $1, $3 ); }
-  ;
-
-
-
-type_specifier
-  : VOID                      { $$ = new TypeSpecifierExpression( $1 ); }
-  | CHAR                      { $$ = new TypeSpecifierExpression( $1 ); }
-  | SHORT                     { $$ = new TypeSpecifierExpression( $1 ); }
-  | INT                       { $$ = new TypeSpecifierExpression( $1 ); }
-  | LONG                      { $$ = new TypeSpecifierExpression( $1 ); }
-  | FLOAT                     { $$ = new TypeSpecifierExpression( $1 ); }
-  | DOUBLE                    { $$ = new TypeSpecifierExpression( $1 ); }
-  | SIGNED                    { $$ = new TypeSpecifierExpression( $1 ); }
-  | UNSIGNED                  { $$ = new TypeSpecifierExpression( $1 ); }
-  | struct_or_union_specifier
-  | enum_specifier            { $$ = new TypeSpecifierExplicitExpression( $1 ); }
-  ;
-
-struct_or_union_specifier
-  : struct_or_union IDENTIFIER '{' struct_declaration_list '}'    { $$ = new StructUnionSpecifier( $1, $2, $4 ); }
-  | struct_or_union '{' struct_declaration_list '}'               { $$ = new StructUnionSpecifier( $1, NULL, $3 ); }
-  | struct_or_union IDENTIFIER                                    { $$ = new StructUnionSpecifier( $1, $2 ); }
-  ;
-
-
-declarator
-  : pointer direct_declarator
-  | direct_declarator
-  ;
-
-direct_declarator
-  : IDENTIFIER
-  | '(' declarator ')'                            { $$ = new BracketedDeclarator( $2 ); }
-  | direct_declarator '[' constant_expression ']' { $$ = new ExpressionDeclarator( $1, $3 ); }
-  | direct_declarator '[' ']'                     { $$ = new ExpressionDeclarator( $1, NULL );}
-  | direct_declarator '(' parameter_type_list ')' { $$ = new ParameterTypeDeclarator( $1, $3 ); }
-  | direct_declarator '(' identifier_list ')'     { $$ = new IdentifierListDeclarator( $1, $3 ); }
-  | direct_declarator '(' ')'                     { $$ = new ParameterTypeDeclarator( $1, NULL );}
-  ;
-
-
-initializer
-  : assignment_expression                         { $$ = new Initializer( $1, NULL ); }
-  | '{' initializer_list '}'                      { $$ = new Initializer( $2, NULL); }
-  | '{' initializer_list ',' initializer_list '}' { $$ = new Initializer( $2, $4 ); }
-  ;
-
-initializer_list
-  : initializer                       { $$ = new InitializerList(); $$->expression_list->push_back( $1 ); }
-  | initializer_list ',' initializer  { $1->expression_list->push_back( $3 ); }
-  ;
-
-statement
-  : labeled_statement
-  | compound_statement
-  | expression_statement
-  | selection_statement
-  | iteration_statement
-  | jump_statement
-  ;
-
-labeled_statement
-  : IDENTIFIER ':' statement                { $$ = new IdentifierStatement( $1, $3 ); }
-  | CASE constant_expression ':' statement  { $$ = new CaseStatement( $2, $4 ); }
-  | DEFAULT ':' statement                   { $$ = new DefaultStatement( $3 ); }
-  ;
-
-compound_statement
-  : '{' '}'                                   { $$ = new CompoundStatement( NULL, NULL ); }
-  | '{' statement_list '}'                    { $$ = new CompoundStatement( $2, NULL ); }
-  | '{' declaration_list '}'                  { $$ = new CompoundStatement( NULL, $3 ); }
-  | '{' declaration_list statement_list '}'   { $$ = new CompoundStatement( $2, $3 ); }
-  ;
-
-declaration_list
-  : declaration                   { $$ = new DeclarationList(); $$->declaration_list->push_back( $1 );}
-  | declaration_list declaration  { $1->declaration_list->push_back( $2 ); }
-  ;
-
-statement_list
-  : statement                 { $$ = new StatementList(); $$->statement_list->push_back( $1 );}
-  | statement_list statement  { $1->statement_list->push_back( $2 ); }
-  ;
-
-expression_statement
-  : ';'                 { $$ = new ExpressionStatement( NULL ); }
-  | expression ';'      { $$ = new ExpressionStatement( $1 ); }
-  ;
-
-selection_statement
-  : IF '(' expression ')' statement                 { $$ = new IfSelection( $3, $5 ); }
-  | IF '(' expression ')' statement ELSE statement  { $$ = new IfElseSelection( $3, $5, $7 ); }
-  | SWITCH '(' expression ')' statement             { $$ = new SwitchSelection( $3, $5 ); }
-  ;
-
-iteration_statement
-  : WHILE '(' expression ')' statement                                          { $$ = new WhileIterations( $3, $5 ); }
-  | DO statement WHILE '(' expression ')' ';'                                   { $$ = new DoWhileIteration( $2, $5 ); }
-  | FOR '(' expression_statement expression_statement ')' statement             { $$ = new ForNoExprIteration( $3, $4, $6 ); }
-  | FOR '(' expression_statement expression_statement expression ')' statement  { $$ = new ForExprIteration( $3, $5, $5, $7); }
-  ;
-
-jump_statement
-  : GOTO IDENTIFIER         { $$ = new GotoStatement( $2 ); }
-  | CONTINUE ';'            { $$ = new ContinueStatement( new StringLiteral("") ); }
-  | BREAK ';'               { $$ = new BreakStatement( new StringLiteral("") ); }
-  | RETURN ';'              { $$ = new ReturnStatement( new StringLiteral("") ); }
-  | RETURN expression ';'   { $$ = new ReturnExprStatement( $2 ); }
-    ;
 
 
 %%
 
-const Expression *prog_root; // match variable defined earlier
+const Unit *prog_root; // match variable defined earlier
 
-const Expression *parseAST()
+const Unit *parseAST()
 {
   prog_root = 0;
   yyparse();

@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "unit.hpp"
-#include "expression.hpp"
 
 class Declarator : public Unit
 {

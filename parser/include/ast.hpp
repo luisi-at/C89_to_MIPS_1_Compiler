@@ -31,7 +31,9 @@
 #include "ast/declaration_specifiers_declaration.hpp"
 #include "ast/init_declarator.hpp"
 #include "ast/main_declaration.hpp"
+#include "ast/function_definition_unit.hpp"
+#include "ast/external_declaration_unit.hpp"
 
-extern const Expression *parseAST();
+extern const Unit *parseAST();
 
 #endif

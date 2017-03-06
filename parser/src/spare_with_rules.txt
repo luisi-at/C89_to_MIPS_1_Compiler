@@ -1,3 +1,10 @@
+struct_or_union_specifier
+  : struct_or_union IDENTIFIER '{' struct_declaration_list '}'    { $$ = new StructUnionSpecifier( $1, $2, $4 ); }
+  | struct_or_union '{' struct_declaration_list '}'               { $$ = new StructUnionSpecifier( $1, NULL, $3 ); }
+  | struct_or_union IDENTIFIER                                    { $$ = new StructUnionSpecifier( $1, $2 ); }
+  ;
+
+
 type_qualifier_list
   : type_qualifier                      { $$ = new TypeQualifierExpressionList(); $$->expression_list->push_back( $1 ); }
   | type_qualifier_list type_qualifier  { $1->expression_list->push_back( $2 ); }
@@ -63,3 +70,20 @@ type_qualifier_list
       : CONST       { $$ = new TypeQualifierExpression( $1 ); }
       | VOLATILE    { $$ = new TypeQualifierExpression( $1 ); }
       ;
+
+
+      external_declaration
+        : function_definition { $$ = new ExternalDeclaration( $1, NULL ); }
+        | declaration         { $$ = new ExternalDeclaration( NULL, $1 ); }
+        ;
+
+        initializer
+          : assignment_expression                         { $$ = new Initializer( $1, NULL ); }
+          | '{' initializer_list '}'                      { $$ = new Initializer( $2, NULL); }
+          | '{' initializer_list ',' initializer_list '}' { $$ = new Initializer( $2, $4 ); }
+          ;
+
+        initializer_list
+          : initializer                       { $$ = new InitializerList(); $$->expression_list->push_back( $1 ); }
+          | initializer_list ',' initializer  { $1->expression_list->push_back( $3 ); }
+          ;

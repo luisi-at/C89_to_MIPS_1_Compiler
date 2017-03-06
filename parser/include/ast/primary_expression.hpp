@@ -22,6 +22,7 @@ public:
   { std::cout << "<" << this->GetValue() << ">";  }
 };
 
+
 class Constant : public Expression
 {
 private:
@@ -124,6 +125,20 @@ public:
 
   virtual void print_xml() const override
   { /*xml printy stuff in here */ }
+};
+
+//wrapper
+class IdentifierList : public Expression
+{
+public:
+  IdentifierList()
+  {}
+
+  virtual void print_xml() const override
+  {
+    //printy xml
+  }
+
 };
 
 #endif

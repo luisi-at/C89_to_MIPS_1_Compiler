@@ -43,7 +43,7 @@ public:
 
 };
 
-class ParameterTypeDeclarator : public Declarator
+/*class ParameterTypeDeclarator : public Declarator
 {
 private:
   const Declarator *left;
@@ -60,25 +60,6 @@ public:
     //printy xml
   }
 
-};
-
-class IdentifierListDeclarator : public Declarator
-{
-private:
-  const Declarator *left;
-  std::vector<Expression*> identifier_list;
-
-public:
-  IdentifierListDeclarator(const Declarator *_left, std::vector<Expression*> &_identifier_list)
-  : left(_left)
-  , identifier_list(_identifier_list)
-  {}
-
-  virtual void print_xml() const override
-  {
-    //printy xml
-  }
-
-};
+};*/
 
 #endif

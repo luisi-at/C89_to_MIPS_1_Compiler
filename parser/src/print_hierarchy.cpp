@@ -2,7 +2,7 @@
 
 int main()
 {
-    const Expression *ast=parseAST();
+    const Unit *ast=parseAST();
 
     ast->print_xml();
     std::cout<<std::endl;

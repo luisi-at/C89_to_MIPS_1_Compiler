@@ -45,7 +45,7 @@ extern int yydebug;
   #include "ast.hpp"
   #include <cassert>
 
-  extern const Expression *prog_root;
+  extern const Unit *prog_root;
 
   int yylex(void);
   void yyerror(const char *);
@@ -125,10 +125,13 @@ union YYSTYPE
 #line 11 "src/c_parser.y" /* yacc.c:1909  */
 
   const Expression *expr;
+  const Statement *stmt;
+  const Declarator *dltr;
+  const Unit *unit;
   double number;
   std::string *string_value;
 
-#line 132 "src/c_parser.tab.hpp" /* yacc.c:1909  */
+#line 135 "src/c_parser.tab.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

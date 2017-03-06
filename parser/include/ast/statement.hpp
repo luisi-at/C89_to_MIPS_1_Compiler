@@ -5,9 +5,10 @@
 #include <iostream>
 #include <vector>
 
+#include "unit.hpp"
 #include "expression.hpp"
 
-class Statement
+class Statement : public Unit
 {
 protected:
   std::vector<Statement*> statement_list; //maybe this?

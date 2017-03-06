@@ -11,6 +11,8 @@
 %union{
   const Expression *expr;
   const Statement *stmt;
+  const Declarator *dltr;
+  const Unit *unit;
   double number;
   std::string *string_value;
 }
@@ -36,6 +38,7 @@
 %type <expr> conditional_expression assignment_expression
 %type <expr> constant_expression
 %type <expr> expression
+%type <expr> type_specifier
 %type <stmt> labeled_statement compound_statement expression_statement
 %type <stmt> selection_statement iteration_statement jump_statement
 %type <stmt> statement
@@ -44,12 +47,13 @@
 %type <string_value> MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
 %type <string_value> SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
 %type <string_value> OR_ASSIGN XOR_ASSIGN assignment_operator '='
+%type <unit> translation_unit
 
 %start ROOT
 
 %%
 
-ROOT : expression { prog_root = $1; }
+ROOT : translation_unit { prog_root = $1; }
 
 primary_expression
   : IDENTIFIER            { $$ = new Identifier( *$1 ); }
@@ -173,13 +177,31 @@ constant_expression
   : conditional_expression
   ;
 
-storage_class_specifier
-  : TYPEDEF                 { $$ = new StorageClassSpecifierExpression( $1 ); }
-  | EXTERN                  { $$ = new StorageClassSpecifierExpression( $1 ); }
-  | STATIC                  { $$ = new StorageClassSpecifierExpression( $1 ); }
-  | AUTO                    { $$ = new StorageClassSpecifierExpression( $1 ); }
-  | REGISTER                { $$ = new StorageClassSpecifierExpression( $1 ); }
+declaration
+  : declaration_specifiers ';'                      { $$ = new MainDeclaration( $1, NULL); }
+  | declaration_specifiers init_declarator_list ';' { $$ = new MainDeclaration( $1, $2 ); }
   ;
+
+declaration_specifiers
+  : storage_class_specifier
+  | storage_class_specifier declaration_specifiers
+  | type_specifier                        { $$ = new DeclarationSpecifier( $1, NULL ); }
+  | type_specifier declaration_specifiers { $$ = new DeclarationSpecifier( $1, NULL ); }
+  | type_qualifier
+  | type_qualifier declaration_specifiers
+  ;
+
+init_declarator_list
+  : init_declarator                       { $$ = new InitDeclaratorList(); $$->declaration_list->push_back( $1 ); }
+  | init_declarator ',' init_declarator   { $1->declaration_list->push_back( $3 ); }
+  ;
+
+init_declarator
+  : declarator                            { $$ = new InitDeclarator( $1, NULL ); }
+  | declarator '=' initializer            { $$ = new InitDeclarator( $1, $3 ); }
+  ;
+
+
 
 type_specifier
   : VOID                      { $$ = new TypeSpecifierExpression( $1 ); }
@@ -201,59 +223,6 @@ struct_or_union_specifier
   | struct_or_union IDENTIFIER                                    { $$ = new StructUnionSpecifier( $1, $2 ); }
   ;
 
-struct_or_union
-  : STRUCT              { $$ = new TypeSpecifierExpression( $1 ); }
-  | UNION               { $$ = new TypeSpecifierExpression( $1 ); }
-  ;
-
-struct_declaration_list
-  : struct_declaration                          { $$ = new StructDeclaratorList(); $$->declaration_list->push_back( $1 ); }
-  | struct_declaration_list struct_declaration  { $1->declaration_list->push_back( $2 ); }
-  ;
-
-struct_declaration
-  : specifier_qualifier_list struct_declarator_list { $$ = new StructDeclaration( $1, $2); }
-  ;
-
-struct_qualifier_list
-  : type_specifier specifier_qualifier_list       { $1->expression_list->push_back( $2 ); }
-  | type_specifier                                { $$ = new TypeSpecifierExpression( $1 ); }
-  | type_qualifier specifier_qualifier_list       { $1->expression_list->push_back( $2 ); }
-  | type_qualifier                                { $$ = new TypeQualifierExpression( $1 ); }
-  ;
-
-struct_declarator_list
-  : struct_declarator                             { $$ = new StructDeclaratorList(); $$->declaration_list->push_back( $1 ); }
-  | struct_declarator_list ',' struct_declarator  { $1->declaration_list->push_back( $3 ); }
-  ;
-
-struct_declarator
-  : declarator
-  | ':' constant_expression             { $$ = new StructDeclarator( NULL, $2 ); }
-  | declarator ':' constant_expression  { $$ = new StructDeclarator( $1, $3 ); }
-  ;
-
-
-enum_specifier
-  : ENUM '{' enumerator_list '}'              { $$ = new EnumSpecifier( NULL, $3 );}
-  | ENUM IDENTIFIER '{' enumerator_list '}'   { $$ = new EnumSpecifier( $2, $4 ); }
-  | ENUM IDENTIFIER                           { $$ = new EnumSpecifier( $2, NULL ); }
-  ;
-
-enumerator_list
-  : enumerator                                { $$ = new EnumList }
-  | enumerator_list ',' enumerator            { $1->expression_list->push_back( $3 ); }
-  ;
-
-enumerator
-  : IDENTIFIER
-  | IDENTIFIER '=' constant_expression        { $$ = new EnumExpression( $1, $ 3); }
-  ;
-
-type_qualifier
-  : CONST       { $$ = new TypeQualifierExpression( $1 ); }
-  | VOLATILE    { $$ = new TypeQualifierExpression( $1 ); }
-  ;
 
 declarator
   : pointer direct_declarator
@@ -270,20 +239,15 @@ direct_declarator
   | direct_declarator '(' ')'                     { $$ = new ParameterTypeDeclarator( $1, NULL );}
   ;
 
-type_qualifier_list
-  : type_qualifier                      { $$ = new TypeQualifierExpressionList(); $$->expression_list->push_back( $1 ); }
-  | type_qualifier_list type_qualifier  { $1->expression_list->push_back( $2 ); }
-
-
 
 initializer
-  : assignement_expression
-  | '{' initializer_list '}'
-  | '{' initializer_list ',' initializer_list '}'
+  : assignment_expression                         { $$ = new Initializer( $1, NULL ); }
+  | '{' initializer_list '}'                      { $$ = new Initializer( $2, NULL); }
+  | '{' initializer_list ',' initializer_list '}' { $$ = new Initializer( $2, $4 ); }
   ;
 
 initializer_list
-  : initializer                       { $$ = new InitializerList(); $$->expression_list->push_back( $1 ); }  
+  : initializer                       { $$ = new InitializerList(); $$->expression_list->push_back( $1 ); }
   | initializer_list ',' initializer  { $1->expression_list->push_back( $3 ); }
   ;
 
@@ -303,24 +267,24 @@ labeled_statement
   ;
 
 compound_statement
-  : '{' '}'
-  | '{' statement_list '}'
-  | '{' declaration_list '}'
-  | '{' declaration_list statement_list '}'
+  : '{' '}'                                   { $$ = new CompoundStatement( NULL, NULL ); }
+  | '{' statement_list '}'                    { $$ = new CompoundStatement( $2, NULL ); }
+  | '{' declaration_list '}'                  { $$ = new CompoundStatement( NULL, $3 ); }
+  | '{' declaration_list statement_list '}'   { $$ = new CompoundStatement( $2, $3 ); }
   ;
 
 declaration_list
-  : declaration
-  | declaration_list declaration
+  : declaration                   { $$ = new DeclarationList(); $$->declaration_list->push_back( $1 );}
+  | declaration_list declaration  { $1->declaration_list->push_back( $2 ); }
   ;
 
 statement_list
-  : statement
-  | statement_list statement
+  : statement                 { $$ = new StatementList(); $$->statement_list->push_back( $1 );}
+  | statement_list statement  { $1->statement_list->push_back( $2 ); }
   ;
 
 expression_statement
-  : ';'
+  : ';'                 { $$ = new ExpressionStatement( NULL ); }
   | expression ';'      { $$ = new ExpressionStatement( $1 ); }
   ;
 

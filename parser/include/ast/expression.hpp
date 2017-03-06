@@ -6,7 +6,9 @@
 #include <map>
 #include <vector>
 
-class Expression
+#include "unit.hpp"
+
+class Expression : public Unit
 {
 protected:
   std::vector<Expression*> expression_list;

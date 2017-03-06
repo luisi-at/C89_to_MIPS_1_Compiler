@@ -5,9 +5,10 @@
 #include <iostream>
 #include <vector>
 
+#include "unit.hpp"
 #include "expression.hpp"
 
-class Declarator
+class Declarator : public Unit
 {
 protected:
   std::vector<Declarator*> declaration_ptrs; //maybe this?

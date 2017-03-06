@@ -24,7 +24,6 @@ public:
     //printy xml
   }
 
-
 };
 
 // wrapper to access vector
@@ -52,6 +51,26 @@ public:
     //printy xml
   }
 
+};
+
+class StructUnionSpecifier : public Declarator
+{
+private:
+  const Expression *left;
+  const Expression *identifier;
+  const Declarator *right;
+
+public:
+  StructUnionSpecifier(const Expression *_left, const Expression *_identifier, const Declarator *_right)
+  : left(_left)
+  , identifier(_identifier)
+  , right(_right)
+{}
+
+  virtual void print_xml() const override
+  {
+    //printy xml
+  }
 
 };
 

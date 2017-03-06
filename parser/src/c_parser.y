@@ -174,11 +174,11 @@ constant_expression
   ;
 
 storage_class_specifier
-  : TYPEDEF
-  | EXTERN
-  | STATIC
-  | AUTO
-  | REGISTER
+  : TYPEDEF                 { $$ = new StorageClassSpecifierExpression( $1 ); }
+  | EXTERN                  { $$ = new StorageClassSpecifierExpression( $1 ); }
+  | STATIC                  { $$ = new StorageClassSpecifierExpression( $1 ); }
+  | AUTO                    { $$ = new StorageClassSpecifierExpression( $1 ); }
+  | REGISTER                { $$ = new StorageClassSpecifierExpression( $1 ); }
   ;
 
 type_specifier
@@ -196,9 +196,9 @@ type_specifier
   ;
 
 struct_or_union_specifier
-  : struct_or_union IDENTIFIER '{' struct_declaration_list '}'
-  | struct_or_union '{' struct_declaration_list '}'
-  | struct_or_union IDENTIFIER
+  : struct_or_union IDENTIFIER '{' struct_declaration_list '}'    { $$ = new StructUnionSpecifier( $1, $2, $4 ); }
+  | struct_or_union '{' struct_declaration_list '}'               { $$ = new StructUnionSpecifier( $1, NULL, $3 ); }
+  | struct_or_union IDENTIFIER                                    { $$ = new StructUnionSpecifier( $1, $2 ); }
   ;
 
 struct_or_union
@@ -276,6 +276,16 @@ type_qualifier_list
 
 
 
+initializer
+  : assignement_expression
+  | '{' initializer_list '}'
+  | '{' initializer_list ',' initializer_list '}'
+  ;
+
+initializer_list
+  : initializer                       { $$ = new InitializerList(); $$->expression_list->push_back( $1 ); }  
+  | initializer_list ',' initializer  { $1->expression_list->push_back( $3 ); }
+  ;
 
 statement
   : labeled_statement

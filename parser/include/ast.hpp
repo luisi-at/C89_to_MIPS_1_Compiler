@@ -17,6 +17,7 @@
 #include "ast/assignment_expression.hpp"
 #include "ast/main_expression.hpp"
 #include "ast/enum_expression.hpp"
+#include "ast/initializer_expression.hpp"
 #include "ast/statement.hpp"
 #include "ast/labeled_statement.hpp"
 #include "ast/expression_statement.hpp"

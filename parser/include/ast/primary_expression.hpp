@@ -10,7 +10,7 @@
 class Identifier : public Expression
 {
 private:
-  std::string id;
+  const std::string id;
 public:
   Identifier(const std::string _id) : id(_id)
   {}

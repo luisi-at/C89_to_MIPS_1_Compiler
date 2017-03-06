@@ -9,15 +9,17 @@ private:
   const Expression *self_expression;
 
 public:
-
   ExpressionStatement(const Expression *_in_expression)
     : self_expression(_in_expression)
     {}
 
+  ~ExpressionStatement()
+  { delete self_expression; }
+
   const Expression *getExpression() const
   { return self_expression; }
 
-  virtual void print_xml()
+  virtual void print_xml() const override
   {
     // printy printy printy
   }

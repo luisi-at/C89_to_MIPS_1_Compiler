@@ -39,7 +39,7 @@
 %type <expr> constant_expression
 %type <expr> expression
 
-%type <stmt> jump_statement statement
+%type <stmt> expression_statement jump_statement selection_statement statement
 
 
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
@@ -181,7 +181,22 @@ constant_expression
 
 statement
   : jump_statement
+  | selection_statement
+  | expression_statement
   ;
+
+expression_statement
+  : ';'
+  | expression ';'      { $$ = new ExpressionStatement( $1 ); }
+  ;
+
+selection_statement
+  : IF '(' expression ')' statement                 { $$ = new IfSelection( $3, $5 ); }
+  | IF '(' expression ')' statement ELSE statement  { $$ = new IfElseSelection( $3, $5, $7 ); }
+  | SWITCH '(' expression ')' statement             { $$ = new SwitchSelection( $3, $5 ); }
+  ;
+
+
 
 jump_statement
   : GOTO IDENTIFIER ';'     { $$ = new GotoStatement( new Identifier( *$2 ) ); }

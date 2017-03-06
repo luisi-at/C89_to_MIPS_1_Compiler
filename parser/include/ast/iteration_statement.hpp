@@ -2,6 +2,7 @@
 #define ast_iteration_statement_hpp
 
 #include "statement.hpp"
+#include "expression_statement.hpp"
 
 class WhileIteration : public Statement
 {

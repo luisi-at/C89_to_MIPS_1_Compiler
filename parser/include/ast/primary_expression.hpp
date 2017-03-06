@@ -64,4 +64,66 @@ public:
   { /*xml printy stuff in here */ }
 };
 
+class TypeQualifierExpression : public Expression
+{
+private:
+  const std::string type_qualifier;
+public:
+  TypeQualifierExpression(const std::string _type_qualifier) : type_qualifier(_type_qualifier)
+  {}
+
+  virtual void print_xml() const override
+  { /*xml printy stuff in here */ }
+};
+
+// another wrapper to access the vector, still treated as expression
+class TypeQualifierExpressionList : public Expression
+{
+public:
+  TypeQualifierExpressionList()
+  {}
+
+  virtual void print_xml() const override
+  { /*printy printy*/  }
+};
+
+class StorageClassSpecifierExpression : public Expression
+{
+private:
+  const std::string storage_class;
+public:
+  StorageClassSpecifierExpression(const std::string _storage_class)
+  : storage_class(_storage_class)
+  {}
+
+  virtual void print_xml() const override
+  { /*xml printy stuff in here */ }
+};
+
+class TypeSpecifierExpression : public Expression
+{
+private:
+  const std::string type_class;
+public:
+  TypeSpecifierExpression(const std::string _type_class)
+  : type_class(_type_class)
+  {}
+
+  virtual void print_xml() const override
+  { /*xml printy stuff in here */ }
+};
+
+class TypeSpecifierExplicitExpression : public Expression
+{
+private:
+  const Expression *sub_expression;
+public:
+  TypeSpecifierExplicitExpression(const Expression *_sub_expression)
+  : sub_expression(_sub_expression)
+  {}
+
+  virtual void print_xml() const override
+  { /*xml printy stuff in here */ }
+};
+
 #endif

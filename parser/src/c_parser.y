@@ -173,28 +173,86 @@ constant_expression
   : conditional_expression
   ;
 
+storage_class_specifier
+  : TYPEDEF
+  | EXTERN
+  | STATIC
+  | AUTO
+  | REGISTER
+  ;
 
+type_specifier
+  : VOID                      { $$ = new TypeSpecifierExpression( $1 ); }
+  | CHAR                      { $$ = new TypeSpecifierExpression( $1 ); }
+  | SHORT                     { $$ = new TypeSpecifierExpression( $1 ); }
+  | INT                       { $$ = new TypeSpecifierExpression( $1 ); }
+  | LONG                      { $$ = new TypeSpecifierExpression( $1 ); }
+  | FLOAT                     { $$ = new TypeSpecifierExpression( $1 ); }
+  | DOUBLE                    { $$ = new TypeSpecifierExpression( $1 ); }
+  | SIGNED                    { $$ = new TypeSpecifierExpression( $1 ); }
+  | UNSIGNED                  { $$ = new TypeSpecifierExpression( $1 ); }
+  | struct_or_union_specifier
+  | enum_specifier            { $$ = new TypeSpecifierExplicitExpression( $1 ); }
+  ;
+
+struct_or_union_specifier
+  : struct_or_union IDENTIFIER '{' struct_declaration_list '}'
+  | struct_or_union '{' struct_declaration_list '}'
+  | struct_or_union IDENTIFIER
+  ;
+
+struct_or_union
+  : STRUCT              { $$ = new TypeSpecifierExpression( $1 ); }
+  | UNION               { $$ = new TypeSpecifierExpression( $1 ); }
+  ;
+
+struct_declaration_list
+  : struct_declaration                          { $$ = new StructDeclaratorList(); $$->declaration_list->push_back( $1 ); }
+  | struct_declaration_list struct_declaration  { $1->declaration_list->push_back( $2 ); }
+  ;
+
+struct_declaration
+  : specifier_qualifier_list struct_declarator_list { $$ = new StructDeclaration( $1, $2); }
+  ;
+
+struct_qualifier_list
+  : type_specifier specifier_qualifier_list       { $1->expression_list->push_back( $2 ); }
+  | type_specifier                                { $$ = new TypeSpecifierExpression( $1 ); }
+  | type_qualifier specifier_qualifier_list       { $1->expression_list->push_back( $2 ); }
+  | type_qualifier                                { $$ = new TypeQualifierExpression( $1 ); }
+  ;
+
+struct_declarator_list
+  : struct_declarator                             { $$ = new StructDeclaratorList(); $$->declaration_list->push_back( $1 ); }
+  | struct_declarator_list ',' struct_declarator  { $1->declaration_list->push_back( $3 ); }
+  ;
+
+struct_declarator
+  : declarator
+  | ':' constant_expression             { $$ = new StructDeclarator( NULL, $2 ); }
+  | declarator ':' constant_expression  { $$ = new StructDeclarator( $1, $3 ); }
+  ;
 
 
 enum_specifier
-  : ENUM '{' enumerator_list '}'
-  | ENUM IDENTIFIER '{' enumerator_list '}'
-  | ENUM IDENTIFIER
+  : ENUM '{' enumerator_list '}'              { $$ = new EnumSpecifier( NULL, $3 );}
+  | ENUM IDENTIFIER '{' enumerator_list '}'   { $$ = new EnumSpecifier( $2, $4 ); }
+  | ENUM IDENTIFIER                           { $$ = new EnumSpecifier( $2, NULL ); }
   ;
 
 enumerator_list
-  : enumerator
-  | enumerator_list ',' enumerator
+  : enumerator                                { $$ = new EnumList }
+  | enumerator_list ',' enumerator            { $1->expression_list->push_back( $3 ); }
   ;
 
 enumerator
   : IDENTIFIER
-  | IDENTIFIER '=' constant_expression
+  | IDENTIFIER '=' constant_expression        { $$ = new EnumExpression( $1, $ 3); }
   ;
 
 type_qualifier
-  : CONST
-  | VOLATILE
+  : CONST       { $$ = new TypeQualifierExpression( $1 ); }
+  | VOLATILE    { $$ = new TypeQualifierExpression( $1 ); }
   ;
 
 declarator
@@ -211,6 +269,13 @@ direct_declarator
   | direct_declarator '(' identifier_list ')'     { $$ = new IdentifierListDeclarator( $1, $3 ); }
   | direct_declarator '(' ')'                     { $$ = new ParameterTypeDeclarator( $1, NULL );}
   ;
+
+type_qualifier_list
+  : type_qualifier                      { $$ = new TypeQualifierExpressionList(); $$->expression_list->push_back( $1 ); }
+  | type_qualifier_list type_qualifier  { $1->expression_list->push_back( $2 ); }
+
+
+
 
 statement
   : labeled_statement

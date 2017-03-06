@@ -10,7 +10,7 @@
 class Statement
 {
 protected:
-  std::vector<Statement*> statement_ptrs; //maybe this?
+  std::vector<Statement*> statement_list; //maybe this?
 public:
     virtual ~Statement()
     {}

@@ -4,9 +4,12 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <vector>
 
-class Expression 
+class Expression
 {
+protected:
+  std::vector<Expression*> expression_list;
 public:
     virtual ~Expression()
     {}

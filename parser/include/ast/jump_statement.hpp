@@ -20,6 +20,11 @@ public:
       this->getJump()->print_xml();
     }
 
+    virtual Statement* *AddItem(const Statement *_item) const override
+    {
+      return 0;
+    }
+
 };
 
 class ContinueStatement : public Statement
@@ -37,6 +42,11 @@ public:
   virtual void print_xml() const override
   {
     //printy xml
+  }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
   }
 
 };
@@ -58,6 +68,11 @@ public:
     //printy xml
   }
 
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
 };
 
 class ReturnStatement : public Statement
@@ -75,6 +90,11 @@ public:
   virtual void print_xml() const override
   {
     //printy xml
+  }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
   }
 
 };
@@ -95,6 +115,11 @@ public:
   virtual void print_xml() const override
   {
     this->getJump()->print_xml();
+  }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
   }
 
 };

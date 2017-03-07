@@ -24,6 +24,11 @@ public:
     // printy printy printy
   }
 
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
 };
 
 #endif

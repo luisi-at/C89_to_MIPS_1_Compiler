@@ -127,12 +127,11 @@ union YYSTYPE
   const Expression *expr;
   const Statement *stmt;
   const Declarator *dltr;
-  const StatementList *stlistl
   const Unit *unit;
   double number;
   std::string *string_value;
 
-#line 136 "src/c_parser.tab.hpp" /* yacc.c:1909  */
+#line 135 "src/c_parser.tab.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

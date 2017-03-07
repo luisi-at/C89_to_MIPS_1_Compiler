@@ -26,6 +26,12 @@ public:
   {
     std::cout << "IF" << std::endl;
   }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
 };
 
 class IfElseSelection : public Statement
@@ -55,6 +61,12 @@ public:
   {
     std::cout << "IF ELSE" << std::endl;
   }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
 };
 
 class SwitchSelection : public Statement
@@ -80,6 +92,13 @@ public:
   {
     std::cout << "SWITCH" << std::endl;
   }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
+
 };
 
 

@@ -21,6 +21,11 @@ CompoundStatement(const Statement *_statement_part, const Declarator *_declarati
     //printy xml
   }
 
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
 };
 
 #endif

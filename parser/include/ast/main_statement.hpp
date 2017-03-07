@@ -14,7 +14,7 @@ private:
   const Statement *statement;
 public:
   MainStatement(const Statement *_statement)
-  :
+  : statement (_statement)
   {}
 
   ~MainStatement(){
@@ -34,14 +34,21 @@ public:
 class StatementList : public Statement
 {
 private:
-  const std::vector<Statement*> statements_list;
+  std::vector<const Statement*> *statements_list;
 public:
-  StatementList()
-  {}
 
-  void AddItem(const Statement *_item)
+  virtual Statement* *AddItem(const Statement *_item) const override
   {
-    statements_list.push_back(_item);
+    statements_list->push_back(_item);
+  }
+
+  virtual void print_xml() const override
+  {
+    // statement printy
+    for(std::vector<const Statement*>::iterator iter = statements_list->begin(); iter != statements_list->end(); ++iter){
+      std::cout << "TRY PRINT LIST" << std::endl;
+      (*iter)->print_xml();
+    }
   }
 
 };

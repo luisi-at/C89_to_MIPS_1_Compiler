@@ -10,13 +10,13 @@
 
 class Statement : public Unit
 {
-
 public:
     virtual ~Statement()
     {}
 
     virtual void print_xml() const = 0;
 
+    virtual Statement* *AddItem(const Statement *_item) const = 0;
 
 };
 

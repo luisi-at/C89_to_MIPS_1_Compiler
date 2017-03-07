@@ -25,6 +25,7 @@
 #include "ast/iteration_statement.hpp"
 #include "ast/jump_statement.hpp"
 #include "ast/compound_statement.hpp"
+#include "ast/main_statement.hpp"
 #include "ast/declarator.hpp"
 #include "ast/direct_declarator.hpp"
 #include "ast/struct_declaration.hpp"

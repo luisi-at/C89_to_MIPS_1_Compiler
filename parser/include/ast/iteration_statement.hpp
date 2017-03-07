@@ -25,6 +25,12 @@ public:
   {
     std::cout << "WHILE" << std::endl;
   }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
 };
 
 class DoWhileIteration : public Statement
@@ -44,12 +50,17 @@ public:
       const Expression *getLoop() const
       { return loop_expression; }
 
-
-
   virtual void print_xml() const override
   {
     //printy xml
   }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
+
 };
 
 class ForNoExprIteration : public Statement
@@ -81,6 +92,12 @@ public:
   {
     //printy xml
   }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
 };
 
 class ForExprIteration : public Statement
@@ -117,6 +134,12 @@ public:
   {
     //printy xml
   }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
 };
 
 

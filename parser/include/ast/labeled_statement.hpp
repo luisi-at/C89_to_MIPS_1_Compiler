@@ -31,6 +31,11 @@ public:
 
     virtual void print_xml() const = 0;
 
+    virtual Statement* *AddItem(const Statement *_item) const override
+    {
+      return 0;
+    }
+
 };
 
 class IdentifierStatement : public LabeledStatement
@@ -45,6 +50,11 @@ public:
     this->getLeft()->print_xml();
     std::cout << ":" << std::endl;
     this->getRight()->print_xml();
+  }
+
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
   }
 
 };
@@ -64,6 +74,13 @@ public:
     this->getRight()->print_xml();
   }
 
+  virtual Statement* *AddItem(const Statement *_item) const override
+  {
+    return 0;
+  }
+
+
+
 };
 
 class DefaultStatement : public LabeledStatement
@@ -81,6 +98,13 @@ public:
       std::cout << "DEFAULT/SCOPE" << std::endl;
       this->getRight()->print_xml();
     }
+
+    virtual Statement* *AddItem(const Statement *_item) const override
+    {
+      return 0;
+    }
+
+
 
 };
 

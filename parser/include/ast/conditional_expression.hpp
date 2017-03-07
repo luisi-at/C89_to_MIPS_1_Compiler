@@ -39,13 +39,9 @@ public:
 
   virtual void print_xml() const override
   {
-    this->getLeft()->print_xml();
-    std::cout << " ? " << std::endl;
-    this->getMiddle()->print_xml();
-    std::cout << " : " << std::endl;
-    this->getRight()->print_xml();
+    // potentially print?
   }
-      
+
       virtual Expression* *AddItem(const Expression *_item) const override
       {
           return 0;

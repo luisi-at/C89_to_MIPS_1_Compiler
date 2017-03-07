@@ -222,7 +222,7 @@ type_specifier
   | INT                       { std::cout << "222" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
   | LONG                      { std::cout << "223" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
   | FLOAT                     { std::cout << "224" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
-  | DOUBLE                    { std::cout << "225" << std::endl;$$ = new TypeSpecifierExpression( *$1 ); }
+  | DOUBLE                    { std::cout << "225" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
   | SIGNED                    { std::cout << "226" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
   | UNSIGNED                  { std::cout << "227" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
   ;

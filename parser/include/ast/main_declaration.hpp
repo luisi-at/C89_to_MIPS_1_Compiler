@@ -19,9 +19,18 @@ public:
   , init_list(_init_list)
   {}
 
+    const Declarator *getSpecifiers() const {
+      return specifiers;
+    }
+
+    const Declarator *getInitList() const {
+      return init_list;
+    }
+
   virtual void print_xml() const override
   {
-    //printy xml
+    this->getSpecifiers()->print_xml();
+    this->getInitList()->print_xml();
   }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override
@@ -37,7 +46,7 @@ private:
     mutable std::vector<const Declarator*> declarations_list;
 public:
   DeclarationList()
-  {std::cout << "HERE" << std::endl;}
+  {std::cout << "DECLARATION LIST" << std::endl;}
     virtual Declarator* *AddItem(const Declarator *_item) const override
     {
         std::cout << "ADD ITEM INSIDE" << std::endl;

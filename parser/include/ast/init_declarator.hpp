@@ -17,15 +17,22 @@ public:
   InitDeclarator(const Declarator *_left, const Expression *_right)
   : left(_left)
   , right(_right)
-  {std::cout << "RIGHT--> " << right << std::endl;
-    std::cout << "LEFT--> " << left << std::endl;
-  }
+  {}
 
+const Expression *getRight() const
+{
+  return right;
+}
 
+const Declarator *getLeft() const
+{
+  return left;
+}
 
   virtual void print_xml() const override
   {
-    //printy xml
+    this->getLeft()->print_xml();
+    this->getRight()->print_xml();
   }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override

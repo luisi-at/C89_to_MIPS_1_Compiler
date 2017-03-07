@@ -39,16 +39,14 @@ public:
   virtual void print_xml() const override
   {
     this->getLeft()->print_xml();
-    //std::cout << "ASSIGMENT OPERATOR COMING!" << std::endl;
-    std::cout << this->getOperator() << std::endl;
     this->getRight()->print_xml();
   }
-      
+
       virtual Expression* *AddItem(const Expression *_item) const override
       {
           return 0;
       }
-      
+
 };
 
 #endif

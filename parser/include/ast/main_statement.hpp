@@ -26,7 +26,7 @@ public:
 
   virtual void print_xml() const override
   {
-    // statement printy
+    this->getStatement()->print_xml();
   }
 };
 

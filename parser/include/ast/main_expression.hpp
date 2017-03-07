@@ -33,7 +33,6 @@ public:
   virtual void print_xml() const override
   {
     this->getLeft()->print_xml();
-    std::cout << ',' << std::endl;
     this->getRight()->print_xml();
   }
 

@@ -21,7 +21,9 @@ public:
 
   virtual void print_xml() const override
   {
+    std::cout << "Parameter id=\"";
     this->getExpression()->print_xml();
+    std::cout << "\" />" << std::endl;
   }
 
   virtual Statement* *AddItem(const Statement *_item) const override

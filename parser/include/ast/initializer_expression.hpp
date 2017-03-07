@@ -15,9 +15,19 @@ public:
   , right(_right)
   {}
 
+    const Expression *getLeft() const
+    { return left; }
+
+    const Expression *getRight() const
+    { return right; }
+
+
   virtual void print_xml() const override
-  {}
-    
+  {
+    this->getLeft()->print_xml();
+    this->getRight()->print_xml();
+  }
+
     virtual Expression* *AddItem(const Expression *_item) const override
     {
         return 0;

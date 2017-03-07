@@ -19,11 +19,19 @@ public:
   , declaration_specifier(_declaration_specifier)
   {}
 
+    const Expression *getExpression() const{
+      return specifier;
+    }
+
+    const Declarator *getDeclarator() const{
+      return declaration_specifier;
+    }
+
   virtual void print_xml() const override
   {
-    //printy xml
+    this->getExpression()->print_xml();
   }
-    
+
     virtual Declarator* *AddItem(const Declarator *_item) const override
     {
         return 0;

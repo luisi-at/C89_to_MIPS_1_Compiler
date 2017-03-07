@@ -41,7 +41,7 @@ public:
 
   virtual void print_xml() const override
   {
-    //printy xml
+    this->getJump()->print_xml();
   }
 
   virtual Statement* *AddItem(const Statement *_item) const override
@@ -65,7 +65,7 @@ public:
 
   virtual void print_xml() const override
   {
-    //printy xml
+    this->getJump()->print_xml();
   }
 
   virtual Statement* *AddItem(const Statement *_item) const override
@@ -89,7 +89,7 @@ public:
 
   virtual void print_xml() const override
   {
-    //printy xml
+    this->getJump()->print_xml();
   }
 
   virtual Statement* *AddItem(const Statement *_item) const override

@@ -19,8 +19,11 @@ public:
   { return id ; }
 
   virtual void print_xml() const override
-  { std::cout << "<" << this->GetValue() << ">";  }
-      
+  {
+    std::cout << "IN IDENTIFIER" << std::endl;
+    std::cout << "<Parameter = " << this->GetValue() << ">" << std::endl;
+  }
+
       virtual Expression* *AddItem(const Expression *_item) const override
       {
           return 0;
@@ -40,8 +43,11 @@ public:
   { return value ; }
 
   virtual void print_xml() const override
-  { std::cout << "<" << this->GetValue() << ">"; }
-    
+  {
+    std::cout << this->GetValue() << ">";
+
+  }
+
     virtual Expression* *AddItem(const Expression *_item) const override
     {
         return 0;
@@ -60,8 +66,8 @@ public:
   { return value ; }
 
   virtual void print_xml() const override
-  { std::cout << "<" << this->GetValue() << ">"; }
-    
+  {  }
+
     virtual Expression* *AddItem(const Expression *_item) const override
     {
         return 0;
@@ -76,15 +82,20 @@ public:
   BracketedExpression(const Expression *_sub_expression) : sub_expression(_sub_expression)
   {}
 
+  const Expression* GetValue() const
+  { return sub_expression; }
+
   virtual void print_xml() const override
-  { /*xml printy stuff in here */ }
-    
+  {
+
+  }
+
     virtual Expression* *AddItem(const Expression *_item) const override
     {
         return 0;
     }
-    
-    
+
+
 };
 
 class TypeQualifierExpression : public Expression
@@ -108,14 +119,14 @@ public:
 
   virtual void print_xml() const override
   { /*printy printy*/  }
-    
-    
+
+
     virtual Expression* *AddItem(const Expression *_item) const override
     {
         return 0;
     }
-    
-    
+
+
 };
 
 class StorageClassSpecifierExpression : public Expression
@@ -129,16 +140,16 @@ public:
 
   virtual void print_xml() const override
   { /*xml printy stuff in here */ }
-    
-    
-    
+
+
+
     virtual Expression* *AddItem(const Expression *_item) const override
     {
         return 0;
     }
-    
-    
-    
+
+
+
 };
 
 class TypeSpecifierExpression : public Expression
@@ -152,15 +163,15 @@ public:
 
   virtual void print_xml() const override
   { /*xml printy stuff in here */ }
-    
-    
-    
+
+
+
     virtual Expression* *AddItem(const Expression *_item) const override
     {
         return 0;
     }
-    
-    
+
+
 };
 
 class TypeSpecifierExplicitExpression : public Expression
@@ -187,14 +198,14 @@ public:
   {
     //printy xml
   }
-    
-    
+
+
     virtual Expression* *AddItem(const Expression *_item) const override
     {
         return 0;
     }
-    
-    
+
+
 
 };
 

@@ -24,9 +24,19 @@ public:
   , declaration(_declaration)
 {}
 
+  const Unit* getFunction() const{
+    return func_def;
+  }
+
+  const Unit* getDeclarator() const{
+    return declaration;
+  }
+
   virtual void print_xml() const override
   {
-    // xml printy
+    if(this->getFunction()){
+      this->getFunction()->print_xml();
+    }
   }
 };
 

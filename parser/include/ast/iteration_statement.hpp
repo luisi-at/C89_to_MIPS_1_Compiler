@@ -23,7 +23,9 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "WHILE" << std::endl;
+    std::cout << "<Scope>" << std::endl;
+    this->getNext()->print_xml();
+    std::cout << "</Scope>" << std::endl;
   }
 
   virtual Statement* *AddItem(const Statement *_item) const override
@@ -52,7 +54,9 @@ public:
 
   virtual void print_xml() const override
   {
-    //printy xml
+    std::cout << "<Scope>" << std::endl;
+    this->getLoop()->print_xml();
+    std::cout << "</Scope>" << std::endl;
   }
 
   virtual Statement* *AddItem(const Statement *_item) const override
@@ -90,7 +94,9 @@ public:
 
   virtual void print_xml() const override
   {
-    //printy xml
+    std::cout << "<Scope>" << std::endl;
+    this->getThird()->print_xml();
+    std::cout << "</Scope>" << std::endl;
   }
 
   virtual Statement* *AddItem(const Statement *_item) const override
@@ -132,7 +138,9 @@ public:
 
   virtual void print_xml() const override
   {
-    //printy xml
+    std::cout << "<Scope>" << std::endl;
+    this->getThird()->print_xml();
+    std::cout << "</Scope>" << std::endl;
   }
 
   virtual Statement* *AddItem(const Statement *_item) const override

@@ -1765,7 +1765,7 @@ yyreduce:
 
   case 74:
 #line 225 "src/c_parser.y" /* yacc.c:1646  */
-    { std::cout << "225" << std::endl;(yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
+    { std::cout << "225" << std::endl; (yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
 #line 1770 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 

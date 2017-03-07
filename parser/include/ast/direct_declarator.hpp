@@ -17,9 +17,14 @@ public:
   : local_expression(_local_expression)
   {}
 
+    const Expression *getExpr() const{
+      return local_expression;
+    }
+
     virtual void print_xml() const override
     {
-      //printy xml
+      std::cout << "IdentifierDeclarator trace" << std::endl;
+      this->getExpr()->print_xml();
     }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override
@@ -38,9 +43,14 @@ public:
   : local_declarator(_local_declarator)
   {}
 
+    const Declarator *getDecl() const{
+      return local_declarator;
+    }
+
     virtual void print_xml() const override
     {
-      //printy xml
+      std::cout << "Bracketed trace" << std::endl;
+      this->getDecl()->print_xml();
     }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override
@@ -62,9 +72,14 @@ public:
   , left(_left)
   {}
 
+    const Expression *getExpr() const{
+      return declarator_identifier;
+    }
+
     virtual void print_xml() const override
     {
-      //printy xml
+      std::cout << "ExpressionDeclarator trace" << std::endl;
+      this->getExpr()->print_xml();
     }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override
@@ -85,9 +100,14 @@ public:
   : left(_left)
   {}
 
+    const Declarator *getLeft() const{
+      return left;
+    }
+
     virtual void print_xml() const override
     {
-      //printy xml
+      std::cout << "EmptyDeclarator trace" << std::endl;
+      this->getLeft()->print_xml();
     }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override

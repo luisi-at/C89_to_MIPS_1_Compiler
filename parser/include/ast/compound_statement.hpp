@@ -16,16 +16,25 @@ CompoundStatement(const Statement *_statement_part, const Declarator *_declarati
   , declaration_part(_declaration_part)
 {}
 
+const Statement *getStatement() const{
+  return statement_part;
+}
+
+const Declarator *getDeclarator() const{
+  return declaration_part;
+}
+
   virtual void print_xml() const override
   {
-    //printy xml
+    this->getStatement()->print_xml();
+    this->getDeclarator()->print_xml();
   }
 
   virtual Statement* *AddItem(const Statement *_item) const override
   {
     return 0;
   }
-    
+
 
 };
 

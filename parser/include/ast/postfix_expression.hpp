@@ -31,13 +31,13 @@ public:
     virtual void print_xml() const override
     {
       //std::cout << "left" << std::endl;
-      left->print_xml();
+      this->getLeft()->print_xml();
       std::cout << getOperator() << std::endl;
       if(right != ""){
         std::cout << right << std::endl;
       }
     }
-        
+
         virtual Expression* *AddItem(const Expression *_item) const override
         {
             return 0;

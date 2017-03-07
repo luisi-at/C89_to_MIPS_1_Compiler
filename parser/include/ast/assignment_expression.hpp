@@ -43,6 +43,12 @@ public:
     std::cout << this->getOperator() << std::endl;
     this->getRight()->print_xml();
   }
+      
+      virtual Expression* *AddItem(const Expression *_item) const override
+      {
+          return 0;
+      }
+      
 };
 
 #endif

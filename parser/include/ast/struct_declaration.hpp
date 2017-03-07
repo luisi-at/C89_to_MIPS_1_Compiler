@@ -23,16 +23,15 @@ public:
   {
     //printy xml
   }
+    
+    virtual Declarator* *AddItem(const Declarator *_item) const override
+    {
+        return 0;
+    }
 
 };
 
 // wrapper to access vector
-class StructDeclaratorList : public Declarator
-{
-public:
-  StructDeclaratorList()
-  {}
-};
 
 class StructDeclaration : public Declarator
 {
@@ -50,6 +49,11 @@ public:
   {
     //printy xml
   }
+    
+    virtual Declarator* *AddItem(const Declarator *_item) const override
+    {
+        return 0;
+    }
 
 };
 
@@ -71,6 +75,11 @@ public:
   {
     //printy xml
   }
+    
+    virtual Declarator* *AddItem(const Declarator *_item) const override
+    {
+        return 0;
+    }
 
 };
 

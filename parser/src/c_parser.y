@@ -14,7 +14,10 @@
   const Expression *expr;
   const Statement *stmt;
   const Declarator *dltr;
+  const FunctionDefinition *fdfn;
+  const ExternalDeclaration *edln;
   const Unit *unit;
+
   double number;
   std::string *string_value;
 }
@@ -40,18 +43,27 @@
 %type <expr> conditional_expression assignment_expression
 %type <expr> constant_expression
 %type <expr> expression
+%type <expr> type_specifier
+%type <expr> identifier_list
 
 %type <stmt> expression_statement jump_statement selection_statement statement
 %type <stmt> iteration_statement labeled_statement
 %type <stmt> compound_statement
 %type <stmt> statement_list
 
+%type <dltr> declaration_specifiers declaration init_declarator
+%type <dltr> direct_declarator declarator init_declarator_list
+%type <dltr> declaration_list
+
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
 %type <string_value> LEFT_OP RIGHT_OP
 %type <string_value> MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
 %type <string_value> SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
-%type <string_value> OR_ASSIGN XOR_ASSIGN assignment_operator '='
+%type <string_value> OR_ASSIGN XOR_ASSIGN assignment_operator '=' ';'
 %type <string_value> VOID CHAR SHORT INT LONG FLOAT DOUBLE SIGNED UNSIGNED
+
+%type <fdfn> function_definition
+%type <edln> external_declaration
 %type <unit> this_unit
 
 
@@ -183,13 +195,65 @@ constant_expression
   : conditional_expression
   ;
 
+declaration
+  : declaration_specifiers ';'                      { $$ = new MainDeclaration( $1, NULL); }
+  | declaration_specifiers init_declarator_list ';' { $$ = new MainDeclaration( $1, $2); }
+  ;
+
+declaration_specifiers
+  : type_specifier                        { $$ = new DeclarationSpecifier( $1, NULL ); }
+  | type_specifier declaration_specifiers { $$ = new DeclarationSpecifier( $1, $2 ); }
+  ;
+
+init_declarator_list
+  : init_declarator                       { $$ = new DeclarationList(); }
+  | init_declarator ',' init_declarator   { $$->AddItem( $3 ); }
+  ;
+
+init_declarator
+  : declarator                            { $$ = new InitDeclarator( $1, NULL ); }
+  ;
+
+type_specifier
+  : VOID                      { $$ = new TypeSpecifierExpression( *$1 ); }
+  | CHAR                      { $$ = new TypeSpecifierExpression( *$1 ); }
+  | SHORT                     { $$ = new TypeSpecifierExpression( *$1 ); }
+  | INT                       { $$ = new TypeSpecifierExpression( *$1 ); }
+  | LONG                      { $$ = new TypeSpecifierExpression( *$1 ); }
+  | FLOAT                     { $$ = new TypeSpecifierExpression( *$1 ); }
+  | DOUBLE                    { $$ = new TypeSpecifierExpression( *$1 ); }
+  | SIGNED                    { $$ = new TypeSpecifierExpression( *$1 ); }
+  | UNSIGNED                  { $$ = new TypeSpecifierExpression( *$1 ); }
+  ;
+
+
+declarator
+  : direct_declarator
+  ;
+
+
+direct_declarator
+  : IDENTIFIER                                    { $$ = new IdentifierDeclarator( new Identifier( *$1 ) ); }
+  | '(' declarator ')'                            { $$ = new BracketedDeclarator( $2 ); }
+  | direct_declarator '[' constant_expression ']' { $$ = new ExpressionDeclarator( $1, $3 ); }
+  | direct_declarator '[' ']'                     { $$ = new ExpressionDeclarator( $1, NULL );}
+  | direct_declarator '(' identifier_list ')'     { $$ = new ExpressionDeclarator( $1, $3 ); }
+  ;
+
+identifier_list
+  : IDENTIFIER                      { $$ = new ExpressionList(); }
+  | identifier_list ',' IDENTIFIER  { $$->AddItem(new Identifier( *$3 ) ); }
+  ;
+
+
+
 statement
   : labeled_statement
   | compound_statement
   | expression_statement
-  | jump_statement
   | selection_statement
   | iteration_statement
+  | jump_statement
   ;
 
 labeled_statement
@@ -201,6 +265,13 @@ labeled_statement
 compound_statement
   : '{' '}'                                   { $$ = new CompoundStatement( NULL, NULL ); }
   | '{' statement_list '}'                    { $$ = new CompoundStatement( $2, NULL ); }
+  | '{' declaration_list '}'                  { $$ = new CompoundStatement( NULL, $2 ); }
+  | '{' declaration_list statement_list '}'   { $$ = new CompoundStatement( $3, $2 ); }
+  ;
+
+declaration_list
+  : declaration                   { $$ = new DeclarationList(); }
+  | declaration_list declaration  { $$->AddItem( $2 ); }
   ;
 
 statement_list
@@ -209,7 +280,7 @@ statement_list
   ;
 
 expression_statement
-  : ';'
+  : ';'                 { $$ = new ExpressionStatement( NULL ); }
   | expression ';'      { $$ = new ExpressionStatement( $1 ); }
   ;
 
@@ -236,8 +307,20 @@ jump_statement
 
 
 this_unit
-  : expression
-  | statement
+  : external_declaration
+  | this_unit external_declaration
+  ;
+
+external_declaration
+  : function_definition { $$ = new ExternalDeclaration( $1, NULL ); }
+  | declaration         { $$ = new ExternalDeclaration( NULL, $1 ); }
+  ;
+
+function_definition
+  : declaration_specifiers declarator declaration_list compound_statement { $$ = new FunctionDefinition( $1, $2, $3, $4 ); }
+  | declaration_specifiers declarator compound_statement                  { $$ = new FunctionDefinition( $1, $2, NULL, $3 ); }
+  | declarator declaration_list compound_statement                        { $$ = new FunctionDefinition( NULL, $1, $2, $3 ); }
+  | declarator compound_statement                                         { $$ = new FunctionDefinition( NULL, $1, NULL, $2 ); }
   ;
 
 

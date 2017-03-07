@@ -17,15 +17,13 @@ public:
 
   virtual void print_xml() const override
   {}
+    
+    virtual Expression* *AddItem(const Expression *_item) const override
+    {
+        return 0;
+    }
 
 };
 
-// wrapper again
-class InitializerList : public Expression
-{
-public:
-  InitializerList()
-  {}
-};
 
 #endif

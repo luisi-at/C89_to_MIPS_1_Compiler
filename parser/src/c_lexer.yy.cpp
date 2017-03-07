@@ -1505,7 +1505,7 @@ YY_RULE_SETUP
 case 81:
 YY_RULE_SETUP
 #line 161 "src/c_lexer.flex"
-{ return(';'); }
+{ yylval.string_value = new std::string(yytext); return(';'); }
 	YY_BREAK
 case 82:
 YY_RULE_SETUP

@@ -37,6 +37,11 @@ public:
         std::cout << right << std::endl;
       }
     }
+        
+        virtual Expression* *AddItem(const Expression *_item) const override
+        {
+            return 0;
+        }
 
 };
 

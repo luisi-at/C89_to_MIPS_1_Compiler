@@ -7,6 +7,27 @@
 
 #include "declarator.hpp"
 
+class IdentifierDeclarator : public Declarator
+{
+private:
+  const Expression *local_expression;
+
+public:
+  IdentifierDeclarator(const Expression *_local_expression)
+  : local_expression(_local_expression)
+  {}
+
+    virtual void print_xml() const override
+    {
+      //printy xml
+    }
+
+    virtual Declarator* *AddItem(const Declarator *_item) const override
+    {
+        return 0;
+    }
+};
+
 class BracketedDeclarator : public Declarator
 {
 private:
@@ -20,6 +41,11 @@ public:
     virtual void print_xml() const override
     {
       //printy xml
+    }
+
+    virtual Declarator* *AddItem(const Declarator *_item) const override
+    {
+        return 0;
     }
 };
 
@@ -40,8 +66,16 @@ public:
     {
       //printy xml
     }
+    
+    virtual Declarator* *AddItem(const Declarator *_item) const override
+    {
+        return 0;
+    }
+
 
 };
+
+
 
 /*class ParameterTypeDeclarator : public Declarator
 {

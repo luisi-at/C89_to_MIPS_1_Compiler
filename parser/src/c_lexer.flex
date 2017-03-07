@@ -158,7 +158,7 @@ while                         { return(WHILE); }
 "."                           { return('.'); }
 ","                           { return(','); }
 ":"                           { return(':'); }
-";"                           { return(';'); }
+";"                           { yylval.string_value = new std::string(yytext); return(';'); }
 "~"                           { return('~'); }
 "&"                           { return('&'); }
 "!"                           { return('!'); }

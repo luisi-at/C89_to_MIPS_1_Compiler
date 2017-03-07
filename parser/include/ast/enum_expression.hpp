@@ -28,19 +28,14 @@ public:
 
   virtual void print_xml() const override
   { /*printy printy*/  }
+    
+    virtual Expression* *AddItem(const Expression *_item) const override
+    {
+        return 0;
+    }
 
 };
 
-// essentially just a wrapper around the expression vector
-class EnumList : public Expression
-{
-public:
-  EnumList()
-  {}
-
-    virtual void print_xml() const override
-    { /*printy printy*/  }
-};
 
 class EnumSpecifier : public Expression
 {
@@ -62,6 +57,11 @@ public:
 
   virtual void print_xml() const override
   { /*printy printy*/  }
+    
+    virtual Expression* *AddItem(const Expression *_item) const override
+    {
+        return 0;
+    }
 
   // special methods for specifier
 

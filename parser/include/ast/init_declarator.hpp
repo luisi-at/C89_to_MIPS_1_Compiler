@@ -23,16 +23,15 @@ public:
   {
     //printy xml
   }
+    
+    virtual Declarator* *AddItem(const Declarator *_item) const override
+    {
+        return 0;
+    }
 
 };
 
-// wrapper
-class InitDeclaratorList : public Declarator
-{
-public:
-  InitDeclaratorList()
-  {}
-};
+
 
 
 #endif

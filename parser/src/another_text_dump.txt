@@ -155,3 +155,22 @@ function_definition
   | declarator declaration_list compound_statement                        { $$ = new FunctionDefinition( NULL, $1, $2, $3 ); }
   | declarator compound_statement                                         { $$ = new FunctionDefinition( NULL, $1, NULL, $2 ); }
   ;
+
+
+  this_unit
+    : expression
+    | statement
+    | declaration
+    ;
+
+
+    initializer
+      : assignment_expression                         { $$ = new Initializer( $1, NULL ); }
+      | '{' initializer_list '}'                      { $$ = new Initializer( $2, NULL); }
+      | '{' initializer_list ',' initializer_list '}' { $$ = new Initializer( $2, $4 ); }
+      ;
+
+    initializer_list
+      : initializer                       { $$ = new ExpressionList(); }
+      | initializer_list ',' initializer  { $$->AddItem( $3 ); }
+      ;

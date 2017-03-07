@@ -44,7 +44,8 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << this->GetValue() << ">";
+    std::cout << "IN CONST" << std::endl;
+    std::cout << "<" << this->GetValue() << ">" << std::endl;
 
   }
 

@@ -23,6 +23,7 @@ public:
 
   virtual void print_xml() const override
   {
+    std::cout << "ITERATION STATEMENT" << std::endl;
     std::cout << "<Scope>" << std::endl;
     this->getNext()->print_xml();
     std::cout << "</Scope>" << std::endl;

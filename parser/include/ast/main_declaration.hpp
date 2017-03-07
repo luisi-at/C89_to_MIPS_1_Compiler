@@ -49,7 +49,7 @@ public:
   {std::cout << "DECLARATION LIST" << std::endl;}
     virtual Declarator* *AddItem(const Declarator *_item) const override
     {
-        std::cout << "ADD ITEM INSIDE" << std::endl;
+        std::cout << "ADD DECLARATION ITEM INSIDE" << std::endl;
         std::cout << "==============" << std::endl;
 
         std::cout << "==============" << std::endl;

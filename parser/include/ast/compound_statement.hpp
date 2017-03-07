@@ -26,6 +26,7 @@ const Declarator *getDeclarator() const{
 
   virtual void print_xml() const override
   {
+    std::cout << "COMPOUND STATEMENT" << std::endl;
     this->getStatement()->print_xml();
     this->getDeclarator()->print_xml();
   }

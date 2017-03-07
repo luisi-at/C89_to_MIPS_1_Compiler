@@ -36,10 +36,11 @@ class StatementList : public Statement
 private:
    mutable std::vector<const Statement*> statements_list;
 public:
-
+  StatementList()
+  {std::cout << "STATEMENT LIST" << std::endl;}
   virtual Statement* *AddItem(const Statement *_item) const override
   {
-    std::cout << "ADD ITEM INSIDE" << std::endl;
+    std::cout << "ADD STATEMENT ITEM INSIDE" << std::endl;
     std::cout << "==============" << std::endl;
 
     std::cout << "==============" << std::endl;

@@ -4,6 +4,7 @@ int main()
 {
     const Unit *ast=parseAST();
 
+    std::cout << std::endl;
     std::cout << "<?xml version = \"1.0\"?>" << std::endl;
     std::cout << "<Program>" << std::endl;
     ast->print_xml();

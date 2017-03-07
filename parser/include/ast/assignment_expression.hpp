@@ -38,6 +38,7 @@ public:
 
   virtual void print_xml() const override
   {
+    std::cout << "ASSIGNMENT EXPRESSION" << std::endl;
     this->getLeft()->print_xml();
     this->getRight()->print_xml();
   }

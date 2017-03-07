@@ -28,12 +28,15 @@ public:
 
     virtual void print_xml() const override
     {
+      std::cout << "UNARY EXPRESSION" << std::endl;
       //fprintf(stderr, "Unary Expression Print\n");
       if(strcmp(this->getOperator(), "") == 0){
+        std::cout << "UNARY EXPRESSION IF1" << std::endl;
         this->getRight()->print_xml();
       }
       else{
         std::cout << this->getOperator() << std::endl;
+        std::cout << "UNARY EXPRESSION IF2" << std::endl;
         this->getRight()->print_xml();
       }
 

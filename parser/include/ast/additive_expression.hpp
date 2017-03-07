@@ -34,7 +34,9 @@ public:
 
     virtual void print_xml() const override
     {
-      // printy print
+      std::cout << "ADDITIVE EXPRESSION" << std::endl;
+      this->getLeft()->print_xml();
+      this->getRight()->print_xml();
 
     }
 

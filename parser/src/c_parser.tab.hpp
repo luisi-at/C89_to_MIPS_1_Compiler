@@ -50,7 +50,9 @@ extern int yydebug;
   int yylex(void);
   void yyerror(const char *);
 
-#line 54 "src/c_parser.tab.hpp" /* yacc.c:1909  */
+
+
+#line 56 "src/c_parser.tab.hpp" /* yacc.c:1909  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -122,7 +124,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "src/c_parser.y" /* yacc.c:1909  */
+#line 13 "src/c_parser.y" /* yacc.c:1909  */
 
   const Expression *expr;
   const Statement *stmt;
@@ -131,7 +133,7 @@ union YYSTYPE
   double number;
   std::string *string_value;
 
-#line 135 "src/c_parser.tab.hpp" /* yacc.c:1909  */
+#line 137 "src/c_parser.tab.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

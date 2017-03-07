@@ -6,6 +6,8 @@
 
   int yylex(void);
   void yyerror(const char *);
+
+
 }
 
 %union{
@@ -202,7 +204,7 @@ compound_statement
   ;
 
 statement_list
-  : statement                   { $$ = new StatementList(); }
+  : statement                   { $$ = new StatementList();}
   | statement_list statement    { $$->AddItem( $2 ); }
   ;
 

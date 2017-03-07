@@ -84,12 +84,4 @@ public:
 
 };
 
-// wrapper
-class StatementList : public Statement
-{
-public:
-  StatementList()
-  {}
-};
-
 #endif

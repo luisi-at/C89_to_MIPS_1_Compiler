@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <vector>
 
 class MainStatement : public Statement
 {
@@ -27,6 +28,22 @@ public:
   {
     // statement printy
   }
+};
+
+// wrapper
+class StatementList : public Statement
+{
+private:
+  const std::vector<Statement*> statements_list;
+public:
+  StatementList()
+  {}
+
+  void AddItem(const Statement *_item)
+  {
+    statements_list.push_back(_item);
+  }
+
 };
 
 #endif

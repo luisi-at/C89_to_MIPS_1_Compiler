@@ -40,7 +40,8 @@
 %type <expr> expression
 
 %type <stmt> expression_statement jump_statement selection_statement statement
-%type <stmt> iteration_statement
+%type <stmt> iteration_statement labeled_statement
+%type <stmt> statement_list compound_statement
 
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
 %type <string_value> LEFT_OP RIGHT_OP
@@ -180,16 +181,35 @@ constant_expression
   ;
 
 statement
-  : jump_statement
-  | selection_statement
+  : labeled_statement
+  | compound_statement
   | expression_statement
+  | jump_statement
+  | selection_statement
   | iteration_statement
+  ;
+
+labeled_statement
+  : IDENTIFIER ':' statement                { $$ = new IdentifierStatement( new Identifier( *$1 ), $3 ); }
+  | CASE constant_expression ':' statement  { $$ = new CaseStatement( $2, $4 ); }
+  | DEFAULT ':' statement                   { $$ = new DefaultStatement( $3 ); }
+  ;
+
+compound_statement
+  : '{' '}'                                   { $$ = new CompoundStatement( NULL, NULL ); }
+  | '{' statement_list '}'                    { $$ = new CompoundStatement( $2, NULL ); }
+  ;
+
+statement_list
+  : statement
+  | statement_list statement  { $$ = new StatementList(); $$->AddItem( $2 ); }
   ;
 
 expression_statement
   : ';'
   | expression ';'      { $$ = new ExpressionStatement( $1 ); }
   ;
+
 
 selection_statement
   : IF '(' expression ')' statement                 { $$ = new IfSelection( $3, $5 ); }

@@ -10,13 +10,14 @@
 
 class Statement : public Unit
 {
-protected:
-  std::vector<Statement*> statement_list; //maybe this?
+
 public:
     virtual ~Statement()
     {}
 
     virtual void print_xml() const = 0;
+
+
 };
 
 

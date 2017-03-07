@@ -21,7 +21,7 @@ public:
 
   virtual void print_xml() const override
   {
-    // printy printy printy
+    this->getExpression()->print_xml();
   }
 
   virtual Statement* *AddItem(const Statement *_item) const override

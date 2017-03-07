@@ -36,6 +36,10 @@ public:
     std::cout << ',' << std::endl;
     this->getRight()->print_xml();
   }
+
+
+
+
 };
 
 #endif

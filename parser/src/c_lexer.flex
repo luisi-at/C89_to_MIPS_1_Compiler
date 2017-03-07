@@ -86,7 +86,7 @@ operator                      {single_operator}
 
 auto                          { return AUTO; }
 double                        { return DOUBLE; }
-int                           { return(INT); }
+int                           { yylval.string_value = new std::string(yytext); return(INT); }
 struct                        { return STRUCT; }
 break                         { return BREAK; }
 else                          { return ELSE; }
@@ -141,10 +141,10 @@ while                         { return(WHILE); }
 ">>"                          { return RIGHT_OP; }
 "->"                          { return PTR_OP; }
 
-"<"                           { return('<'); }
+"<"                           { yylval.string_value = new std::string(yytext); return('<'); }
 ">"                           { return('>'); }
-"{"                           { return('{'); }
-"}"                           { return('}'); }
+"{"                           { yylval.string_value = new std::string(yytext); return('{'); }
+"}"                           { yylval.string_value = new std::string(yytext); return('}'); }
 "["                           { return('['); }
 "]"                           { return(']'); }
 "("                           { return('('); }
@@ -153,7 +153,7 @@ while                         { return(WHILE); }
 "-"                           { return('-'); }
 "*"                           { return('*'); }
 "/"                           { return('/'); }
-"="                           { yylval.string_value = new std::string(yytext); return('='); }
+"="                           { return(ASSIGN); }
 "%"                           { return('%'); }
 "."                           { return('.'); }
 ","                           { return(','); }

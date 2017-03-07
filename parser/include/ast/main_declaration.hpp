@@ -36,19 +36,20 @@ class DeclarationList : public Declarator
 private:
     mutable std::vector<const Declarator*> declarations_list;
 public:
-    
+  DeclarationList()
+  {std::cout << "HERE" << std::endl;}
     virtual Declarator* *AddItem(const Declarator *_item) const override
     {
         std::cout << "ADD ITEM INSIDE" << std::endl;
         std::cout << "==============" << std::endl;
-        
+
         std::cout << "==============" << std::endl;
         std::cout << _item << std::endl;
         declarations_list.push_back(_item); // fails here
         std::cout << "AFTER PUSH BACK" << std::endl;
         this->print_xml();
         }
-        
+
         virtual void print_xml() const override
         {
             // statement printy
@@ -60,9 +61,9 @@ public:
             for(int i = 0; i < declarations_list.size(); i++){
                 declarations_list[i]->print_xml();
             }
-            
+
         }
-        
+
         };
 
 #endif

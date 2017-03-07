@@ -27,7 +27,7 @@
 %token PTR_OP INC_OP DEC_OP LEFT_OP RIGHT_OP LE_OP GE_OP EQ_OP NE_OP
 %token AND_OP OR_OP MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
 %token SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
-%token XOR_ASSIGN OR_ASSIGN
+%token XOR_ASSIGN OR_ASSIGN ASSIGN
 
 %token TYPEDEF EXTERN STATIC AUTO REGISTER
 %token CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE CONST VOLATILE VOID
@@ -59,7 +59,8 @@
 %type <string_value> LEFT_OP RIGHT_OP
 %type <string_value> MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
 %type <string_value> SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
-%type <string_value> OR_ASSIGN XOR_ASSIGN assignment_operator '=' ';'
+%type <string_value> OR_ASSIGN XOR_ASSIGN assignment_operator  ';'
+%type <string_value> '{' '}' '+'
 %type <string_value> VOID CHAR SHORT INT LONG FLOAT DOUBLE SIGNED UNSIGNED
 
 %type <fdfn> function_definition
@@ -74,24 +75,24 @@
 ROOT : this_unit { prog_root = $1; }
 
 primary_expression
-  : IDENTIFIER            { $$ = new Identifier( *$1 ); }
-  | CONSTANT              { $$ = new Constant( *$1 ); }
-  | STRING_LITERAL        { $$ = new StringLiteral( *$1 ); }
+  : IDENTIFIER            { std::cout << "78" << std::endl; $$ = new Identifier( *$1 ); }
+  | CONSTANT              { std::cout << "79" << std::endl; $$ = new Constant( *$1 ); }
+  | STRING_LITERAL        { std::cout << "80" << std::endl; $$ = new StringLiteral( *$1 ); }
   ;
 
 postfix_expression
-  : primary_expression                    { $$ = new PostfixEmpty( $1, "" ); }
-  | postfix_expression '(' ')'            { $$ = new PostfixEmpty( $1, "" ); }
-  | postfix_expression '.' IDENTIFIER     { $$ = new PostfixPeriod( $1, *$3 ); }
-  | postfix_expression PTR_OP IDENTIFIER  { $$ = new PostfixPtrOp( $1, *$3 ); }
-  | postfix_expression INC_OP             { $$ = new PostfixIncOp( $1, "" ); }
-  | postfix_expression DEC_OP             { $$ = new PostfixDecOp( $1, ""); }
+  : primary_expression                    { std::cout << "84" << std::endl; $$ = new PostfixEmpty( $1, "" ); }
+  | postfix_expression '(' ')'            { std::cout << "85" << std::endl; $$ = new PostfixEmpty( $1, "" ); }
+  | postfix_expression '.' IDENTIFIER     { std::cout << "86" << std::endl; $$ = new PostfixPeriod( $1, *$3 ); }
+  | postfix_expression PTR_OP IDENTIFIER  { std::cout << "87" << std::endl; $$ = new PostfixPtrOp( $1, *$3 ); }
+  | postfix_expression INC_OP             { std::cout << "88" << std::endl; $$ = new PostfixIncOp( $1, "" ); }
+  | postfix_expression DEC_OP             { std::cout << "89" << std::endl; $$ = new PostfixDecOp( $1, ""); }
   ;
 
 unary_expression
-  : postfix_expression          { $$ = new UnaryPostfixExpression( $1 ); }
-  | INC_OP unary_expression     { $$ = new UnaryIncExpression( $2 ); }
-  | DEC_OP unary_expression     { $$ = new UnaryDecExpression( $2 ); }
+  : postfix_expression          { std::cout << "93" << std::endl; $$ = new UnaryPostfixExpression( $1 ); }
+  | INC_OP unary_expression     { std::cout << "94" << std::endl; $$ = new UnaryIncExpression( $2 ); }
+  | DEC_OP unary_expression     { std::cout << "95" << std::endl; $$ = new UnaryDecExpression( $2 ); }
   ;
 
 unary_operator
@@ -105,75 +106,75 @@ unary_operator
 
 multiplicative_expression
   : unary_expression
-  | multiplicative_expression '*' unary_expression    { $$ = new MultiplyMultiplicative( $1, $3); }
-  | multiplicative_expression '/' unary_expression    { $$ = new DivideMultiplicative( $1, $3); }
-  | multiplicative_expression '%' unary_expression    { $$ = new ModMultiplicative( $1, $3); }
+  | multiplicative_expression '*' unary_expression    { std::cout << "109" << std::endl; $$ = new MultiplyMultiplicative( $1, $3); }
+  | multiplicative_expression '/' unary_expression    { std::cout << "110" << std::endl; $$ = new DivideMultiplicative( $1, $3); }
+  | multiplicative_expression '%' unary_expression    { std::cout << "111" << std::endl; $$ = new ModMultiplicative( $1, $3); }
   ;
 
 additive_expression
   : multiplicative_expression
-  | additive_expression '+' multiplicative_expression   { $$ = new AddAdditive( $1, $3 ); }
-  | additive_expression '-' multiplicative_expression   { $$ = new SubAdditive( $1, $3 ); }
+  | additive_expression '+' multiplicative_expression   { std::cout << "116" << std::endl; $$ = new AddAdditive( $1, $3 ); }
+  | additive_expression '-' multiplicative_expression   { std::cout << "117" << std::endl; $$ = new SubAdditive( $1, $3 ); }
   ;
 
 shift_expression
   : additive_expression
-  | shift_expression LEFT_OP additive_expression        { $$ = new LeftOpExpression ( $1, $3 ); }
-  | shift_expression RIGHT_OP additive_expression       { $$ = new RightOpExpression ( $1, $3 ); }
+  | shift_expression LEFT_OP additive_expression        { std::cout << "122" << std::endl; $$ = new LeftOpExpression ( $1, $3 ); }
+  | shift_expression RIGHT_OP additive_expression       { std::cout << "123" << std::endl; $$ = new RightOpExpression ( $1, $3 ); }
   ;
 
 relational_expression
   : shift_expression
-  | relational_expression '<' shift_expression          { $$ = new StrictLessThanExpression ( $1, $3 ); }
-  | relational_expression '>' shift_expression          { $$ = new StrictGreaterThanExpression ( $1, $3 ); }
-  | relational_expression LE_OP shift_expression        { $$ = new LessEqualExpression ( $1, $3 ); }
-  | relational_expression GE_OP shift_expression        { $$ = new GreaterEqualExpression ( $1, $3 ); }
+  | relational_expression '<' shift_expression          { std::cout << "128" << std::endl; $$ = new StrictLessThanExpression ( $1, $3 ); }
+  | relational_expression '>' shift_expression          { std::cout << "129" << std::endl; $$ = new StrictGreaterThanExpression ( $1, $3 ); }
+  | relational_expression LE_OP shift_expression        { std::cout << "130" << std::endl; $$ = new LessEqualExpression ( $1, $3 ); }
+  | relational_expression GE_OP shift_expression        { std::cout << "131" << std::endl; $$ = new GreaterEqualExpression ( $1, $3 ); }
   ;
 
 equality_expression
   : relational_expression
-  | equality_expression EQ_OP relational_expression     { $$ = new EqualOpExpression ( $1, $3); }
-  | equality_expression NE_OP relational_expression     { $$ = new NotEqualOpExpression ( $1, $3); }
+  | equality_expression EQ_OP relational_expression     { std::cout << "136" << std::endl; $$ = new EqualOpExpression ( $1, $3); }
+  | equality_expression NE_OP relational_expression     { std::cout << "137" << std::endl; $$ = new NotEqualOpExpression ( $1, $3); }
   ;
 
 and_expression
   : equality_expression
-  | and_expression '&' equality_expression              { $$ = new AndExpression ( $1, $3 ); }
+  | and_expression '&' equality_expression              { std::cout << "142" << std::endl; $$ = new AndExpression ( $1, $3 ); }
   ;
 
 eor_expression
   : and_expression
-  | eor_expression '^' and_expression                 { $$ = new XorExpression ( $1, $3 ); }
+  | eor_expression '^' and_expression                 { std::cout << "147" << std::endl; $$ = new XorExpression ( $1, $3 ); }
   ;
 
 or_expression
   : eor_expression
-  | or_expression '|' eor_expression                  { $$ = new OrExpression ( $1, $3 ); }
+  | or_expression '|' eor_expression                  { std::cout << "152" << std::endl; $$ = new OrExpression ( $1, $3 ); }
   ;
 
 logical_and_expression
   : or_expression
-  | logical_and_expression AND_OP or_expression           { $$ = new LogicalAndExpression ( $1, $3 ); }
+  | logical_and_expression AND_OP or_expression           { std::cout << "157" << std::endl; $$ = new LogicalAndExpression ( $1, $3 ); }
   ;
 
 logical_or_expression
   : logical_and_expression
-  | logical_or_expression OR_OP logical_and_expression    { $$ = new LogicalOrExpression ( $1, $3 ); }
+  | logical_or_expression OR_OP logical_and_expression    { std::cout << "162" << std::endl; $$ = new LogicalOrExpression ( $1, $3 ); }
   ;
 
 conditional_expression
   : logical_or_expression
   | logical_or_expression '?' expression ':' conditional_expression
-    { $$ = new ConditionalExpression ( $1, $3, $5 ); }
+    { std::cout << "168" << std::endl; $$ = new ConditionalExpression ( $1, $3, $5 ); }
   ;
 
 assignment_expression
   : conditional_expression
-  | unary_expression assignment_operator assignment_expression     { $$ = new AssignmentExpression ( $1, *$2, $3 ); }
+  | unary_expression assignment_operator assignment_expression     { std::cout << "173" << std::endl; $$ = new AssignmentExpression ( $1, *$2, $3 ); }
   ;
 
 assignment_operator
-  : '='
+  : ASSIGN
   | MUL_ASSIGN
   | DIV_ASSIGN
   | MOD_ASSIGN
@@ -188,7 +189,7 @@ assignment_operator
 
 expression
   : assignment_expression
-  | expression ',' assignment_expression   { $$ = new MainExpression( $1, $3 ); }
+  | expression ',' assignment_expression   { std::cout << "191" << std::endl; $$ = new MainExpression( $1, $3 ); }
   ;
 
 constant_expression
@@ -196,34 +197,34 @@ constant_expression
   ;
 
 declaration
-  : declaration_specifiers ';'                      { $$ = new MainDeclaration( $1, NULL); }
-  | declaration_specifiers init_declarator_list ';' { $$ = new MainDeclaration( $1, $2); }
+  : declaration_specifiers ';'                      { std::cout << "199" << std::endl; $$ = new MainDeclaration( $1, NULL); }
+  | declaration_specifiers init_declarator_list ';' { std::cout << "200" << std::endl; $$ = new MainDeclaration( $1, $2); }
   ;
 
 declaration_specifiers
-  : type_specifier                        { $$ = new DeclarationSpecifier( $1, NULL ); }
-  | type_specifier declaration_specifiers { $$ = new DeclarationSpecifier( $1, $2 ); }
+  : type_specifier                        { std::cout << "205" << std::endl; $$ = new DeclarationSpecifier( $1, NULL ); }
+  | type_specifier declaration_specifiers { std::cout << "206" << std::endl; $$ = new DeclarationSpecifier( $1, $2 ); }
   ;
 
 init_declarator_list
-  : init_declarator                       { $$ = new DeclarationList(); }
-  | init_declarator ',' init_declarator   { $$->AddItem( $3 ); }
+  : init_declarator                       { std::cout << "210" << std::endl; $$ = new DeclarationList(); }
+  | init_declarator ',' init_declarator   { std::cout << "211" << std::endl; $$->AddItem( $3 ); }
   ;
 
 init_declarator
-  : declarator                            { $$ = new InitDeclarator( $1, NULL ); }
+  : declarator                            { std::cout << "215" << std::endl; $$ = new InitDeclarator( $1, NULL ); }
   ;
 
 type_specifier
-  : VOID                      { $$ = new TypeSpecifierExpression( *$1 ); }
-  | CHAR                      { $$ = new TypeSpecifierExpression( *$1 ); }
-  | SHORT                     { $$ = new TypeSpecifierExpression( *$1 ); }
-  | INT                       { $$ = new TypeSpecifierExpression( *$1 ); }
-  | LONG                      { $$ = new TypeSpecifierExpression( *$1 ); }
-  | FLOAT                     { $$ = new TypeSpecifierExpression( *$1 ); }
-  | DOUBLE                    { $$ = new TypeSpecifierExpression( *$1 ); }
-  | SIGNED                    { $$ = new TypeSpecifierExpression( *$1 ); }
-  | UNSIGNED                  { $$ = new TypeSpecifierExpression( *$1 ); }
+  : VOID                      { std::cout << "218" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | CHAR                      { std::cout << "220" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | SHORT                     { std::cout << "221" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | INT                       { std::cout << "222" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | LONG                      { std::cout << "223" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | FLOAT                     { std::cout << "224" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | DOUBLE                    { std::cout << "225" << std::endl;$$ = new TypeSpecifierExpression( *$1 ); }
+  | SIGNED                    { std::cout << "226" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | UNSIGNED                  { std::cout << "227" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
   ;
 
 
@@ -233,16 +234,17 @@ declarator
 
 
 direct_declarator
-  : IDENTIFIER                                    { $$ = new IdentifierDeclarator( new Identifier( *$1 ) ); }
-  | '(' declarator ')'                            { $$ = new BracketedDeclarator( $2 ); }
-  | direct_declarator '[' constant_expression ']' { $$ = new ExpressionDeclarator( $1, $3 ); }
-  | direct_declarator '[' ']'                     { $$ = new ExpressionDeclarator( $1, NULL );}
-  | direct_declarator '(' identifier_list ')'     { $$ = new ExpressionDeclarator( $1, $3 ); }
+  : IDENTIFIER                                    { std::cout << "237" << std::endl; $$ = new IdentifierDeclarator( new Identifier( *$1 ) ); }
+  | '(' declarator ')'                            { std::cout << "238" << std::endl; $$ = new BracketedDeclarator( $2 ); }
+  | direct_declarator '[' constant_expression ']' { std::cout << "239" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
+  | direct_declarator '[' ']'                     { std::cout << "240" << std::endl; $$ = new ExpressionDeclarator( $1, NULL );}
+  | direct_declarator '(' identifier_list ')'     { std::cout << "241" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
+  | direct_declarator '(' ')'                     { std::cout << "242" << std::endl; $$ = new EmptyDeclarator( $1 );}
   ;
 
 identifier_list
-  : IDENTIFIER                      { $$ = new ExpressionList(); }
-  | identifier_list ',' IDENTIFIER  { $$->AddItem(new Identifier( *$3 ) ); }
+  : IDENTIFIER                      { std::cout << "246" << std::endl; $$ = new ExpressionList(); }
+  | identifier_list ',' IDENTIFIER  { std::cout << "247" << std::endl; $$->AddItem(new Identifier( *$3 ) ); }
   ;
 
 
@@ -257,70 +259,70 @@ statement
   ;
 
 labeled_statement
-  : IDENTIFIER ':' statement                { $$ = new IdentifierStatement( new Identifier( *$1 ), $3 ); }
-  | CASE constant_expression ':' statement  { $$ = new CaseStatement( $2, $4 ); }
-  | DEFAULT ':' statement                   { $$ = new DefaultStatement( $3 ); }
+  : IDENTIFIER ':' statement                { std::cout << "260" << std::endl; $$ = new IdentifierStatement( new Identifier( *$1 ), $3 ); }
+  | CASE constant_expression ':' statement  { std::cout << "261" << std::endl; $$ = new CaseStatement( $2, $4 ); }
+  | DEFAULT ':' statement                   { std::cout << "262" << std::endl; $$ = new DefaultStatement( $3 ); }
   ;
 
 compound_statement
-  : '{' '}'                                   { $$ = new CompoundStatement( NULL, NULL ); }
-  | '{' statement_list '}'                    { $$ = new CompoundStatement( $2, NULL ); }
-  | '{' declaration_list '}'                  { $$ = new CompoundStatement( NULL, $2 ); }
-  | '{' declaration_list statement_list '}'   { $$ = new CompoundStatement( $3, $2 ); }
+  : '{' '}'                                   { std::cout << "266" << std::endl; $$ = new CompoundStatement( NULL, NULL ); }
+  | '{' statement_list '}'                    { std::cout << "267" << std::endl; $$ = new CompoundStatement( $2, NULL ); }
+  | '{' declaration_list '}'                  { std::cout << "268" << std::endl; $$ = new CompoundStatement( NULL, $2 ); }
+  | '{' declaration_list statement_list '}'   { std::cout << "269" << std::endl; $$ = new CompoundStatement( $3, $2 ); }
   ;
 
 declaration_list
-  : declaration                   { $$ = new DeclarationList(); }
-  | declaration_list declaration  { $$->AddItem( $2 ); }
+  : declaration                   { std::cout << "273" << std::endl; $$ = new DeclarationList(); }
+  | declaration_list declaration  { std::cout << "274" << std::endl; $$->AddItem( $2 ); }
   ;
 
 statement_list
-  : statement                   { $$ = new StatementList();}
-  | statement_list statement    { $$->AddItem( $2 ); }
+  : statement                   { std::cout << "278" << std::endl; $$ = new StatementList();}
+  | statement_list statement    { std::cout << "279" << std::endl; $$->AddItem( $2 ); }
   ;
 
 expression_statement
-  : ';'                 { $$ = new ExpressionStatement( NULL ); }
-  | expression ';'      { $$ = new ExpressionStatement( $1 ); }
+  : ';'                 { std::cout << "283" << std::endl; $$ = new ExpressionStatement( NULL ); }
+  | expression ';'      { std::cout << "284" << std::endl; $$ = new ExpressionStatement( $1 ); }
   ;
 
 
 selection_statement
-  : IF '(' expression ')' statement                 { $$ = new IfSelection( $3, $5 ); }
-  | IF '(' expression ')' statement ELSE statement  { $$ = new IfElseSelection( $3, $5, $7 ); }
-  | SWITCH '(' expression ')' statement             { $$ = new SwitchSelection( $3, $5 ); }
+  : IF '(' expression ')' statement                 { std::cout << "289" << std::endl; $$ = new IfSelection( $3, $5 ); }
+  | IF '(' expression ')' statement ELSE statement  { std::cout << "290" << std::endl; $$ = new IfElseSelection( $3, $5, $7 ); }
+  | SWITCH '(' expression ')' statement             { std::cout << "291" << std::endl; $$ = new SwitchSelection( $3, $5 ); }
   ;
 
 iteration_statement
-  : WHILE '(' expression ')' statement                                          { $$ = new WhileIteration( $3, $5 ); }
-  | DO statement WHILE '(' expression ')' ';'                                   { $$ = new DoWhileIteration( $2, $5 ); }
-  | FOR '(' expression_statement expression_statement ')' statement             { $$ = new ForNoExprIteration( $3, $4, $6 ); }
-  | FOR '(' expression_statement expression_statement expression ')' statement  { $$ = new ForExprIteration( $3, $4, $7, $5); }
+  : WHILE '(' expression ')' statement                                          { std::cout << "295" << std::endl; $$ = new WhileIteration( $3, $5 ); }
+  | DO statement WHILE '(' expression ')' ';'                                   { std::cout << "296" << std::endl; $$ = new DoWhileIteration( $2, $5 ); }
+  | FOR '(' expression_statement expression_statement ')' statement             { std::cout << "297" << std::endl; $$ = new ForNoExprIteration( $3, $4, $6 ); }
+  | FOR '(' expression_statement expression_statement expression ')' statement  { std::cout << "298" << std::endl; $$ = new ForExprIteration( $3, $4, $7, $5); }
   ;
 
 jump_statement
-  : GOTO IDENTIFIER ';'     { $$ = new GotoStatement( new Identifier( *$2 ) ); }
-  | CONTINUE ';'            { $$ = new ContinueStatement( NULL ); }
-  | BREAK ';'               { $$ = new BreakStatement( NULL ); }
-  | RETURN ';'              { $$ = new ReturnStatement( NULL ); }
-  | RETURN expression ';'   { $$ = new ReturnExprStatement( $2 ); }
+  : GOTO IDENTIFIER ';'     { std::cout << "302" << std::endl; $$ = new GotoStatement( new Identifier( *$2 ) ); }
+  | CONTINUE ';'            { std::cout << "303" << std::endl; $$ = new ContinueStatement( NULL ); }
+  | BREAK ';'               { std::cout << "304" << std::endl; $$ = new BreakStatement( NULL ); }
+  | RETURN ';'              { std::cout << "305" << std::endl; $$ = new ReturnStatement( NULL ); }
+  | RETURN expression ';'   { std::cout << "306" << std::endl; $$ = new ReturnExprStatement( $2 ); }
 
 
 this_unit
-  : external_declaration
-  | this_unit external_declaration
+  : external_declaration            { std::cout << "311" << std::endl; }
+  | this_unit external_declaration  { std::cout << "312" << std::endl; }
   ;
 
 external_declaration
-  : function_definition { $$ = new ExternalDeclaration( $1, NULL ); }
-  | declaration         { $$ = new ExternalDeclaration( NULL, $1 ); }
+  : function_definition { std::cout << "315" << std::endl; $$ = new ExternalDeclaration( $1, NULL ); }
+  | declaration         { std::cout << "316" << std::endl; $$ = new ExternalDeclaration( NULL, $1 ); }
   ;
 
 function_definition
-  : declaration_specifiers declarator declaration_list compound_statement { $$ = new FunctionDefinition( $1, $2, $3, $4 ); }
-  | declaration_specifiers declarator compound_statement                  { $$ = new FunctionDefinition( $1, $2, NULL, $3 ); }
-  | declarator declaration_list compound_statement                        { $$ = new FunctionDefinition( NULL, $1, $2, $3 ); }
-  | declarator compound_statement                                         { $$ = new FunctionDefinition( NULL, $1, NULL, $2 ); }
+  : declaration_specifiers declarator declaration_list compound_statement { std::cout << "320" << std::endl; $$ = new FunctionDefinition( $1, $2, $3, $4 ); }
+  | declaration_specifiers declarator compound_statement                  { std::cout << "321" << std::endl; $$ = new FunctionDefinition( $1, $2, NULL, $3 ); }
+  | declarator declaration_list compound_statement                        { std::cout << "322" << std::endl; $$ = new FunctionDefinition( NULL, $1, $2, $3 ); }
+  | declarator compound_statement                                         { std::cout << "323" << std::endl; $$ = new FunctionDefinition( NULL, $1, NULL, $2 ); }
   ;
 
 

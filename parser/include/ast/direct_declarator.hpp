@@ -66,7 +66,7 @@ public:
     {
       //printy xml
     }
-    
+
     virtual Declarator* *AddItem(const Declarator *_item) const override
     {
         return 0;
@@ -75,6 +75,28 @@ public:
 
 };
 
+class EmptyDeclarator : public Declarator
+{
+private:
+  const Declarator *left;
+
+public:
+  EmptyDeclarator(const Declarator *_left)
+  : left(_left)
+  {}
+
+    virtual void print_xml() const override
+    {
+      //printy xml
+    }
+
+    virtual Declarator* *AddItem(const Declarator *_item) const override
+    {
+        return 0;
+    }
+
+
+};
 
 
 /*class ParameterTypeDeclarator : public Declarator

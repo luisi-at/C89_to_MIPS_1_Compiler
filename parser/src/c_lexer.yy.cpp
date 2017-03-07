@@ -1160,7 +1160,7 @@ YY_RULE_SETUP
 case 12:
 YY_RULE_SETUP
 #line 89 "src/c_lexer.flex"
-{ return(INT); }
+{ yylval.string_value = new std::string(yytext); return(INT); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
@@ -1420,7 +1420,7 @@ YY_RULE_SETUP
 case 64:
 YY_RULE_SETUP
 #line 144 "src/c_lexer.flex"
-{ return('<'); }
+{ yylval.string_value = new std::string(yytext); return('<'); }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
@@ -1430,12 +1430,12 @@ YY_RULE_SETUP
 case 66:
 YY_RULE_SETUP
 #line 146 "src/c_lexer.flex"
-{ return('{'); }
+{ yylval.string_value = new std::string(yytext); return('{'); }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
 #line 147 "src/c_lexer.flex"
-{ return('}'); }
+{ yylval.string_value = new std::string(yytext); return('}'); }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
@@ -1480,7 +1480,7 @@ YY_RULE_SETUP
 case 76:
 YY_RULE_SETUP
 #line 156 "src/c_lexer.flex"
-{ yylval.string_value = new std::string(yytext); return('='); }
+{ return(ASSIGN); }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP

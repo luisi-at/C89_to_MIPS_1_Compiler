@@ -57,20 +57,22 @@ public:
     std::cout << "==============" << std::endl;
     std::cout << _item << std::endl;
     expressions_list.push_back(_item); // fails here
-    std::cout << "AFTER PUSH BACK" << std::endl;
+    std::cout << "PUSH BACK SUCCESS" << std::endl;
     this->print_xml();
   }
 
   virtual void print_xml() const override
   {
     // statement printy
-    std::cout << "TRY PRINT LIST" << std::endl;
+    std::cout << "TRY PRINT LIST EXPRESSION" << std::endl;
     /*for(std::vector<const Statement*>::iterator iter = statements_list.begin(); iter != statements_list.end(); ++iter){
       (*iter)->print_xml();
     */
-    std::cout << expressions_list.size() << std::endl;
+    std::cout << "EXPRESSION LIST SIZE: "<< expressions_list.size() << std::endl;
     for(int i = 0; i < expressions_list.size(); i++){
+      std::cout << "PRINTING EXPRESSION LIST: " << i << std::endl;
       expressions_list[i]->print_xml();
+
     }
 
   }

@@ -43,7 +43,7 @@
 %type <expr> conditional_expression assignment_expression
 %type <expr> constant_expression
 %type <expr> expression
-%type <expr> type_specifier
+%type <expr> type_specifier initializer
 %type <expr> identifier_list
 
 %type <stmt> expression_statement jump_statement selection_statement statement
@@ -75,8 +75,8 @@
 ROOT : this_unit { prog_root = $1; }
 
 primary_expression
-  : IDENTIFIER            { std::cout << "78" << std::endl; $$ = new Identifier( *$1 ); }
-  | CONSTANT              { std::cout << "79" << std::endl; $$ = new Constant( *$1 ); }
+  : IDENTIFIER            { std::cout << "78--> " << *$1 << std::endl; $$ = new Identifier( *$1 ); }
+  | CONSTANT              { std::cout << "79--> " << *$1 << std::endl; $$ = new Constant( *$1 ); }
   | STRING_LITERAL        { std::cout << "80" << std::endl; $$ = new StringLiteral( *$1 ); }
   ;
 
@@ -207,24 +207,25 @@ declaration_specifiers
   ;
 
 init_declarator_list
-  : init_declarator                       { std::cout << "210" << std::endl; $$ = new DeclarationList(); }
+  : init_declarator                       { std::cout << "210" << std::endl; $$ = new DeclarationList(); $$->AddItem( $1 ); }
   | init_declarator ',' init_declarator   { std::cout << "211" << std::endl; $$->AddItem( $3 ); }
   ;
 
 init_declarator
   : declarator                            { std::cout << "215" << std::endl; $$ = new InitDeclarator( $1, NULL ); }
+  | declarator ASSIGN initializer         { std::cout << "216" << std::endl; $$ = new InitDeclarator( $1, $3 ); }
   ;
 
 type_specifier
-  : VOID                      { std::cout << "218" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
-  | CHAR                      { std::cout << "220" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
-  | SHORT                     { std::cout << "221" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
-  | INT                       { std::cout << "222" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
-  | LONG                      { std::cout << "223" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
-  | FLOAT                     { std::cout << "224" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
-  | DOUBLE                    { std::cout << "225" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
-  | SIGNED                    { std::cout << "226" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
-  | UNSIGNED                  { std::cout << "227" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  : VOID                      { std::cout << "220" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | CHAR                      { std::cout << "221" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | SHORT                     { std::cout << "222" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | INT                       { std::cout << "223" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | LONG                      { std::cout << "224" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | FLOAT                     { std::cout << "225" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | DOUBLE                    { std::cout << "226" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | SIGNED                    { std::cout << "227" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
+  | UNSIGNED                  { std::cout << "228" << std::endl; $$ = new TypeSpecifierExpression( *$1 ); }
   ;
 
 
@@ -232,9 +233,8 @@ declarator
   : direct_declarator
   ;
 
-
 direct_declarator
-  : IDENTIFIER                                    { std::cout << "237" << std::endl; $$ = new IdentifierDeclarator( new Identifier( *$1 ) ); }
+  : IDENTIFIER                                    { std::cout << "237--> " << *$1  << std::endl; $$ = new IdentifierDeclarator( new Identifier( *$1 ) ); }
   | '(' declarator ')'                            { std::cout << "238" << std::endl; $$ = new BracketedDeclarator( $2 ); }
   | direct_declarator '[' constant_expression ']' { std::cout << "239" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
   | direct_declarator '[' ']'                     { std::cout << "240" << std::endl; $$ = new ExpressionDeclarator( $1, NULL );}
@@ -243,11 +243,15 @@ direct_declarator
   ;
 
 identifier_list
-  : IDENTIFIER                      { std::cout << "246" << std::endl; $$ = new ExpressionList(); }
+  : IDENTIFIER                      { std::cout << "246" << std::endl; $$ = new ExpressionList(); $$->AddItem(new Identifier( *$1 ) ); }
   | identifier_list ',' IDENTIFIER  { std::cout << "247" << std::endl; $$->AddItem(new Identifier( *$3 ) ); }
   ;
 
 
+
+initializer
+  : assignment_expression                         { $$ = new Initializer( $1, NULL ); }
+  ;
 
 statement
   : labeled_statement
@@ -272,12 +276,12 @@ compound_statement
   ;
 
 declaration_list
-  : declaration                   { std::cout << "273" << std::endl; $$ = new DeclarationList(); }
+  : declaration                   { std::cout << "273" << std::endl; $$ = new DeclarationList(); $$->AddItem( $1 ); }
   | declaration_list declaration  { std::cout << "274" << std::endl; $$->AddItem( $2 ); }
   ;
 
 statement_list
-  : statement                   { std::cout << "278" << std::endl; $$ = new StatementList();}
+  : statement                   { std::cout << "278" << std::endl; $$ = new StatementList(); $$->AddItem( $1 ); }
   | statement_list statement    { std::cout << "279" << std::endl; $$->AddItem( $2 ); }
   ;
 

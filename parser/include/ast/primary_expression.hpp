@@ -163,7 +163,10 @@ public:
   {}
 
   virtual void print_xml() const override
-  { /*xml printy stuff in here */ }
+  {
+    std::cout << "TYPE SPECIFIER EXPRESSION" << std::endl; 
+    std::cout << type_class << std::endl;
+  }
 
 
 

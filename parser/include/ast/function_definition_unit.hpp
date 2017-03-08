@@ -47,7 +47,7 @@ public:
     virtual void print_xml() const override
     {
 
-        std::cout << "<Function id = \"id\">" << std::endl;
+        std::cout << "<Function id = \"\">" << std::endl;
 
         std::cout << "<Scope>" << std::endl;
         if((this->getSpecifiers()) && (this->getDeclarator()) && (this->getDeclarationList()) && (this->getStatement())){

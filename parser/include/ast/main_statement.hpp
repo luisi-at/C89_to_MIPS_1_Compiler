@@ -53,12 +53,13 @@ public:
   virtual void print_xml() const override
   {
     // statement printy
-    std::cout << "TRY PRINT LIST" << std::endl;
+    std::cout << "TRY PRINT LIST STATEMENT" << std::endl;
     /*for(std::vector<const Statement*>::iterator iter = statements_list.begin(); iter != statements_list.end(); ++iter){
       (*iter)->print_xml();
     */
-    std::cout << statements_list.size() << std::endl;
+    std::cout << "STATEMENT LIST SIZE: " << statements_list.size() << std::endl;
     for(int i = 0; i < statements_list.size(); i++){
+      std::cout << "PRINTING STATEMENT LIST: " << i << std::endl;
       statements_list[i]->print_xml();
     }
 

@@ -45,7 +45,7 @@ public:
   virtual void print_xml() const override
   {
     std::cout << "IN CONST" << std::endl;
-    std::cout << "<" << this->GetValue() << ">" << std::endl;
+    std::cout << "VALUE --> <" << this->GetValue() << ">";
 
   }
 
@@ -164,7 +164,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "TYPE SPECIFIER EXPRESSION" << std::endl; 
+    std::cout << "TYPE SPECIFIER EXPRESSION" << std::endl;
     std::cout << type_class << std::endl;
   }
 

@@ -31,6 +31,8 @@ public:
   {
     this->getSpecifiers()->print_xml();
     this->getInitList()->print_xml();
+    
+
   }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override

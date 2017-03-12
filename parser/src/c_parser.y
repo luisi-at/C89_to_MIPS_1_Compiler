@@ -53,7 +53,7 @@
 
 %type <dltr> declaration_specifiers declaration init_declarator
 %type <dltr> direct_declarator declarator init_declarator_list
-%type <dltr> declaration_list
+%type <dltr> declaration_list parameter_declaration parameter_list
 
 %type <string_value> IDENTIFIER CONSTANT STRING_LITERAL INC_OP DEC_OP
 %type <string_value> LEFT_OP RIGHT_OP
@@ -239,15 +239,24 @@ direct_declarator
   | direct_declarator '[' constant_expression ']' { std::cout << "239" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
   | direct_declarator '[' ']'                     { std::cout << "240" << std::endl; $$ = new ExpressionDeclarator( $1, NULL );}
   | direct_declarator '(' identifier_list ')'     { std::cout << "241" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
+  | direct_declarator '(' parameter_list  ')'     {}
   | direct_declarator '(' ')'                     { std::cout << "242" << std::endl; $$ = new EmptyDeclarator( $1 );}
+  ;
+
+parameter_list
+  : parameter_declaration                         { $$ = new DeclarationList(); $$->AddItem( $1 ); }
+  | parameter_list ',' parameter_declaration      { $$->AddItem( $3 ); }
+  ;
+
+parameter_declaration
+  : declaration_specifiers declarator             { $$ = new ParameterDeclaration( $1, $2 ); }
+  | declaration_specifiers                        { $$ = new ParameterDeclaration( $1, NULL ); }
   ;
 
 identifier_list
   : IDENTIFIER                      { std::cout << "246" << std::endl; $$ = new ExpressionList(); $$->AddItem(new Identifier( *$1 ) ); }
   | identifier_list ',' IDENTIFIER  { std::cout << "247" << std::endl; $$->AddItem(new Identifier( *$3 ) ); }
   ;
-
-
 
 initializer
   : assignment_expression                         { $$ = new Initializer( $1, NULL ); }

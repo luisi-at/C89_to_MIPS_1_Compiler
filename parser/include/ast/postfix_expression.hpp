@@ -31,7 +31,7 @@ public:
     virtual void print_xml() const override
     {
       //std::cout << "left" << std::endl;
-      std::cout << "POSTFIX EXPRESSION" << std::endl;
+      //std::cout << "POSTFIX EXPRESSION" << std::endl;
       this->getLeft()->print_xml();
       std::cout << getOperator() << std::endl;
       if(right != ""){

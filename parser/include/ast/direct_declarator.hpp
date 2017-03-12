@@ -23,7 +23,7 @@ public:
 
     virtual void print_xml() const override
     {
-      std::cout << "IdentifierDeclarator trace" << std::endl;
+      //std::cout << "IdentifierDeclarator trace" << std::endl;
       this->getExpr()->print_xml();
     }
 
@@ -49,7 +49,7 @@ public:
 
     virtual void print_xml() const override
     {
-      std::cout << "Bracketed trace" << std::endl;
+      //std::cout << "Bracketed trace" << std::endl;
       this->getDecl()->print_xml();
     }
 
@@ -78,7 +78,7 @@ public:
 
     virtual void print_xml() const override
     {
-      std::cout << "ExpressionDeclarator trace" << std::endl;
+      //std::cout << "ExpressionDeclarator trace" << std::endl;
       this->getExpr()->print_xml();
     }
 
@@ -106,7 +106,7 @@ public:
 
     virtual void print_xml() const override
     {
-      std::cout << "EmptyDeclarator trace" << std::endl;
+      //std::cout << "EmptyDeclarator trace" << std::endl;
       this->getLeft()->print_xml();
     }
 

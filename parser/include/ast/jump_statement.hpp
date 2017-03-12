@@ -17,7 +17,7 @@ public:
 
     virtual void print_xml() const override
     {
-      std::cout << "GOTO" << std::endl;
+      //std::cout << "GOTO" << std::endl;
       this->getJump()->print_xml();
     }
 
@@ -42,7 +42,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "CONTINUE" << std::endl;
+    //std::cout << "CONTINUE" << std::endl;
     this->getJump()->print_xml();
   }
 
@@ -67,7 +67,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "BREAK" << std::endl;
+    //std::cout << "BREAK" << std::endl;
     this->getJump()->print_xml();
   }
 
@@ -92,7 +92,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "RETURN EMPTY" << std::endl;
+    //std::cout << "RETURN EMPTY" << std::endl;
     this->getJump()->print_xml();
   }
 
@@ -118,7 +118,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "RETURN VALUE COMING" << std::endl;
+    //std::cout << "RETURN VALUE COMING" << std::endl;
     this->getJump()->print_xml();
   }
 

@@ -47,7 +47,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "IDENTIFIER STATEMENT" << std::endl;
+    //std::cout << "IDENTIFIER STATEMENT" << std::endl;
     this->getLeft()->print_xml();
     std::cout << ":" << std::endl;
     this->getRight()->print_xml();
@@ -69,10 +69,10 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "CASE STATEMENT" << std::endl;
-    std::cout << "CASE/SCOPE" << std::endl;
+    //std::cout << "CASE STATEMENT" << std::endl;
+    //std::cout << "CASE/SCOPE" << std::endl;
     this->getLeft()->print_xml();
-    std::cout << ":" << std::endl;
+    //std::cout << ":" << std::endl;
     this->getRight()->print_xml();
   }
 
@@ -97,8 +97,8 @@ public:
 
     virtual void print_xml() const override
     {
-      std::cout << "DEFAULT" << std::endl;
-      std::cout << "DEFAULT/SCOPE" << std::endl;
+      //std::cout << "DEFAULT" << std::endl;
+      //std::cout << "DEFAULT/SCOPE" << std::endl;
       this->getRight()->print_xml();
     }
 

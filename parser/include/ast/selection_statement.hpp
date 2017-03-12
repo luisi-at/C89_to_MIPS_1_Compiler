@@ -24,7 +24,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "IF STATEMENT" << std::endl;
+    //std::cout << "IF STATEMENT" << std::endl;
     std::cout << "<Scope>" << std::endl;
     this->getNext()->print_xml();
     std::cout << "</Scope>" << std::endl;
@@ -62,7 +62,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "IF ELSE STATEMENT" << std::endl;
+    //std::cout << "IF ELSE STATEMENT" << std::endl;
     std::cout << "<Scope>" << std::endl;
     this->getNext()->print_xml();
     std::cout << "</Scope>" << std::endl;
@@ -100,7 +100,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "SWITCH STATEMENT" << std::endl;
+    //std::cout << "SWITCH STATEMENT" << std::endl;
     std::cout << "<Scope>" << std::endl;
     this->getNext()->print_xml();
     std::cout << "</Scope>" << std::endl;

@@ -20,7 +20,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "IN IDENTIFIER" << std::endl;
+    //std::cout << "IN IDENTIFIER" << std::endl;
     std::cout << "<Parameter = " << this->GetValue() << ">" << std::endl;
   }
 
@@ -44,7 +44,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "IN CONST" << std::endl;
+    //std::cout << "IN CONST" << std::endl;
     std::cout << "VALUE --> <" << this->GetValue() << ">";
 
   }

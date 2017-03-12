@@ -31,7 +31,7 @@ const Declarator *getLeft() const
 
   virtual void print_xml() const override
   {
-    std::cout << "INIT DECLARATOR" << std::endl;
+    //std::cout << "INIT DECLARATOR" << std::endl;
     this->getLeft()->print_xml();
     this->getRight()->print_xml();
   }

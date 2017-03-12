@@ -34,7 +34,7 @@ public:
 
     virtual void print_xml() const override
     {
-      std::cout << "LOGICAL AND OR" << std::endl;
+      //std::cout << "LOGICAL AND OR" << std::endl;
       this->getLeft()->print_xml();
       this->getRight()->print_xml();
 

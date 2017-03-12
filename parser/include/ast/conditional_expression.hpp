@@ -39,7 +39,7 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "CONDITIONAL EXPRESSION" << std::endl;
+    //std::cout << "CONDITIONAL EXPRESSION" << std::endl;
     this->getLeft()->print_xml();
     this->getMiddle()->print_xml();
     this->getRight()->print_xml();

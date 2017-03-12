@@ -34,7 +34,7 @@ public:
 
     virtual void print_xml() const override
     {
-      std::cout << "EQUALITY EXPRESSION" << std::endl;
+      //std::cout << "EQUALITY EXPRESSION" << std::endl;
       this->getLeft()->print_xml();
       this->getRight()->print_xml();
     }

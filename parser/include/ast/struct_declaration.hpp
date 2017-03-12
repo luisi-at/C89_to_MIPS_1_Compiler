@@ -23,11 +23,11 @@ public:
   {
     //printy xml
   }
-    
-    virtual Declarator* *AddItem(const Declarator *_item) const override
-    {
-        return 0;
-    }
+
+  virtual Declarator* *AddItem(const Declarator *_item) const override
+  {
+      return 0;
+  }
 
 };
 
@@ -49,11 +49,11 @@ public:
   {
     //printy xml
   }
-    
-    virtual Declarator* *AddItem(const Declarator *_item) const override
-    {
-        return 0;
-    }
+
+  virtual Declarator* *AddItem(const Declarator *_item) const override
+  {
+      return 0;
+  }
 
 };
 
@@ -75,11 +75,11 @@ public:
   {
     //printy xml
   }
-    
-    virtual Declarator* *AddItem(const Declarator *_item) const override
-    {
-        return 0;
-    }
+
+  virtual Declarator* *AddItem(const Declarator *_item) const override
+  {
+      return 0;
+  }
 
 };
 

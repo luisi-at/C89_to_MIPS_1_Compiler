@@ -28,6 +28,7 @@ public:
 
     virtual void print_xml() const override
     {
+      std::cout << "------------PARAMETER TIME------------" << std::endl;
       this->getSpecifiers()->print_xml();
       if(this->getRightDeclarator()){
         this->getRightDeclarator()->print_xml();

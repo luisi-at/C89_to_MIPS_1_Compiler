@@ -118,24 +118,39 @@ public:
 
 };
 
-
-/*class ParameterTypeDeclarator : public Declarator
+class ParameterTypeDeclarator : public Declarator
 {
 private:
   const Declarator *left;
-  std::vector<Declarator*> param_type_list;
+  const Declarator *right;
 
 public:
-  ParameterTypeDeclarator(const Declarator *_left, std::vector<Declarator*> &_param_type_list)
-  : param_type_list(_param_type_list)
-  , left(_left)
+  ParameterTypeDeclarator(const Declarator *_left, const Declarator *_right)
+  : left(_left)
+  , right(_right)
   {}
+
+  const Declarator *getLeft() const
+  {
+    return left;
+  }
+
+  const Declarator *getRight() const
+  {
+    return right;
+  }
 
   virtual void print_xml() const override
   {
-    //printy xml
+    this->getLeft()->print_xml();
+    this->getRight()->print_xml();
   }
 
-};*/
+  virtual Declarator* *AddItem(const Declarator *_item) const override
+  {
+      return 0;
+  }
+
+};
 
 #endif

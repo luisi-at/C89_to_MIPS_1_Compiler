@@ -1838,7 +1838,7 @@ yyreduce:
 
   case 84:
 #line 242 "src/c_parser.y" /* yacc.c:1646  */
-    {}
+    { std::cout << "241" << std::endl; (yyval.dltr) = new ParameterTypeDeclarator( (yyvsp[-3].dltr), (yyvsp[-1].dltr) ); }
 #line 1843 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
@@ -1850,7 +1850,7 @@ yyreduce:
 
   case 86:
 #line 247 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.dltr) = new DeclarationList(); (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
+    { std::cout << "247 PARAM LIST!" << std::endl; (yyval.dltr) = new DeclarationList(); (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
 #line 1855 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
@@ -1862,7 +1862,7 @@ yyreduce:
 
   case 88:
 #line 252 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.dltr) = new ParameterDeclaration( (yyvsp[-1].dltr), (yyvsp[0].dltr) ); }
+    { std::cout << "252 PARAMS!" << std::endl; (yyval.dltr) = new ParameterDeclaration( (yyvsp[-1].dltr), (yyvsp[0].dltr) ); }
 #line 1867 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 

@@ -239,17 +239,17 @@ direct_declarator
   | direct_declarator '[' constant_expression ']' { std::cout << "239" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
   | direct_declarator '[' ']'                     { std::cout << "240" << std::endl; $$ = new ExpressionDeclarator( $1, NULL );}
   | direct_declarator '(' identifier_list ')'     { std::cout << "241" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
-  | direct_declarator '(' parameter_list  ')'     {}
+  | direct_declarator '(' parameter_list  ')'     { std::cout << "241" << std::endl; $$ = new ParameterTypeDeclarator( $1, $3 ); }
   | direct_declarator '(' ')'                     { std::cout << "242" << std::endl; $$ = new EmptyDeclarator( $1 );}
   ;
 
 parameter_list
-  : parameter_declaration                         { $$ = new DeclarationList(); $$->AddItem( $1 ); }
+  : parameter_declaration                         { std::cout << "247 PARAM LIST!" << std::endl; $$ = new DeclarationList(); $$->AddItem( $1 ); }
   | parameter_list ',' parameter_declaration      { $$->AddItem( $3 ); }
   ;
 
 parameter_declaration
-  : declaration_specifiers declarator             { $$ = new ParameterDeclaration( $1, $2 ); }
+  : declaration_specifiers declarator             { std::cout << "252 PARAMS!" << std::endl; $$ = new ParameterDeclaration( $1, $2 ); }
   | declaration_specifiers                        { $$ = new ParameterDeclaration( $1, NULL ); }
   ;
 

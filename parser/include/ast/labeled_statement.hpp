@@ -49,7 +49,7 @@ public:
   {
     //std::cout << "IDENTIFIER STATEMENT" << std::endl;
     this->getLeft()->print_xml();
-    std::cout << ":" << std::endl;
+    //std::cout << ":" << std::endl;
     this->getRight()->print_xml();
   }
 

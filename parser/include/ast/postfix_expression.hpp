@@ -33,9 +33,9 @@ public:
       //std::cout << "left" << std::endl;
       //std::cout << "POSTFIX EXPRESSION" << std::endl;
       this->getLeft()->print_xml();
-      std::cout << getOperator() << std::endl;
+      std::cout << getOperator();
       if(right != ""){
-        std::cout << right << std::endl;
+        std::cout << right;
       }
     }
 

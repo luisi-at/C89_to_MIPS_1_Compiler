@@ -23,17 +23,18 @@ public:
 
   virtual void print_xml() const override
   {
+    std::cout << this->GetValue();
     //std::cout << "IN IDENTIFIER" << std::endl;
-    std::string str = this->GetValue().c_str();
+    //std::string str = this->GetValue().c_str();
     //str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
     //std::cout << "Erased string"<< str << std::endl;
 
     //str.erase(str.size()-1);
-    std::cout << str;
+    //std::cout << str;
 
     /*std::size_t found = str.find('\n');
     if(found){
-      std::cout << std::endl << "SPURIOUS NEWLINE" << std::endl;
+    
     }
     //std::cout << "\"/>"; */
   }

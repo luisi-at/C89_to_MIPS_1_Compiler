@@ -24,9 +24,9 @@ public:
     virtual void print_xml() const override
     {
       //std::cout << "IdentifierDeclarator trace" << std::endl;
-      std::cout << "<Variable id= \"";
+      //std::cout << "<Variable id= \"";
       this->getExpr()->print_xml();
-      std::cout << "\"/>" << std::endl;
+      //std::cout << "\"/>" << std::endl;
     }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override

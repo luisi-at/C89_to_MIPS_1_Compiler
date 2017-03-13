@@ -1,7 +1,8 @@
-int f(int t){
+int f(int test){
   int y;
   if(x == 1){
     int x = 1;
-    return 0;
+    x = x + 1;
   }
+  return x;
 }

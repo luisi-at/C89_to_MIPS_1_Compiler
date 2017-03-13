@@ -239,12 +239,12 @@ direct_declarator
   | direct_declarator '[' constant_expression ']' { std::cout << "239" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
   | direct_declarator '[' ']'                     { std::cout << "240" << std::endl; $$ = new ExpressionDeclarator( $1, NULL );}
   | direct_declarator '(' identifier_list ')'     { std::cout << "241" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
-  | direct_declarator '(' parameter_list  ')'     { std::cout << "242" << std::endl; $$ = new ParameterTypeDeclarator( $1, $3 ); }
+  | direct_declarator '(' parameter_list  ')'     { std::cout << "242 FUNCTION WITH PARAMS" << std::endl; $$ = new ParameterTypeDeclarator( $1, $3 ); }
   | direct_declarator '(' ')'                     { std::cout << "243" << std::endl; $$ = new EmptyDeclarator( $1 );}
   ;
 
 parameter_list
-  : parameter_declaration                         { std::cout << "247 PARAM LIST!" << std::endl; $$ = new DeclarationList(); $$->AddItem( $1 ); }
+  : parameter_declaration                         { std::cout << "247 PARAM LIST!" << std::endl; $$ = new ParamDeclarationList(); $$->AddItem( $1 ); }
   | parameter_list ',' parameter_declaration      { $$->AddItem( $3 ); }
   ;
 
@@ -254,8 +254,8 @@ parameter_declaration
   ;
 
 identifier_list
-  : IDENTIFIER                      { std::cout << "246" << std::endl; $$ = new ExpressionList(); $$->AddItem(new Identifier( *$1 ) ); }
-  | identifier_list ',' IDENTIFIER  { std::cout << "247" << std::endl; $$->AddItem(new Identifier( *$3 ) ); }
+  : IDENTIFIER                      { std::cout << "257" << std::endl; $$ = new ExpressionList(); $$->AddItem(new Identifier( *$1 ) ); }
+  | identifier_list ',' IDENTIFIER  { std::cout << "258" << std::endl; $$->AddItem(new Identifier( *$3 ) ); }
   ;
 
 initializer

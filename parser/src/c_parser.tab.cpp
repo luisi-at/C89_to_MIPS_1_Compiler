@@ -1838,7 +1838,7 @@ yyreduce:
 
   case 84:
 #line 242 "src/c_parser.y" /* yacc.c:1646  */
-    { std::cout << "242" << std::endl; (yyval.dltr) = new ParameterTypeDeclarator( (yyvsp[-3].dltr), (yyvsp[-1].dltr) ); }
+    { std::cout << "242 FUNCTION WITH PARAMS" << std::endl; (yyval.dltr) = new ParameterTypeDeclarator( (yyvsp[-3].dltr), (yyvsp[-1].dltr) ); }
 #line 1843 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
@@ -1850,7 +1850,7 @@ yyreduce:
 
   case 86:
 #line 247 "src/c_parser.y" /* yacc.c:1646  */
-    { std::cout << "247 PARAM LIST!" << std::endl; (yyval.dltr) = new DeclarationList(); (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
+    { std::cout << "247 PARAM LIST!" << std::endl; (yyval.dltr) = new ParamDeclarationList(); (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
 #line 1855 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
@@ -1874,13 +1874,13 @@ yyreduce:
 
   case 90:
 #line 257 "src/c_parser.y" /* yacc.c:1646  */
-    { std::cout << "246" << std::endl; (yyval.expr) = new ExpressionList(); (yyval.expr)->AddItem(new Identifier( *(yyvsp[0].string_value) ) ); }
+    { std::cout << "257" << std::endl; (yyval.expr) = new ExpressionList(); (yyval.expr)->AddItem(new Identifier( *(yyvsp[0].string_value) ) ); }
 #line 1879 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 91:
 #line 258 "src/c_parser.y" /* yacc.c:1646  */
-    { std::cout << "247" << std::endl; (yyval.expr)->AddItem(new Identifier( *(yyvsp[0].string_value) ) ); }
+    { std::cout << "258" << std::endl; (yyval.expr)->AddItem(new Identifier( *(yyvsp[0].string_value) ) ); }
 #line 1885 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 

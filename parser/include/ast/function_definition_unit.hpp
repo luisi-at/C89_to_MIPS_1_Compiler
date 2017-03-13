@@ -47,9 +47,6 @@ public:
     virtual void print_xml() const override
     {
 
-
-
-
         if((this->getSpecifiers()) && (this->getDeclarator()) && (this->getDeclarationList()) && (this->getStatement())){
           std::cout << "FUNCTION_DEC1_1" << std::endl;
           this->getSpecifiers()->print_xml();
@@ -68,7 +65,7 @@ public:
           std::cout << "FUNCTION_DEC2_2---> Declarator" << std::endl;
           std::cout << "<Function id = \"";
           this->getDeclarator()->print_xml();
-          std::cout << "\"/>" << std::endl;
+          //std::cout << "\"/>" << std::endl;
           std::cout << "<Scope>" << std::endl;
           std::cout << "FUNCTION_DEC2_3---> Statements" << std::endl;
           this->getStatement()->print_xml();

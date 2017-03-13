@@ -31,7 +31,10 @@ const Declarator *getDeclarator() const{
     {
       this->getDeclarator()->print_xml();
     }
-    this->getStatement()->print_xml();
+    if(this->getStatement())
+    {
+      this->getStatement()->print_xml();
+    }
 
   }
 

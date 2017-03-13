@@ -51,7 +51,7 @@ public:
 
     virtual void print_xml() const override
     {
-      //std::cout << "Bracketed trace" << std::endl;
+      std::cout << "Bracketed trace" << std::endl;
       this->getDecl()->print_xml();
     }
 
@@ -144,11 +144,14 @@ public:
 
   virtual void print_xml() const override
   {
-    //std::cout << "PARAM DECLARATOR" << std::endl;
+    //std::cout << "PARAM TYPE DECLARATOR" << std::endl;
     //std::cout << "LEFT PARAM DECLARATOR" << std::endl;
     this->getLeft()->print_xml();
+    std::cout << "\"/>" << std::endl;
     //std::cout << "RIGHT PARAM DECLARATOR" << std::endl;
+
     this->getRight()->print_xml();
+
   }
 
   virtual Declarator* *AddItem(const Declarator *_item) const override

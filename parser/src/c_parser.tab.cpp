@@ -1838,13 +1838,13 @@ yyreduce:
 
   case 84:
 #line 242 "src/c_parser.y" /* yacc.c:1646  */
-    { std::cout << "241" << std::endl; (yyval.dltr) = new ParameterTypeDeclarator( (yyvsp[-3].dltr), (yyvsp[-1].dltr) ); }
+    { std::cout << "242" << std::endl; (yyval.dltr) = new ParameterTypeDeclarator( (yyvsp[-3].dltr), (yyvsp[-1].dltr) ); }
 #line 1843 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 85:
 #line 243 "src/c_parser.y" /* yacc.c:1646  */
-    { std::cout << "242" << std::endl; (yyval.dltr) = new EmptyDeclarator( (yyvsp[-2].dltr) );}
+    { std::cout << "243" << std::endl; (yyval.dltr) = new EmptyDeclarator( (yyvsp[-2].dltr) );}
 #line 1849 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 

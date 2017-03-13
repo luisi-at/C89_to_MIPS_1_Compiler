@@ -49,7 +49,7 @@ public:
     //std::cout << _item << std::endl;
     statements_list.push_back(_item); // fails here
     //std::cout << "AFTER PUSH BACK" << std::endl;
-    this->print_xml();
+    //this->print_xml();
   }
 
   virtual void print_xml() const override
@@ -61,7 +61,7 @@ public:
     */
     //std::cout << "STATEMENT LIST SIZE: " << statements_list.size() << std::endl;
     for(int i = 0; i < statements_list.size(); i++){
-      std::cout << "PRINTING STATEMENT LIST: " << i << std::endl;
+      //std::cout << "PRINTING STATEMENT LIST: " << i << std::endl;
       statements_list[i]->print_xml();
     }
 

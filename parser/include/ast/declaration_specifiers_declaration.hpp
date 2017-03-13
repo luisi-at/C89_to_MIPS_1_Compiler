@@ -30,17 +30,17 @@ public:
   virtual void print_xml() const override
   {
     //std::cout << "DECLARATION SPECIFIERS" << std::endl;
-    this->getExpression()->print_xml();
+    //this->getExpression()->print_xml();
     if(this->getDeclarator()){
       this->getDeclarator()->print_xml();
     }
 
   }
 
-    virtual Declarator* *AddItem(const Declarator *_item) const override
-    {
-        return 0;
-    }
+  virtual Declarator* *AddItem(const Declarator *_item) const override
+  {
+      return 0;
+  }
 
 
 };

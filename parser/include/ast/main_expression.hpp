@@ -56,9 +56,9 @@ public:
 
     //std::cout << "==============" << std::endl;
     //std::cout << _item << std::endl;
-    //expressions_list.push_back(_item); // fails here
+    expressions_list.push_back(_item);
     //std::cout << "PUSH BACK SUCCESS" << std::endl;
-    this->print_xml();
+    //this->print_xml();
   }
 
   virtual void print_xml() const override
@@ -70,7 +70,7 @@ public:
     */
     //std::cout << "EXPRESSION LIST SIZE: "<< expressions_list.size() << std::endl;
     for(int i = 0; i < expressions_list.size(); i++){
-      std::cout << "PRINTING EXPRESSION LIST: " << i << std::endl;
+      //std::cout << "PRINTING EXPRESSION LIST: " << i << std::endl;
       expressions_list[i]->print_xml();
 
     }

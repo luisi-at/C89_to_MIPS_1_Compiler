@@ -239,8 +239,8 @@ direct_declarator
   | direct_declarator '[' constant_expression ']' { std::cout << "239" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
   | direct_declarator '[' ']'                     { std::cout << "240" << std::endl; $$ = new ExpressionDeclarator( $1, NULL );}
   | direct_declarator '(' identifier_list ')'     { std::cout << "241" << std::endl; $$ = new ExpressionDeclarator( $1, $3 ); }
-  | direct_declarator '(' parameter_list  ')'     { std::cout << "241" << std::endl; $$ = new ParameterTypeDeclarator( $1, $3 ); }
-  | direct_declarator '(' ')'                     { std::cout << "242" << std::endl; $$ = new EmptyDeclarator( $1 );}
+  | direct_declarator '(' parameter_list  ')'     { std::cout << "242" << std::endl; $$ = new ParameterTypeDeclarator( $1, $3 ); }
+  | direct_declarator '(' ')'                     { std::cout << "243" << std::endl; $$ = new EmptyDeclarator( $1 );}
   ;
 
 parameter_list

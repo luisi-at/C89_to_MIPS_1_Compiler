@@ -58,9 +58,9 @@ public:
 
         //std::cout << "==============" << std::endl;
         //std::cout << _item << std::endl;
-        //declarations_list.push_back(_item); // fails here
+        declarations_list.push_back(_item); // fails here
         //std::cout << "AFTER PUSH BACK" << std::endl;
-        this->print_xml();
+        //this->print_xml();
         }
 
         virtual void print_xml() const override
@@ -72,7 +72,7 @@ public:
              */
             //std::cout << "DECLARATION LIST SIZE: "<< declarations_list.size() << std::endl;
             for(int i = 0; i < declarations_list.size(); i++){
-              std::cout << "PRINTING DECLARATION LIST: " << i << std::endl;
+              //std::cout << "PRINTING DECLARATION LIST: " << i << std::endl;
                 declarations_list[i]->print_xml();
             }
             //std::cout << "DONE PRINTING DECLARATORS" << std::endl;

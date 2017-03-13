@@ -40,13 +40,13 @@ public:
   {
     //std::cout << "ASSIGNMENT EXPRESSION" << std::endl;
     this->getLeft()->print_xml();
-    this->getRight()->print_xml();
+    //this->getRight()->print_xml();
   }
 
-      virtual Expression* *AddItem(const Expression *_item) const override
-      {
-          return 0;
-      }
+  virtual Expression* *AddItem(const Expression *_item) const override
+  {
+      return 0;
+  }
 
 };
 

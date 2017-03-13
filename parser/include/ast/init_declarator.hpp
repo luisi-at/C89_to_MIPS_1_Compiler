@@ -33,13 +33,15 @@ const Declarator *getLeft() const
   {
     //std::cout << "INIT DECLARATOR" << std::endl;
     this->getLeft()->print_xml();
-    this->getRight()->print_xml();
+    if(this->getRight()){
+      this->getRight()->print_xml();
+    }
   }
 
-    virtual Declarator* *AddItem(const Declarator *_item) const override
-    {
-        return 0;
-    }
+  virtual Declarator* *AddItem(const Declarator *_item) const override
+  {
+    return 0;
+  }
 
 };
 

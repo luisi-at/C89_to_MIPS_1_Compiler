@@ -6,28 +6,42 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <algorithm>
 
 class Identifier : public Expression
 {
 private:
-  const std::string id;
+  mutable std::string id;
 public:
   Identifier(const std::string _id) : id(_id)
   {}
 
   std::string GetValue() const
-  { return id ; }
+  {
+    return id;
+  }
 
   virtual void print_xml() const override
   {
     //std::cout << "IN IDENTIFIER" << std::endl;
-    std::cout << "<Parameter = " << this->GetValue() << ">" << std::endl;
+    std::string str = this->GetValue().c_str();
+    //str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
+    //std::cout << "Erased string"<< str << std::endl;
+
+    //str.erase(str.size()-1);
+    std::cout << str;
+
+    /*std::size_t found = str.find('\n');
+    if(found){
+      std::cout << std::endl << "SPURIOUS NEWLINE" << std::endl;
+    }
+    //std::cout << "\"/>"; */
   }
 
-      virtual Expression* *AddItem(const Expression *_item) const override
-      {
-          return 0;
-      }
+  virtual Expression* *AddItem(const Expression *_item) const override
+  {
+      return 0;
+  }
 };
 
 
@@ -45,14 +59,15 @@ public:
   virtual void print_xml() const override
   {
     //std::cout << "IN CONST" << std::endl;
-    std::cout << "VALUE --> <" << this->GetValue() << ">";
+    //std::cout << "VALUE --> <" << this->GetValue() << ">";
 
   }
 
-    virtual Expression* *AddItem(const Expression *_item) const override
-    {
-        return 0;
-    }
+  virtual Expression* *AddItem(const Expression *_item) const override
+  {
+      return 0;
+  }
+
 };
 
 class StringLiteral : public Expression
@@ -67,12 +82,15 @@ public:
   { return value ; }
 
   virtual void print_xml() const override
-  {  }
+  {
 
-    virtual Expression* *AddItem(const Expression *_item) const override
-    {
-        return 0;
-    }
+  }
+
+  virtual Expression* *AddItem(const Expression *_item) const override
+  {
+      return 0;
+  }
+
 };
 
 class BracketedExpression : public Expression
@@ -91,10 +109,10 @@ public:
 
   }
 
-    virtual Expression* *AddItem(const Expression *_item) const override
-    {
-        return 0;
-    }
+  virtual Expression* *AddItem(const Expression *_item) const override
+  {
+      return 0;
+  }
 
 
 };
@@ -164,16 +182,16 @@ public:
 
   virtual void print_xml() const override
   {
-    std::cout << "TYPE SPECIFIER EXPRESSION" << std::endl;
-    std::cout << type_class << std::endl;
+    //std::cout << "TYPE SPECIFIER EXPRESSION" << std::endl;
+    //std::cout << type_class << std::endl;
   }
 
 
 
-    virtual Expression* *AddItem(const Expression *_item) const override
-    {
-        return 0;
-    }
+  virtual Expression* *AddItem(const Expression *_item) const override
+  {
+      return 0;
+  }
 
 
 };

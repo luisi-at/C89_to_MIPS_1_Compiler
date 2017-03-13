@@ -202,12 +202,12 @@ declaration
   ;
 
 declaration_specifiers
-  : type_specifier                        { std::cout << "205" << std::endl; $$ = new DeclarationSpecifier( $1, NULL ); }
+  : type_specifier                        { std::cout << "205" << std::endl; }
   | type_specifier declaration_specifiers { std::cout << "206" << std::endl; $$ = new DeclarationSpecifier( $1, $2 ); }
   ;
 
 init_declarator_list
-  : init_declarator                       { std::cout << "210" << std::endl; $$ = new DeclarationList(); $$->AddItem( $1 ); }
+  : init_declarator                       { std::cout << "210" << std::endl; $$ = new InitDeclarationList(); $$->AddItem( $1 ); }
   | init_declarator ',' init_declarator   { std::cout << "211" << std::endl; $$->AddItem( $3 ); }
   ;
 

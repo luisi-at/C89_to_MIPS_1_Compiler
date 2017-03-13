@@ -1718,7 +1718,7 @@ yyreduce:
 
   case 63:
 #line 205 "src/c_parser.y" /* yacc.c:1646  */
-    { std::cout << "205" << std::endl; (yyval.dltr) = new DeclarationSpecifier( (yyvsp[0].expr), NULL ); }
+    { std::cout << "205" << std::endl; }
 #line 1723 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
@@ -1730,7 +1730,7 @@ yyreduce:
 
   case 65:
 #line 210 "src/c_parser.y" /* yacc.c:1646  */
-    { std::cout << "210" << std::endl; (yyval.dltr) = new DeclarationList(); (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
+    { std::cout << "210" << std::endl; (yyval.dltr) = new InitDeclarationList(); (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
 #line 1735 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 

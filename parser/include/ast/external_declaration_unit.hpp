@@ -37,6 +37,9 @@ public:
     if(this->getFunction()){
       this->getFunction()->print_xml();
     }
+    if(this->getDeclarator()){
+      this->getDeclarator()->print_xml();
+    }
   }
 };
 

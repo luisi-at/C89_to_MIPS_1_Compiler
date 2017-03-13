@@ -329,6 +329,7 @@ this_unit
 external_declaration
   : function_definition { std::cout << "315" << std::endl; $$ = new ExternalDeclaration( $1, NULL ); }
   | declaration         { std::cout << "316" << std::endl; $$ = new ExternalDeclaration( NULL, $1 ); }
+  | declaration function_definition { std::cout << "332" << std::endl; $$ = new ExternalDeclaration( $2, $1 ); }
   ;
 
 function_definition

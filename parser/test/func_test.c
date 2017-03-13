@@ -1,3 +1,5 @@
+int test1;
+
 int f(int test){
   int y;
   if(x == 1){

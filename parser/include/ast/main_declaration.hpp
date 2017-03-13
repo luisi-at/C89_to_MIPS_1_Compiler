@@ -72,7 +72,7 @@ public:
              */
             //std::cout << "DECLARATION LIST SIZE: "<< declarations_list.size() << std::endl;
             for(int i = 0; i < declarations_list.size(); i++){
-              std::cout << "PRINTING DECLARATION LIST: " << i << std::endl;
+              //std::cout << "PRINTING DECLARATION LIST: " << i << std::endl;
               std::cout << "<Variable id= \"";
               declarations_list[i]->print_xml();
               std::cout << "\" />" << std::endl;

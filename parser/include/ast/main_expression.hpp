@@ -36,6 +36,11 @@ public:
     this->getRight()->print_xml();
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
   virtual Expression* *AddItem(const Expression *_item) const override
   {
     return 0;
@@ -74,6 +79,11 @@ public:
       expressions_list[i]->print_xml();
 
     }
+
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
 
   }
 

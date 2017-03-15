@@ -4,13 +4,21 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <map>
 
-class Unit{
+#include "context.hpp"
+
+class Unit
+{
 public:
     virtual ~Unit()
     {}
 
     virtual void print_xml() const = 0;
+
+    virtual void codegen(Context &_context) const = 0;
 };
+
+
 
 #endif

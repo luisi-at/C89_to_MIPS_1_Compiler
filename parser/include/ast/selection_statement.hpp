@@ -35,6 +35,11 @@ public:
     return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 class IfElseSelection : public Statement
@@ -77,6 +82,11 @@ public:
     return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 class SwitchSelection : public Statement
@@ -111,6 +121,10 @@ public:
     return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
 
 };
 

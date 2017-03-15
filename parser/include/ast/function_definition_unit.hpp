@@ -55,6 +55,11 @@ public:
     virtual FunctionDefinition* *AddItem(const FunctionDefinition *_item) const override
     {}
 
+    virtual void codegen(Context &_context) const override
+    {
+
+    }
+
     virtual void print_xml() const override
     {
 
@@ -119,6 +124,11 @@ public:
     for(int i = 0; i < functions_list.size(); i++){
       functions_list[i]->print_xml();
     }
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
   }
 
 

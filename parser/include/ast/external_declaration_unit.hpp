@@ -41,6 +41,12 @@ public:
       this->getDeclarator()->print_xml();
     }
   }
+
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 #endif

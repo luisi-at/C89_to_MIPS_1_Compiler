@@ -43,6 +43,11 @@ const Declarator *getLeft() const
     return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 

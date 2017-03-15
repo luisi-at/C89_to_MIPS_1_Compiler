@@ -1,7 +1,11 @@
 #ifndef ast_hpp
 #define ast_hpp
 
+#include <vector>
+#include <map>
+
 // include other AST classes here
+
 #include "ast/expression.hpp"
 #include "ast/primary_expression.hpp"
 #include "ast/postfix_expression.hpp"
@@ -38,5 +42,6 @@
 #include "ast/external_declaration_unit.hpp"
 
 extern const Unit *parseAST();
+
 
 #endif

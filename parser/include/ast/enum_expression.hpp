@@ -28,11 +28,16 @@ public:
 
   virtual void print_xml() const override
   { /*printy printy*/  }
-    
-    virtual Expression* *AddItem(const Expression *_item) const override
-    {
-        return 0;
-    }
+
+  virtual Expression* *AddItem(const Expression *_item) const override
+  {
+      return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
 
 };
 
@@ -57,11 +62,16 @@ public:
 
   virtual void print_xml() const override
   { /*printy printy*/  }
-    
-    virtual Expression* *AddItem(const Expression *_item) const override
-    {
-        return 0;
-    }
+
+  virtual Expression* *AddItem(const Expression *_item) const override
+  {
+      return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
 
   // special methods for specifier
 

@@ -43,6 +43,11 @@ public:
         return 0;
     }
 
+    virtual void codegen(Context &_context) const override
+    {
+
+    }
+
 };
 
 class StrictLessThanExpression : public RelationalExpression

@@ -28,6 +28,13 @@ public:
   {
     this->getStatement()->print_xml();
   }
+
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
+
 };
 
 // wrapper
@@ -64,6 +71,11 @@ public:
       //std::cout << "PRINTING STATEMENT LIST: " << i << std::endl;
       statements_list[i]->print_xml();
     }
+
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
 
   }
 

@@ -24,13 +24,19 @@ public:
   virtual void print_xml() const override
   {
     std::cout << this->GetValue();
-    
+
   }
 
   virtual Expression* *AddItem(const Expression *_item) const override
   {
       return 0;
   }
+
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 
@@ -57,6 +63,11 @@ public:
       return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 class StringLiteral : public Expression
@@ -78,6 +89,11 @@ public:
   virtual Expression* *AddItem(const Expression *_item) const override
   {
       return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
   }
 
 };
@@ -103,6 +119,10 @@ public:
       return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
 
 };
 
@@ -116,6 +136,12 @@ public:
 
   virtual void print_xml() const override
   { /*xml printy stuff in here */ }
+
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 // another wrapper to access the vector, still treated as expression
@@ -134,6 +160,10 @@ public:
         return 0;
     }
 
+    virtual void codegen(Context &_context) const override
+    {
+
+    }
 
 };
 
@@ -156,6 +186,10 @@ public:
         return 0;
     }
 
+    virtual void codegen(Context &_context) const override
+    {
+
+    }
 
 
 };
@@ -182,6 +216,11 @@ public:
       return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 
 };
 
@@ -196,28 +235,13 @@ public:
 
   virtual void print_xml() const override
   { /*xml printy stuff in here */ }
-};
 
-//wrapper
-class IdentifierList : public Expression
-{
-public:
-  IdentifierList()
-  {}
-
-  virtual void print_xml() const override
+  virtual void codegen(Context &_context) const override
   {
-    //printy xml
+
   }
 
-
-    virtual Expression* *AddItem(const Expression *_item) const override
-    {
-        return 0;
-    }
-
-
-
 };
+
 
 #endif

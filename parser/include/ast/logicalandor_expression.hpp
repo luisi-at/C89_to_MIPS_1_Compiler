@@ -40,10 +40,15 @@ public:
 
     }
 
-        virtual Expression* *AddItem(const Expression *_item) const override
-        {
-            return 0;
-        }
+    virtual Expression* *AddItem(const Expression *_item) const override
+    {
+        return 0;
+    }
+
+    virtual void codegen(Context &_context) const override
+    {
+
+    }
 
 };
 
@@ -57,6 +62,7 @@ public:
   LogicalAndExpression(const Expression *_left, const Expression *_right)
   : LogicalAndOrExpression(_left, _right)
   {}
+
 };
 
 class LogicalOrExpression : public LogicalAndOrExpression
@@ -69,6 +75,8 @@ public:
   LogicalOrExpression(const Expression *_left, const Expression *_right)
   : LogicalAndOrExpression(_left, _right)
   {}
+
+
 };
 
 

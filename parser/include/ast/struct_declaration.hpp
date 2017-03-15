@@ -29,6 +29,11 @@ public:
       return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 // wrapper to access vector
@@ -55,6 +60,11 @@ public:
       return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 class StructUnionSpecifier : public Declarator
@@ -79,6 +89,11 @@ public:
   virtual Declarator* *AddItem(const Declarator *_item) const override
   {
       return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
   }
 
 };

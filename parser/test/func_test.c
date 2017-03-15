@@ -1,5 +1,9 @@
 int x(int empty)
-{}
+{
+  if(empty == 0)
+  {}
+  return 0;
+}
 
 int f(int test){
   int y;

@@ -26,6 +26,11 @@ public:
       return 0;
     }
 
+    virtual void codegen(Context &_context) const override
+    {
+
+    }
+
 };
 
 class ContinueStatement : public Statement
@@ -49,6 +54,11 @@ public:
   virtual Statement* *AddItem(const Statement *_item) const override
   {
     return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
   }
 
 };
@@ -76,6 +86,11 @@ public:
     return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 class ReturnStatement : public Statement
@@ -99,6 +114,11 @@ public:
   virtual Statement* *AddItem(const Statement *_item) const override
   {
     return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
   }
 
 };
@@ -125,6 +145,11 @@ public:
   virtual Statement* *AddItem(const Statement *_item) const override
   {
     return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
   }
 
 };

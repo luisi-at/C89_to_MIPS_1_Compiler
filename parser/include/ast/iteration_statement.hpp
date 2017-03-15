@@ -34,6 +34,11 @@ public:
     return 0;
   }
 
+  virtual void codegen(Context &_context) const override
+  {
+
+  }
+
 };
 
 class DoWhileIteration : public Statement
@@ -63,6 +68,11 @@ public:
   virtual Statement* *AddItem(const Statement *_item) const override
   {
     return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
   }
 
 
@@ -103,6 +113,11 @@ public:
   virtual Statement* *AddItem(const Statement *_item) const override
   {
     return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
   }
 
 };
@@ -147,6 +162,11 @@ public:
   virtual Statement* *AddItem(const Statement *_item) const override
   {
     return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+
   }
 
 };

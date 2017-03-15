@@ -16,10 +16,12 @@ public:
     {}
 
     virtual void print_xml() const = 0;
-    
+
+    virtual void codegen(Context &_context) const = 0;
+
     virtual Declarator* *AddItem(const Declarator *_item) const = 0;
-    
-    
+
+
 };
 
 

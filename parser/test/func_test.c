@@ -1,4 +1,5 @@
-int test1;
+int x(int empty)
+{}
 
 int f(int test){
   int y;

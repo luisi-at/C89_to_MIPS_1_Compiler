@@ -147,7 +147,7 @@ public:
     //std::cout << "PARAM TYPE DECLARATOR" << std::endl;
     //std::cout << "LEFT PARAM DECLARATOR" << std::endl;
     this->getLeft()->print_xml();
-    std::cout << "\"/>" << std::endl;
+    std::cout << " \"/>" << std::endl;
     //std::cout << "RIGHT PARAM DECLARATOR" << std::endl;
 
     this->getRight()->print_xml();

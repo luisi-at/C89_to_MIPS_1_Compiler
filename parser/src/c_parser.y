@@ -63,7 +63,7 @@
 %type <string_value> '{' '}' '+'
 %type <string_value> VOID CHAR SHORT INT LONG FLOAT DOUBLE SIGNED UNSIGNED
 
-%type <fdfn> function_definition
+%type <fdfn> function_definition function_definition_list
 %type <edln> external_declaration
 %type <unit> this_unit
 
@@ -327,16 +327,20 @@ this_unit
   ;
 
 external_declaration
-  : function_definition { std::cout << "315" << std::endl; $$ = new ExternalDeclaration( $1, NULL ); }
-  | declaration         { std::cout << "316" << std::endl; $$ = new ExternalDeclaration( NULL, $1 ); }
-  | declaration function_definition { std::cout << "332" << std::endl; $$ = new ExternalDeclaration( $2, $1 ); }
+  : function_definition_list        { std::cout << "331" << std::endl; $$ = new ExternalDeclaration( $1, NULL ); }
+  | declaration                     { std::cout << "332" << std::endl; $$ = new ExternalDeclaration( NULL, $1 ); }
+  | declaration function_definition { std::cout << "333" << std::endl; $$ = new ExternalDeclaration( $2, $1 ); }
   ;
 
+function_definition_list
+  : function_definition                             {std::cout << "336" << std::endl; $$ = new FunctionDefinitionList(); $$->AddItem( $1 ); }
+  | function_definition_list function_definition    {std::cout << "336" << std::endl; $$->AddItem( $2 ); }
+
 function_definition
-  : declaration_specifiers declarator declaration_list compound_statement { std::cout << "320" << std::endl; $$ = new FunctionDefinition( $1, $2, $3, $4 ); }
-  | declaration_specifiers declarator compound_statement                  { std::cout << "321" << std::endl; $$ = new FunctionDefinition( $1, $2, NULL, $3 ); }
-  | declarator declaration_list compound_statement                        { std::cout << "322" << std::endl; $$ = new FunctionDefinition( NULL, $1, $2, $3 ); }
-  | declarator compound_statement                                         { std::cout << "323" << std::endl; $$ = new FunctionDefinition( NULL, $1, NULL, $2 ); }
+  : declaration_specifiers declarator declaration_list compound_statement { std::cout << "339" << std::endl; $$ = new FunctionDefinitionActual( $1, $2, $3, $4 ); }
+  | declaration_specifiers declarator compound_statement                  { std::cout << "341" << std::endl; $$ = new FunctionDefinitionActual( $1, $2, NULL, $3 ); }
+  | declarator declaration_list compound_statement                        { std::cout << "342" << std::endl; $$ = new FunctionDefinitionActual( NULL, $1, $2, $3 ); }
+  | declarator compound_statement                                         { std::cout << "343" << std::endl; $$ = new FunctionDefinitionActual( NULL, $1, NULL, $2 ); }
   ;
 
 

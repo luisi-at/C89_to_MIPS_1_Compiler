@@ -10,8 +10,6 @@
 
 class Expression : public Unit
 {
-protected:
-  std::vector<Expression*> expression_list;
 public:
     virtual ~Expression()
     {}

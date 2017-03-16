@@ -11,6 +11,10 @@ bin/print_hierarchy : src/print_hierarchy.o src/c_parser.tab.o src/c_lexer.yy.o 
 	mkdir -p bin
 	g++ $(CPPFLAGS) -o bin/print_hierarchy $^
 
+bin/c_compiler : src/c_generator.o src/c_parser.tab.o src/c_lexer.yy.o src/c_parser.tab.o
+	mkdir -p bin
+	g++ $(CPPFLAGS) -o bin/c_compiler $^
+
 clean :
 	rm src/*.o
 	rm bin/*

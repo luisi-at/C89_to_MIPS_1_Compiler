@@ -21,6 +21,12 @@ public:
     return id;
   }
 
+  virtual std::string ReturnName() const override
+  {
+    // this is here to allow a function or variable name to be returned up the hierarchy
+    return this->GetValue();
+  }
+
   virtual void print_xml() const override
   {
     std::cout << this->GetValue();
@@ -29,12 +35,20 @@ public:
 
   virtual Expression* *AddItem(const Expression *_item) const override
   {
-      return 0;
+    return 0;
   }
 
   virtual void codegen(Context &_context) const override
   {
-
+    //std::string temp = context.makeLabel(this->GetValue());
+    // somehow bubble this back up to the top
+    // is cout the nest idea?
+    // what needs to happen is that in the function declarator the label needs to be made
+    // maybe have to insert a "GetValue" method returning a string for all methods?
+    // to get the to very child class value and filter a string back up
+    // problem is that this only applies to functions and jumps
+    // because this is also used for variable names (of which research needs to be done on how those are handled)
+    // This must also handle variable names for binding values during the assigmment phase
   }
 
 };
@@ -68,6 +82,9 @@ public:
 
   }
 
+  virtual std::string ReturnName() const override
+  {}
+
 };
 
 class StringLiteral : public Expression
@@ -95,6 +112,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 
@@ -124,6 +144,9 @@ public:
 
   }
 
+  virtual std::string ReturnName() const override
+  {}
+
 };
 
 class TypeQualifierExpression : public Expression
@@ -141,6 +164,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 
@@ -164,6 +190,9 @@ public:
     {
 
     }
+
+    virtual std::string ReturnName() const override
+    {}
 
 };
 
@@ -190,6 +219,9 @@ public:
     {
 
     }
+
+    virtual std::string ReturnName() const override
+    {}
 
 
 };
@@ -221,6 +253,9 @@ public:
 
   }
 
+  virtual std::string ReturnName() const override
+  {}
+
 
 };
 
@@ -240,6 +275,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 

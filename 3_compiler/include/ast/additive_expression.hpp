@@ -50,6 +50,9 @@ public:
 
     }
 
+    virtual std::string ReturnName() const override
+    {}
+
 };
 
 class AddAdditive : public AdditiveExpression

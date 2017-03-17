@@ -39,6 +39,9 @@ public:
 
     }
 
+    virtual std::string ReturnName() const override
+    {}
+
 };
 
 class BracketedDeclarator : public Declarator
@@ -70,6 +73,9 @@ public:
     {
 
     }
+
+    virtual std::string ReturnName() const override
+    {}
 
 };
 
@@ -106,6 +112,9 @@ public:
 
     }
 
+    virtual std::string ReturnName() const override
+    {}
+
 
 };
 
@@ -138,6 +147,9 @@ public:
     {
 
     }
+
+    virtual std::string ReturnName() const override
+    {}
 
 };
 
@@ -184,6 +196,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 

@@ -49,6 +49,9 @@ public:
 
   }
 
+  virtual std::string ReturnName() const override
+  {}
+
 };
 
 class PostfixEmpty

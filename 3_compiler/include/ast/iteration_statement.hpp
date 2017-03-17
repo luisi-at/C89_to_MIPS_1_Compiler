@@ -39,6 +39,9 @@ public:
 
   }
 
+  virtual std::string ReturnName() const override
+  {}
+
 };
 
 class DoWhileIteration : public Statement
@@ -74,6 +77,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 
 };
@@ -119,6 +125,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 
@@ -168,6 +177,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 

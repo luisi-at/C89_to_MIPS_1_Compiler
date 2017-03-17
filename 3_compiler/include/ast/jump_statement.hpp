@@ -31,6 +31,9 @@ public:
 
     }
 
+    virtual std::string ReturnName() const override
+    {}
+
 };
 
 class ContinueStatement : public Statement
@@ -60,6 +63,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 
@@ -91,6 +97,9 @@ public:
 
   }
 
+  virtual std::string ReturnName() const override
+  {}
+
 };
 
 class ReturnStatement : public Statement
@@ -120,6 +129,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 
@@ -151,6 +163,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 

@@ -28,6 +28,7 @@ private:
   const Declarator *declarator;
   const Declarator *declaration_list;
   const Statement *compound_statement;
+  mutable std::string function_name;
 
 public:
   FunctionDefinitionActual(const Declarator *_specifiers
@@ -52,14 +53,36 @@ public:
     const Statement* getStatement() const{
       return compound_statement;
     }
+    const void setFunctionName(const std::string _thisName) const{
+      function_name = _thisName;
+    }
+    std::string getFunctionName() const{
+      return function_name;
+    }
 
     virtual FunctionDefinition* *AddItem(const FunctionDefinition *_item) const override
     {}
 
     virtual void codegen(Context &_context) const override
     {
-      std::cout << std::setw(10) << ".align " << std::right << "2" << std::endl;
+      std::string functionLabel;
+      // set function name/label here
+      this->setFunctionName("name");
+      // is it from this declarator identifier?
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".align " << std::setw(10) << std::right << "2" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".globl " << std::setw(10) << std::right << "NAME" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::right << "nomips16" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::right << "nomicromips" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".ent " << std::setw(10) << std::right << "FUNCTION NAME" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".type " << std::setw(10) << std::right << "FUNCTION NAME, @function" << std::endl;
+      // print function label here!
+
       if((this->getSpecifiers()) && (this->getDeclarator()) && (this->getDeclarationList()) && (this->getStatement())){
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".frame " << std::setw(10) << std::right << "$fp, NO!, $31" << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".mask " << std::setw(10) << std::right << "MASK" << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".fmask " << std::setw(10) << std::right << "FMASK" << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::right << "noreorder" << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::right << "nomacro" << std::endl;
 
       }
       else if((this->getSpecifiers()) && (this->getDeclarator()) && (!this->getDeclarationList()) && (this->getStatement())){
@@ -121,6 +144,10 @@ public:
 
       std::cout << "</Function>" << std::endl;
     }
+
+    virtual std::string ReturnName() const override
+    {}
+
 };
 
 class FunctionDefinitionList : public FunctionDefinition
@@ -146,6 +173,9 @@ public:
       functions_list[i]->codegen(_context);
     }
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 
 };

@@ -21,6 +21,8 @@ public:
 
     virtual Declarator* *AddItem(const Declarator *_item) const = 0;
 
+    virtual std::string ReturnName() const = 0;
+
 
 };
 

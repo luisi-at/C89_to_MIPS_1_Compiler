@@ -34,6 +34,9 @@ public:
 
   }
 
+  virtual std::string ReturnName() const override
+  {}
+
 };
 
 // wrapper to access vector
@@ -65,6 +68,9 @@ public:
 
   }
 
+  virtual std::string ReturnName() const override
+  {}
+
 };
 
 class StructUnionSpecifier : public Declarator
@@ -95,6 +101,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 

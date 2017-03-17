@@ -41,6 +41,9 @@ public:
 
     }
 
+    virtual std::string ReturnName() const override
+    {}
+
 };
 
 class IdentifierStatement : public LabeledStatement
@@ -67,6 +70,9 @@ public:
   {
 
   }
+
+  virtual std::string ReturnName() const override
+  {}
 
 };
 
@@ -96,6 +102,9 @@ public:
 
   }
 
+  virtual std::string ReturnName() const override
+  {}
+
 };
 
 class DefaultStatement : public LabeledStatement
@@ -124,6 +133,9 @@ public:
     {
 
     }
+
+    virtual std::string ReturnName() const override
+    {}
 
 };
 

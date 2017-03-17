@@ -18,6 +18,8 @@ public:
 
     virtual void codegen(Context &_context) const = 0;
 
+    virtual std::string ReturnName() const = 0;
+
     virtual Expression* *AddItem(const Expression *_item) const = 0;
 
 };

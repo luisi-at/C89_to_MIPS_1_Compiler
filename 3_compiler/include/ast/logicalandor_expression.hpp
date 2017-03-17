@@ -50,6 +50,9 @@ public:
 
     }
 
+    virtual std::string ReturnName() const override
+    {}
+
 };
 
 class LogicalAndExpression : public LogicalAndOrExpression

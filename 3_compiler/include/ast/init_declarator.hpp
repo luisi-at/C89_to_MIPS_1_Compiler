@@ -48,6 +48,9 @@ const Declarator *getLeft() const
 
   }
 
+  virtual std::string ReturnName() const override
+  {}
+
 };
 
 

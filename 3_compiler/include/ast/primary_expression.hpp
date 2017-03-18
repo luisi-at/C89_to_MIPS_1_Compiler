@@ -24,6 +24,7 @@ public:
   virtual std::string ReturnName() const override
   {
     // this is here to allow a function or variable name to be returned up the hierarchy
+    std::cout << "RETURN NAME IDENTIFIER EXPRESSION" << std::endl;
     return this->GetValue();
   }
 

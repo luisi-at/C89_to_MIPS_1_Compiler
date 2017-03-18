@@ -6,6 +6,8 @@
 
 // include other AST classes here
 
+#include "ast/context.hpp"
+
 #include "ast/expression.hpp"
 #include "ast/primary_expression.hpp"
 #include "ast/postfix_expression.hpp"

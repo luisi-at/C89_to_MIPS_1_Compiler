@@ -127,6 +127,8 @@ public:
     {
       //std::cout << "EmptyDeclarator trace" << std::endl;
       this->getLeft()->print_xml();
+      std::cout << "\" />" << std::endl;
+
     }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override
@@ -168,10 +170,12 @@ public:
     //std::cout << "PARAM TYPE DECLARATOR" << std::endl;
     //std::cout << "LEFT PARAM DECLARATOR" << std::endl;
     this->getLeft()->print_xml();
-    std::cout << " \"/>" << std::endl;
-    //std::cout << "RIGHT PARAM DECLARATOR" << std::endl;
+    std::cout << "\" />" << std::endl;
+    std::cout << "RIGHT PARAM DECLARATOR" << std::endl;
+    if(this->getRight()){
+      this->getRight()->print_xml();
+    }
 
-    this->getRight()->print_xml();
 
   }
 

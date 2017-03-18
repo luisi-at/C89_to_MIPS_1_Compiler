@@ -44,7 +44,13 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-
+    
+    if(this->getFunction()){
+      this->getFunction()->codegen(_context);
+    }
+    if(this->getDeclarator()){
+      this->getDeclarator()->codegen(_context);
+    }
   }
 
   virtual std::string ReturnName() const override

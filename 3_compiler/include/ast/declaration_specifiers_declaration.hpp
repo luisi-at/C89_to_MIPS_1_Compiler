@@ -48,7 +48,10 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    std::cout << "RETURN NAME DECLARATION SPECIFIERS" << std::endl;
+    return this->getDeclarator()->ReturnName();
+  }
 
 
 };

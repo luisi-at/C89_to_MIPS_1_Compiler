@@ -40,7 +40,10 @@ public:
     }
 
     virtual std::string ReturnName() const override
-    {}
+    {
+      std::cout << "RETURN NAME IDENTIFIER DECLARATOR" << std::endl;
+      return this->getExpr()->ReturnName();
+    }
 
 };
 
@@ -60,7 +63,7 @@ public:
 
     virtual void print_xml() const override
     {
-      std::cout << "Bracketed trace" << std::endl;
+      //std::cout << "Bracketed trace" << std::endl;
       this->getDecl()->print_xml();
     }
 
@@ -136,6 +139,7 @@ public:
     {
       //std::cout << "EmptyDeclarator trace" << std::endl;
       this->getLeft()->print_xml();
+      std::cout << "\" />" << std::endl;
     }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override
@@ -149,7 +153,10 @@ public:
     }
 
     virtual std::string ReturnName() const override
-    {}
+    {
+      std::cout << "RETURN NAME DIRECT DEC EMPTY" << std::endl;
+      return this->getLeft()->ReturnName();
+    }
 
 };
 
@@ -180,7 +187,7 @@ public:
     //std::cout << "PARAM TYPE DECLARATOR" << std::endl;
     //std::cout << "LEFT PARAM DECLARATOR" << std::endl;
     this->getLeft()->print_xml();
-    std::cout << " \"/>" << std::endl;
+    std::cout << "\" />" << std::endl;
     //std::cout << "RIGHT PARAM DECLARATOR" << std::endl;
 
     this->getRight()->print_xml();
@@ -198,7 +205,10 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    std::cout << "RETURN NAME DIRECT DEC PARAMS" << std::endl;
+    return this->getLeft()->ReturnName();
+  }
 
 };
 

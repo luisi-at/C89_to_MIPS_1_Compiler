@@ -66,16 +66,18 @@ public:
     virtual void codegen(Context &_context) const override
     {
       std::string functionLabel;
+      //std::cout << "CODEGEN FUNCTION DEF" << std::endl;
       // set function name/label here
       functionLabel = this->getDeclarator()->ReturnName();
-      this->setFunctionName("name");
+      //this->setFunctionName(functionLabel);
+      std::cout << "NAME--> " << functionLabel << std::endl;
       // is it from this declarator identifier?
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".align " << std::setw(10) << std::right << "2" << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".globl " << std::setw(10) << std::right << "NAME" << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::right << "nomips16" << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::right << "nomicromips" << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".ent " << std::setw(10) << std::right << "FUNCTION NAME" << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".type " << std::setw(10) << std::right << "FUNCTION NAME, @function" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".align " << std::setw(10) << std::left << "2" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".globl " << std::setw(10) << std::left << "NAME" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "nomips16" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "nomicromips" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".ent " << std::setw(10) << std::left << "FUNCTION NAME" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".type " << std::setw(10) << std::left << "FUNCTION NAME, @function" << std::endl;
       // print function label here!
 
       if((this->getSpecifiers()) && (this->getDeclarator()) && (this->getDeclarationList()) && (this->getStatement())){

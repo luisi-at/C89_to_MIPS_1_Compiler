@@ -67,6 +67,7 @@ public:
     {
       std::string functionLabel;
       // set function name/label here
+      functionLabel = this->getDeclarator()->ReturnName();
       this->setFunctionName("name");
       // is it from this declarator identifier?
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".align " << std::setw(10) << std::right << "2" << std::endl;

@@ -29,6 +29,7 @@ private:
   const Declarator *declaration_list;
   const Statement *compound_statement;
   mutable std::string function_name;
+  mutable int allocated_stack;
 
 public:
   FunctionDefinitionActual(const Declarator *_specifiers
@@ -59,6 +60,12 @@ public:
     std::string getFunctionName() const{
       return function_name;
     }
+    const void setAllocatedStack(const int _counted) const{
+      allocated_stack = _counted;
+    }
+    int getAllocatedStack() const{
+      return allocated_stack;
+    }
 
     virtual FunctionDefinition* *AddItem(const FunctionDefinition *_item) const override
     {}
@@ -66,29 +73,41 @@ public:
     virtual void codegen(Context &_context) const override
     {
       std::string functionLabel;
+      int stackAllocation = 8;
       //std::cout << "CODEGEN FUNCTION DEF" << std::endl;
       // set function name/label here
       functionLabel = this->getDeclarator()->ReturnName();
-      //this->setFunctionName(functionLabel);
-      std::cout << "NAME--> " << functionLabel << std::endl;
-      // is it from this declarator identifier?
+      this->setFunctionName(functionLabel);
+
+      stackAllocation = stackAllocation + (4* this->getStatement()->statementCount());
+      this->setAllocatedStack(stackAllocation);
+
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".align " << std::setw(10) << std::left << "2" << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".globl " << std::setw(10) << std::left << "NAME" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".globl " << std::setw(10) << std::left << functionLabel << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "nomips16" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "nomicromips" << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".ent " << std::setw(10) << std::left << "FUNCTION NAME" << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".type " << std::setw(10) << std::left << "FUNCTION NAME, @function" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".ent " << std::setw(10) << std::left << functionLabel << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".type " << std::setw(10) << std::left << functionLabel + "," << "@function" << std::endl;
       // print function label here!
+      std::cout << functionLabel << ":" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".frame " << std::setw(4) << std::right << "$fp," << stackAllocation << ",$31" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".mask " << std::setw(4) << std::right << "0x40000000,-4" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".fmask " << std::setw(5) << std::right << "0x00000000,0" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(5) << std::right << "noreorder" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(5) << std::right << "nomacro" << std::endl;
+      std::cout << "#====== ASSEMBLY COMING ======" << std::endl;
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(4) << std::right << "$sp,$sp,-" << stackAllocation  << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << "$fp" << stackAllocation - 4 << "($sp)"  << std::endl;
+
 
       if((this->getSpecifiers()) && (this->getDeclarator()) && (this->getDeclarationList()) && (this->getStatement())){
-        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".frame " << std::setw(10) << std::right << "$fp, NO!, $31" << std::endl;
-        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".mask " << std::setw(10) << std::right << "MASK" << std::endl;
-        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".fmask " << std::setw(10) << std::right << "FMASK" << std::endl;
-        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::right << "noreorder" << std::endl;
-        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::right << "nomacro" << std::endl;
 
       }
       else if((this->getSpecifiers()) && (this->getDeclarator()) && (!this->getDeclarationList()) && (this->getStatement())){
+
+
+
 
       }
       else if((!this->getSpecifiers()) && (this->getDeclarator()) && (this->getDeclarationList()) && (this->getStatement())){
@@ -97,6 +116,11 @@ public:
       else if((!this->getSpecifiers()) && (this->getDeclarator()) && (!this->getDeclarationList()) && (this->getStatement())){
 
       }
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "macro" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "reorder" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".end " << std::setw(10) << std::left << functionLabel << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".size " << std::setw(10) << std::left << functionLabel + "," + " " ".-" + functionLabel << std::endl;
 
     }
 

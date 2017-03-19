@@ -50,8 +50,12 @@ const Declarator *getDeclarator() const{
 
   virtual std::string ReturnName() const override
   {
-    std::cout << "RETURN NAME COMPOUND STATEMENT" <<std::endl;
-    //return this->getDeclarator()->ReturnName();
+
+  }
+
+  virtual int statementCount() const override
+  {
+    return this->getStatement()->statementCount();
   }
 
 

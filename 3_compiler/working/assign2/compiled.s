@@ -6,23 +6,37 @@
      .module   nooddspreg     
      .abicalls 
      .text     
-RETURN NAME DIRECT DEC EMPTY
-RETURN NAME IDENTIFIER DECLARATOR
-RETURN NAME IDENTIFIER EXPRESSION
-NAME--> function
      .align    2         
-     .globl    NAME      
+     .globl    function  
      .set      nomips16  
      .set      nomicromips
-     .ent      FUNCTION NAME
-     .type     FUNCTION NAME, @function
-RETURN NAME DIRECT DEC EMPTY
-RETURN NAME IDENTIFIER DECLARATOR
-RETURN NAME IDENTIFIER EXPRESSION
-NAME--> main
+     .ent      function  
+     .type     function, @function
+function:
+     .frame    $fp,12,$31
+     .mask     0x40000000,-4
+     .fmask    0x00000000,0
+     .set      noreorder
+     .set      nomacro
+#====== ASSEMBLY COMING ======
+     .set      macro     
+     .set      reorder   
+     .end      function  
+     .size     function, .-function
      .align    2         
-     .globl    NAME      
+     .globl    main      
      .set      nomips16  
      .set      nomicromips
-     .ent      FUNCTION NAME
-     .type     FUNCTION NAME, @function
+     .ent      main      
+     .type     main,     @function
+main:
+     .frame    $fp,16,$31
+     .mask     0x40000000,-4
+     .fmask    0x00000000,0
+     .set      noreorder
+     .set      nomacro
+#====== ASSEMBLY COMING ======
+     .set      macro     
+     .set      reorder   
+     .end      main      
+     .size     main, .-main

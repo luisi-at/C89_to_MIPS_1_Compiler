@@ -37,6 +37,11 @@ public:
   virtual std::string ReturnName() const override
   {}
 
+    virtual int statementCount() const override
+    {
+      return this->getStatement()->statementCount();
+    }
+
 };
 
 // wrapper
@@ -83,6 +88,11 @@ public:
 
   virtual std::string ReturnName() const override
   {}
+
+  virtual int statementCount() const override
+  {
+    return statements_list.size();
+  }
 
 };
 

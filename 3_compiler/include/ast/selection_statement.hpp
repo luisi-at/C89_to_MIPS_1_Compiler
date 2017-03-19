@@ -20,8 +20,6 @@ public:
       const Statement *getNext() const
       { return next_statement; }
 
-
-
   virtual void print_xml() const override
   {
     //std::cout << "IF STATEMENT" << std::endl;
@@ -42,6 +40,11 @@ public:
 
   virtual std::string ReturnName() const override
   {}
+
+  virtual int statementCount() const override
+  {
+    return this->getNext()->statementCount();
+  }
 
 };
 
@@ -93,6 +96,11 @@ public:
   virtual std::string ReturnName() const override
   {}
 
+  virtual int statementCount() const override
+  {
+    return this->getNext()->statementCount() + this->getElse()->statementCount();
+  }
+
 };
 
 class SwitchSelection : public Statement
@@ -134,6 +142,11 @@ public:
 
   virtual std::string ReturnName() const override
   {}
+
+  virtual int statementCount() const override
+  {
+    return 1+this->getNext()->statementCount();
+  }
 
 };
 

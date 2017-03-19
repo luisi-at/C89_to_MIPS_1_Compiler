@@ -34,6 +34,11 @@ public:
     virtual std::string ReturnName() const override
     {}
 
+    virtual int statementCount() const override
+    {
+      return 1;
+    }
+
 };
 
 class ContinueStatement : public Statement
@@ -66,6 +71,11 @@ public:
 
   virtual std::string ReturnName() const override
   {}
+
+    virtual int statementCount() const override
+    {
+      return 1;
+    }
 
 };
 
@@ -100,6 +110,11 @@ public:
   virtual std::string ReturnName() const override
   {}
 
+  virtual int statementCount() const override
+  {
+    return 1;
+  }
+
 };
 
 class ReturnStatement : public Statement
@@ -132,6 +147,11 @@ public:
 
   virtual std::string ReturnName() const override
   {}
+
+  virtual int statementCount() const override
+  {
+    return 1;
+  }
 
 };
 
@@ -166,6 +186,11 @@ public:
 
   virtual std::string ReturnName() const override
   {}
+
+  virtual int statementCount() const override
+  {
+    return 1;
+  }
 
 };
 

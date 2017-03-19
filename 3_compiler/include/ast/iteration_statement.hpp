@@ -42,6 +42,12 @@ public:
   virtual std::string ReturnName() const override
   {}
 
+  virtual int statementCount() const override
+  {
+    // 1 register for the expression in case
+    return 1+this->getNext()->statementCount();
+  }
+
 };
 
 class DoWhileIteration : public Statement
@@ -81,6 +87,10 @@ public:
   virtual std::string ReturnName() const override
   {}
 
+  virtual int statementCount() const override
+  {
+    return 1+this->getFirst()->statementCount();
+  }
 
 };
 
@@ -128,6 +138,11 @@ public:
 
   virtual std::string ReturnName() const override
   {}
+
+  virtual int statementCount() const override
+  {
+    return 2+this->getThird()->statementCount();
+  }
 
 };
 
@@ -180,6 +195,11 @@ public:
 
   virtual std::string ReturnName() const override
   {}
+
+  virtual int statementCount() const override
+  {
+    return 3+this->getThird()->statementCount();
+  }
 
 };
 

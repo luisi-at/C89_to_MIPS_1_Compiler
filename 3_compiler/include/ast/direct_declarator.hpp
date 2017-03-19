@@ -41,7 +41,7 @@ public:
 
     virtual std::string ReturnName() const override
     {
-      std::cout << "RETURN NAME IDENTIFIER DECLARATOR" << std::endl;
+      //std::cout << "RETURN NAME IDENTIFIER DECLARATOR" << std::endl;
       return this->getExpr()->ReturnName();
     }
 
@@ -154,7 +154,7 @@ public:
 
     virtual std::string ReturnName() const override
     {
-      std::cout << "RETURN NAME DIRECT DEC EMPTY" << std::endl;
+      //std::cout << "RETURN NAME DIRECT DEC EMPTY" << std::endl;
       return this->getLeft()->ReturnName();
     }
 

@@ -44,6 +44,11 @@ public:
     virtual std::string ReturnName() const override
     {}
 
+    virtual int statementCount() const override
+    {
+      return 1+this->getRight()->statementCount();
+    }
+
 };
 
 class IdentifierStatement : public LabeledStatement

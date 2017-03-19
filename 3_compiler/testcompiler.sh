@@ -72,26 +72,26 @@ for i in test/programs/*; do
     #run own assembly on qemu
     #qemu-mips working/$b/c_compiled
     #get result
-    #GOT_RESULT=$?;
+    GOT_RESULT=$?;
     #echo result to text file
-    #echo "${GOT_RESULT}" > $i/got.result.txt
+    echo "${GOT_RESULT}" > working/$b/got.result.txt
 
     #OK=0;
 
     #REF_RESULT=$(head -n 1 $i/ref.result.txt | ${DOS2UNIX} );
 
-    #if [[ "${GOT_RESULT}" -ne "${REF_RESULT}" ]]; then
+    if [[ "${GOT_RESULT}" -ne "${REF_RESULT}" ]]; then
         echo "  got result : ${GOT_RESULT}"
         echo "  ref result : ${REF_RESULT}"
         echo "  FAIL!";
         OK=1;
-    #fi
+    fi
 
-    #if [[ "$OK" -eq "0" ]]; then
+    if [[ "$OK" -eq "0" ]]; then
         PASSED=$(( ${PASSED}+1 ));
-    #fi
+    fi
 
-    #CHECKED=$(( ${CHECKED}+1 ));
+    CHECKED=$(( ${CHECKED}+1 ));
 
     echo ""
 done

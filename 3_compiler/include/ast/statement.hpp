@@ -22,6 +22,8 @@ public:
 
     virtual Statement* *AddItem(const Statement *_item) const = 0;
 
+    virtual int statementCount() const = 0;
+
 };
 
 

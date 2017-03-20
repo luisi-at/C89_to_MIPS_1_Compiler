@@ -51,8 +51,9 @@ public:
   virtual void codegen(Context &_context) const override
   {
     // get the string values to store in the context
-    std::string leftString = this->getLeft()->ReturnName();
-    std::string rightString = this->getRight()->ReturnName();
+    //this->getLeft()->ReturnName();
+    this->getLeft()->codegen(_context);
+    this->getRight()->codegen(_context);
     // check to see if the right returned string contains a hash
     // if so, split at the hash and remove the hash
     // this means that variable names can now appear in the value field of the context

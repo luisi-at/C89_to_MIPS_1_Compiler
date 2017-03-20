@@ -81,7 +81,7 @@ primary_expression
   ;
 
 postfix_expression
-  : primary_expression                    { $$ = new PostfixEmpty( $1, NULL ); }
+  : primary_expression
   | postfix_expression '(' ')'            { $$ = new PostfixEmpty( $1, NULL ); }
   | postfix_expression '.' IDENTIFIER     { $$ = new PostfixPeriod( $1, new Identifier(*$3) ); }
   | postfix_expression PTR_OP IDENTIFIER  { $$ = new PostfixPtrOp( $1, new Identifier(*$3 ) ); }
@@ -90,7 +90,7 @@ postfix_expression
   ;
 
 unary_expression
-  : postfix_expression          { $$ = new UnaryPostfixExpression( $1 ); }
+  : postfix_expression
   | INC_OP unary_expression     { $$ = new UnaryIncExpression( $2 ); }
   | DEC_OP unary_expression     { $$ = new UnaryDecExpression( $2 ); }
   ;
@@ -133,8 +133,8 @@ relational_expression
 
 equality_expression
   : relational_expression
-  | equality_expression EQ_OP relational_expression     { $$ = new EqualOpExpression ( $1, $3); }
-  | equality_expression NE_OP relational_expression     { $$ = new NotEqualOpExpression ( $1, $3); }
+  | equality_expression EQ_OP relational_expression     { $$ = new EqualOpExpression ( $1, $3 ); }
+  | equality_expression NE_OP relational_expression     { $$ = new NotEqualOpExpression ( $1, $3 ); }
   ;
 
 and_expression

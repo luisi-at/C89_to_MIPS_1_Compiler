@@ -11,9 +11,9 @@ class PostfixExpression : public Expression
 {
 private:
   const Expression *left;
-  const std::string right;
+  const Expression *right;
 protected:
-  PostfixExpression(const Expression *_left, const std::string _right)
+  PostfixExpression(const Expression *_left, const Expression *_right)
   : left(_left)
   , right(_right)
 {}
@@ -21,6 +21,7 @@ public:
   virtual ~PostfixExpression()
     {
         delete left;
+        delete right;
     }
 
     virtual const char *getOperator() const =0;
@@ -28,14 +29,17 @@ public:
     const Expression *getLeft() const
     { return left; }
 
+    const Expression *getRight() const
+    { return right; }
+
     virtual void print_xml() const override
     {
       //std::cout << "left" << std::endl;
       //std::cout << "POSTFIX EXPRESSION" << std::endl;
       this->getLeft()->print_xml();
       std::cout << getOperator();
-      if(right != ""){
-        std::cout << right;
+      if(this->getRight()){
+        this->getRight()->print_xml();
       }
     }
 
@@ -62,7 +66,7 @@ protected:
   { return ""; }
 
 public:
-  PostfixEmpty(const Expression *_left, const std::string _right)
+  PostfixEmpty(const Expression *_left, const Expression *_right)
     :PostfixExpression(_left, _right)
   {}
 
@@ -76,7 +80,7 @@ protected:
   { return "."; }
 
 public:
-  PostfixPeriod(const Expression *_left, const std::string _right)
+  PostfixPeriod(const Expression *_left, const Expression *_right)
   :PostfixExpression(_left, _right)
   {}
 
@@ -90,7 +94,7 @@ protected:
   { return "->"; }
 
 public:
-  PostfixPtrOp(const Expression *_left, const std::string _right)
+  PostfixPtrOp(const Expression *_left, const Expression *_right)
   :PostfixExpression(_left, _right)
   {}
 
@@ -104,7 +108,7 @@ protected:
   { return "++"; }
 
 public:
-  PostfixIncOp(const Expression *_left, const std::string _right)
+  PostfixIncOp(const Expression *_left, const Expression *_right)
   :PostfixExpression(_left, _right)
   {}
 
@@ -118,7 +122,7 @@ protected:
   { return "--"; }
 
 public:
-  PostfixDecOp(const Expression *_left, const std::string _right)
+  PostfixDecOp(const Expression *_left, const Expression *_right)
   :PostfixExpression(_left, _right)
   {}
 

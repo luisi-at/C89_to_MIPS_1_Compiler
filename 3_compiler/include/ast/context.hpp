@@ -3,11 +3,20 @@
 
 #include <string>
 #include <vector>
+#include <map>
+#include <utility>
 
-struct RegisterAllocations{
-  std::string variableName;
+class RegisterAllocations{
+private:
   std::string allocatedRegister;
-  int value;
+  std::string value;
+  int memOffset;
+public:
+  RegisterAllocations(std::string _reg, std::string _val, int _offset)
+  : allocatedRegister(_reg)
+  , value(_val)
+  , memOffset(_offset)
+  {}
 };
 
 class Context
@@ -21,7 +30,8 @@ private:
   // calculate the number of registers as add registers? Increment by 4 each time
   // need to have a stack of available registers so can push on and push off
   std::vector<std::string> availableRegisters;
-  // every time a pop occurs, increase the reg count, even if returned to the stack
+  // every time a pop occurs, increase the reg count, even if returned to the stack?
+  int functionMemOffset; // global memory offset for the function
 
 public:
   Context()
@@ -54,6 +64,16 @@ public:
   // remove a register in use
   std::string popRegister(std::string _reg){
 
+  }
+
+  void setRegisterCount(int _allocatedRegisters)
+  {
+    allocatedRegisters = _allocatedRegisters;
+  }
+
+  int getRegisterCount()
+  {
+    return allocatedRegisters;
   }
 
 };

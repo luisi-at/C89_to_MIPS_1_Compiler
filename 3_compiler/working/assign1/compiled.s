@@ -18,7 +18,14 @@ main:
      .fmask    0x00000000,0
      .set      noreorder
      .set      nomacro
+     addiu     $sp,$sp,-16
+     sw        $fp,12($sp)
 #====== ASSEMBLY COMING ======
+     move      $sw,$fp
+     lw        $fp,12($sp)
+     addiu     $sp,$sp,16
+     j         $31 
+     nop       
      .set      macro     
      .set      reorder   
      .end      main      

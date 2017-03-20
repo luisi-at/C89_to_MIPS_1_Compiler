@@ -1533,37 +1533,37 @@ yyreduce:
 
   case 6:
 #line 84 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new PostfixEmpty( (yyvsp[0].expr), "" ); }
+    { (yyval.expr) = new PostfixEmpty( (yyvsp[0].expr), NULL ); }
 #line 1538 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 7:
 #line 85 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new PostfixEmpty( (yyvsp[-2].expr), "" ); }
+    { (yyval.expr) = new PostfixEmpty( (yyvsp[-2].expr), NULL ); }
 #line 1544 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 8:
 #line 86 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new PostfixPeriod( (yyvsp[-2].expr), *(yyvsp[0].string_value) ); }
+    { (yyval.expr) = new PostfixPeriod( (yyvsp[-2].expr), new Identifier(*(yyvsp[0].string_value)) ); }
 #line 1550 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 9:
 #line 87 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new PostfixPtrOp( (yyvsp[-2].expr), *(yyvsp[0].string_value) ); }
+    { (yyval.expr) = new PostfixPtrOp( (yyvsp[-2].expr), new Identifier(*(yyvsp[0].string_value) ) ); }
 #line 1556 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 10:
 #line 88 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new PostfixIncOp( (yyvsp[-1].expr), "" ); }
+    { (yyval.expr) = new PostfixIncOp( (yyvsp[-1].expr), NULL ); }
 #line 1562 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 11:
 #line 89 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new PostfixDecOp( (yyvsp[-1].expr), ""); }
+    { (yyval.expr) = new PostfixDecOp( (yyvsp[-1].expr), NULL); }
 #line 1568 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 

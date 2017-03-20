@@ -41,15 +41,10 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-    //std::string temp = context.makeLabel(this->GetValue());
-    // somehow bubble this back up to the top
-    // is cout the nest idea?
-    // what needs to happen is that in the function declarator the label needs to be made
-    // maybe have to insert a "GetValue" method returning a string for all methods?
-    // to get the to very child class value and filter a string back up
-    // problem is that this only applies to functions and jumps
-    // because this is also used for variable names (of which research needs to be done on how those are handled)
-    // This must also handle variable names for binding values during the assigmment phase
+    // add the variable name to the context
+    // if variable already exists in the context map
+    // simply return?
+
   }
 
 };
@@ -64,7 +59,9 @@ public:
   {}
 
   std::string GetValue() const
-  { return value ; }
+  {
+    return value;
+  }
 
   virtual void print_xml() const override
   {
@@ -84,7 +81,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return this->GetValue();
+  }
 
 };
 

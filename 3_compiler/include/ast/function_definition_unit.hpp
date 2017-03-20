@@ -82,6 +82,8 @@ public:
       stackAllocation = stackAllocation + (4* this->getStatement()->statementCount());
       this->setAllocatedStack(stackAllocation);
 
+      _context.setRegisterCount(stackAllocation);
+
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".align " << std::setw(10) << std::left << "2" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".globl " << std::setw(10) << std::left << functionLabel << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "nomips16" << std::endl;
@@ -95,18 +97,19 @@ public:
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".fmask " << std::setw(5) << std::right << "0x00000000,0" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(5) << std::right << "noreorder" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(5) << std::right << "nomacro" << std::endl;
-      std::cout << "#====== ASSEMBLY COMING ======" << std::endl;
 
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(4) << std::right << "$sp,$sp,-" << stackAllocation  << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << "$fp" << stackAllocation - 4 << "($sp)"  << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(3) << std::right << "$fp," << stackAllocation - 4 << "($sp)"  << std::endl;
 
+      std::cout << "#====== ASSEMBLY COMING ======" << std::endl;
 
       if((this->getSpecifiers()) && (this->getDeclarator()) && (this->getDeclarationList()) && (this->getStatement())){
 
       }
       else if((this->getSpecifiers()) && (this->getDeclarator()) && (!this->getDeclarationList()) && (this->getStatement())){
 
-
+        
+        this->getStatement()->codegen(_context);
 
 
       }
@@ -116,6 +119,13 @@ public:
       else if((!this->getSpecifiers()) && (this->getDeclarator()) && (!this->getDeclarationList()) && (this->getStatement())){
 
       }
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(4) << std::left << "$sw,$fp" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::left << "$fp," << stackAllocation - 4 << "($sp)" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(4) << std::left << "$sp,$sp," << stackAllocation << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "j " << std::setw(4) << std::left << "$31" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::endl;
+
 
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "macro" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "reorder" << std::endl;

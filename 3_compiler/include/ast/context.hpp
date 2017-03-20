@@ -57,12 +57,14 @@ public:
   }
 
   // return a register available for use
-  std::string pushRegister(std::string _reg){
+  std::string pushRegister(std::string _reg)
+  {
 
   }
 
   // remove a register in use
-  std::string popRegister(std::string _reg){
+  std::string popRegister(std::string _reg)
+  {
 
   }
 
@@ -74,6 +76,16 @@ public:
   int getRegisterCount()
   {
     return allocatedRegisters;
+  }
+
+  void updateMemOffset()
+  {
+    functionMemOffset += 4;
+  }
+
+  int getMemOffset()
+  {
+    return functionMemOffset;
   }
 
 };

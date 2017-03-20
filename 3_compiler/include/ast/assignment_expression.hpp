@@ -59,6 +59,44 @@ public:
     // search through the keys of the map to find any matches
     // if there are matches, map the variable name to a register
 
+    //==============================================
+    // WILL need to constant fold unary expressions
+    // =============================================
+
+    if(this->getOperator() == "=="){
+
+    }
+    else if(this->getOperator() == "+="){
+
+    }
+    else if(this->getOperator() == "-="){
+
+    }
+    else if(this->getOperator() == "*="){
+
+    }
+    else if(this->getOperator() == "/="){
+
+    }
+    else if(this->getOperator() == "|="){
+
+    }
+    else if(this->getOperator() == "&="){
+
+    }
+    else if(this->getOperator() == "%="){
+
+    }
+    else if(this->getOperator() == "^="){
+
+    }
+    else if(this->getOperator() == "<<="){
+
+    }
+    else if(this->getOperator() == ">>="){
+
+    }
+
   }
 
   virtual std::string ReturnName() const override

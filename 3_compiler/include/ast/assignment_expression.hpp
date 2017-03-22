@@ -70,7 +70,7 @@ public:
     else{
       // make new value in context and bind
       // bind if constant on other side of assignment expression
-      if(_context.checkAssignment.second){
+      if(!_context.checkAssignment.second){
       RegisterAllocations *tempAlloc = new RegisterAllocations("", _context.getAwaitingValue(), _context.getMemOffset());
       _context.updateMemOffset();
       _context.addBinding(left,tempAlloc);
@@ -78,10 +78,11 @@ public:
       // don't bind a constant if variable on other side
       }
       else{
-
+        std::cout << "MAKE BINDING" << std::endl;
         RegisterAllocations *tempAlloc = new RegisterAllocations("", "", _context.getMemOffset());
+
         _context.updateMemOffset();
-        _context.addBinding(left,tempAlloc);
+        _context.bindings.emplace(left,tempAlloc);
       }
     }
 
@@ -96,16 +97,18 @@ public:
       // assign a constant
       std::cout << "ASSIGNMENT CODGEN OPERATOR--> =" << std::endl;
       std::cout << "CONST BOOL--> " << _context.checkAssignment.second << std::endl;
+      std::cout << "CONTEXT MEM OFFSET--> " << _context.getMemOffset() << std::endl;
       if(_context.checkAssignment.second){
         findVar = _context.bindings.find(left);
+        std::cout << "LEFT--> " << left << std::endl;
         std::string regUsed = _context.popRegister("rv");
         currentVarMem = findVar->second->getCurrentMemOffset();
 
         // write out
-        std::cout << "RIGHT-->" << right << std::endl;
-        std::cout << "OFFSET-->" << currentVarMem << std::endl;
+        std::cout << "THIS STORED OFFSET--> " << currentVarMem << std::endl;
+        std::cout << "RIGHT--> " << right << std::endl;
         if(right == "0"){
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << "$0" << "," << currentVarMem << "($fp)"  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(2) << std::right << "$0" << "," << currentVarMem << "($fp)"  << std::endl;
         }
         else{
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << right << std::endl;

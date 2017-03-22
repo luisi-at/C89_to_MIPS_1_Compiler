@@ -22,10 +22,15 @@ main:
      sw        $fp,12($sp)
 #====== ASSEMBLY COMING ======
 ASSIGNMENT CODGEN
+MAKE BINDING
 ASSIGNMENT CODGEN OPERATOR--> =
-CONST BOOL--> 0
-     lw          $2,38952320($fp)
-     sw          $2,38952320($fp)
+CONST BOOL--> 1
+CONTEXT MEM OFFSET--> 8
+LEFT--> xname
+THIS STORED OFFSET--> 4
+RIGHT--> 1
+     li          $2,1
+     sw          $2,4($fp)
 #====== ASSEMBLY ENDING ======
      move      $sw,$fp
      lw        $fp,12($sp)

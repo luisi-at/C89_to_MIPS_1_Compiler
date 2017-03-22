@@ -5,6 +5,7 @@
 #include <stack>
 #include <map>
 #include <utility>
+#include <iostream>
 
 class RegisterAllocations{
 private:
@@ -56,6 +57,7 @@ public:
   Context()
   {
     functionMemOffset = 4;
+    //std::cout << "FUNCTION OFFSET = 4" << std::endl;
     availableRegisters_rv.push("$3");
     availableRegisters_rv.push("$2");
 
@@ -64,18 +66,16 @@ public:
     availableRegisters_fa.push("$7");
     availableRegisters_fa.push("$4");
 
-
-
-
     std::string tempReg;
-    for(int i = 8; i < 16; i++){
+    for(int i = 16; i > 7; i--){
       tempReg = "$" + i;
       availableRegisters_tp.push(tempReg.c_str());
     }
-    availableRegisters_tp.push("$24");
     availableRegisters_tp.push("$25");
+    availableRegisters_tp.push("$24");
 
-    for(int i = 16; i < 24; i++){
+
+    for(int i = 24; i > 15; i--){
       tempReg = "$" + i;
       availableRegisters_st.push(tempReg.c_str());
     }
@@ -90,11 +90,13 @@ public:
     params.push_back(_inparam);
   }
   // add to the map
-  void addBinding(std::string _variableName, RegisterAllocations *_allocated)
+  std::pair<std::string, RegisterAllocations*> addBinding(std::string _variableName, RegisterAllocations *_allocated)
   {
     // make a pair
     std::pair<std::string, RegisterAllocations*> temp;
-    temp = std::make_pair(_variableName, _allocated);
+    //temp = std::make_pair(_variableName, _allocated);
+    //bindings.emplace(_variableName, _allocated);
+
   }
 
   void getBindingDetails(std::string _variableName)

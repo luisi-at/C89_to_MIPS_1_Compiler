@@ -76,7 +76,7 @@ for i in test/programs/*; do
     #echo result to text file
     echo "${GOT_RESULT}" > working/$b/got.result.txt
 
-    #OK=0;
+    OK=1;
 
     #REF_RESULT=$(head -n 1 $i/ref.result.txt | ${DOS2UNIX} );
 

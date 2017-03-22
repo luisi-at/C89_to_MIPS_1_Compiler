@@ -49,7 +49,9 @@ public:
     }
 
     virtual std::string ReturnName() const override
-    {}
+    {
+      return this->getLeft()->ReturnName();
+    }
 
 };
 

@@ -50,23 +50,76 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-    // get the string values to store in the context
-    //this->getLeft()->ReturnName();
-    this->getLeft()->codegen(_context);
+    // the left unary expression gets sorted first
+    this->getLeft()->codegen(_context); // as a unary expression is always on the left of an assignment expression
     this->getRight()->codegen(_context);
-    // check to see if the right returned string contains a hash
-    // if so, split at the hash and remove the hash
-    // this means that variable names can now appear in the value field of the context
-    // search through the keys of the map to find any matches
-    // if there are matches, map the variable name to a register
+    // search for variable name in context map
+    std::string left = this->getLeft()->ReturnName();
+    std::map<std::string, RegisterAllocations*>::iterator findVar;
+    findVar = _context.bindings.find(left);
 
-    //==============================================
-    // WILL need to constant fold unary expressions
-    // =============================================
-
-    if(this->getOperator() == "=="){
+    if(findVar != _context.bindings.end()){
+      // variable already exists in context
+      // must also use allocated memory location given in context
+      // update context and bind the variable if it is a constant
+      findVar->second->setValue(_context.getAwaitingValue());
+      // if not a constant, just add to the context
 
     }
+    else{
+      // make new value in context and bind
+      // bind if constant on other side of assignment expression
+      if(_context.checkAssignment.second){
+      RegisterAllocations *tempAlloc = new RegisterAllocations("", _context.getAwaitingValue(), _context.getMemOffset());
+      _context.updateMemOffset();
+      _context.addBinding(left,tempAlloc);
+
+      // don't bind a constant if variable on other side
+      }
+      else{
+
+        RegisterAllocations *tempAlloc = new RegisterAllocations("", "", _context.getMemOffset());
+        _context.updateMemOffset();
+        _context.addBinding(left,tempAlloc);
+      }
+    }
+
+    //==============================================
+    // Need to constant fold unary expressions?
+    // =============================================
+
+    std::string right = this->getRight()->ReturnName();
+    int currentVarMem;
+
+    if(this->getOperator() == "="){
+      // assign a constant
+      if(_context.checkAssignment.second){
+        findVar = _context.bindings.find(left);
+        std::string regUsed = _context.popRegister("rv");
+        currentVarMem = findVar->second->getCurrentMemOffset();
+
+        // write out
+        if(right == "0"){
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << "$0" << "," << currentVarMem << "($fp)"  << std::endl;
+        }
+        else{
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << right << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << currentVarMem << "($fp)"  << std::endl;
+        }
+        _context.pushRegister(regUsed,"rv");
+      }
+      else{
+        // assign a variable
+        findVar = findVar = _context.bindings.find(left);
+        int memOffsetLeft = findVar->second->getCurrentMemOffset();
+        findVar = findVar = _context.bindings.find(right);
+        int memOffsetRight = findVar->second->getCurrentMemOffset();
+
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << currentVarMem << "($fp)"  << std::endl;
+
+      }
+    }
+
     else if(this->getOperator() == "+="){
 
     }
@@ -98,12 +151,12 @@ public:
 
     }
 
-  }
+}
+
 
   virtual std::string ReturnName() const override
   {
-    // separate the return strings with a hash to make one string
-    return this->getLeft()->ReturnName() + "#" + this->getRight()->ReturnName();
+
 
   }
 

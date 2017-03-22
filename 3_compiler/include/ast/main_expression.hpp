@@ -38,7 +38,8 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-
+    this->getLeft()->codegen(_context);
+    this->getRight()->codegen(_context);
   }
 
   virtual std::string ReturnName() const override
@@ -87,7 +88,11 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+    for(int i = 0; i < expressions_list.size(); i++){
+      //std::cout << "PRINTING EXPRESSION LIST: " << i << std::endl;
+      expressions_list[i]->codegen();
 
+    }
   }
 
   virtual std::string ReturnName() const override

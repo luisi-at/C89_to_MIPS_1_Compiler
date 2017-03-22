@@ -23,14 +23,21 @@ public:
     return memOffset;
   }
 
+  void setValue(std::string _value)
+  {
+    value = _value;
+  }
 
+  std::string getValue()
+  {
+    return value;
+  }
 };
 
 class Context
 {
 private:
   std::vector<int> params;
-  std::map<std::string, RegisterAllocations*> bindings;
   int labelCount;
   int allocatedRegisters;
 
@@ -43,6 +50,7 @@ private:
 
   // every time a pop occurs, increase the reg count, even if returned to the stack?
   int functionMemOffset; // global memory offset for the function
+  std::string valueAwaitingBinding; // used for assignments
 
 public:
   Context()
@@ -71,6 +79,9 @@ public:
 
   }
 
+  std::map<std::string, RegisterAllocations*> bindings;
+  std::pair<std::string, bool> checkAssignment;
+
   // add to the parameters
   int addParam(int _inparam){
     params.push_back(_inparam);
@@ -87,6 +98,8 @@ public:
   {
     // get information regarding the variable from here
   }
+
+
 
   std::string makeLabel(std::string inName){
     //make a label
@@ -140,6 +153,17 @@ public:
   int getMemOffset()
   {
     return functionMemOffset;
+  }
+
+  // set to "#" when there is no value to assign
+  void setAwaitingValue(std::string _await)
+  {
+    valueAwaitingBinding = _await;
+  }
+
+  std::string getAwaitingValue()
+  {
+    return valueAwaitingBinding;
   }
 
 };

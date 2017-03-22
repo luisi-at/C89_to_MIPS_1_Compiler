@@ -83,7 +83,10 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-
+    for(int i = 0; i < statements_list.size(); i++){
+      //std::cout << "PRINTING STATEMENT LIST: " << i << std::endl;
+      statements_list[i]->codegen();
+    }
   }
 
   virtual std::string ReturnName() const override

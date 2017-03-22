@@ -41,9 +41,8 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-    // add the variable name to the context
-    // if variable already exists in the context map
-    // simply return?
+    _context.checkAssignment = std::make_pair(this->GetValue(), false);
+    _context.setAwaitingValue("#");
 
   }
 
@@ -67,7 +66,6 @@ public:
   {
     //std::cout << "IN CONST" << std::endl;
     //std::cout << "VALUE --> <" << this->GetValue() << ">";
-
   }
 
   virtual Expression* *AddItem(const Expression *_item) const override
@@ -77,7 +75,8 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-
+    _context.checkAssignment = std::make_pair(this->GetValue(), false);
+    _context.setAwaitingValue(this->GetValue());
   }
 
   virtual std::string ReturnName() const override

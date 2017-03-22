@@ -108,7 +108,7 @@ public:
       }
       else if((this->getSpecifiers()) && (this->getDeclarator()) && (!this->getDeclarationList()) && (this->getStatement())){
 
-        
+
         this->getStatement()->codegen(_context);
 
 
@@ -119,6 +119,8 @@ public:
       else if((!this->getSpecifiers()) && (this->getDeclarator()) && (!this->getDeclarationList()) && (this->getStatement())){
 
       }
+
+      std::cout << "#====== ASSEMBLY ENDING ======" << std::endl;
 
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(4) << std::left << "$sw,$fp" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::left << "$fp," << stackAllocation - 4 << "($sp)" << std::endl;

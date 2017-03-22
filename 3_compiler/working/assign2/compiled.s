@@ -7,30 +7,6 @@
      .abicalls 
      .text     
      .align    2         
-     .globl    function  
-     .set      nomips16  
-     .set      nomicromips
-     .ent      function  
-     .type     function, @function
-function:
-     .frame    $fp,12,$31
-     .mask     0x40000000,-4
-     .fmask    0x00000000,0
-     .set      noreorder
-     .set      nomacro
-     addiu     $sp,$sp,-12
-     sw        $fp,8($sp)
-#====== ASSEMBLY COMING ======
-     move      $sw,$fp
-     lw        $fp,8($sp)
-     addiu     $sp,$sp,12
-     j         $31 
-     nop       
-     .set      macro     
-     .set      reorder   
-     .end      function  
-     .size     function, .-function
-     .align    2         
      .globl    main      
      .set      nomips16  
      .set      nomicromips
@@ -45,6 +21,12 @@ main:
      addiu     $sp,$sp,-16
      sw        $fp,12($sp)
 #====== ASSEMBLY COMING ======
+ASSIGNMENT CODGEN
+ASSIGNMENT CODGEN OPERATOR--> =
+CONST BOOL--> 0
+     lw          $2,38952320($fp)
+     sw          $2,38952320($fp)
+#====== ASSEMBLY ENDING ======
      move      $sw,$fp
      lw        $fp,12($sp)
      addiu     $sp,$sp,16

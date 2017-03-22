@@ -51,6 +51,7 @@ public:
   virtual void codegen(Context &_context) const override
   {
     // the left unary expression gets sorted first
+    std::cout << "ASSIGNMENT CODGEN" << std::endl;
     this->getLeft()->codegen(_context); // as a unary expression is always on the left of an assignment expression
     this->getRight()->codegen(_context);
     // search for variable name in context map
@@ -93,12 +94,16 @@ public:
 
     if(this->getOperator() == "="){
       // assign a constant
+      std::cout << "ASSIGNMENT CODGEN OPERATOR--> =" << std::endl;
+      std::cout << "CONST BOOL--> " << _context.checkAssignment.second << std::endl;
       if(_context.checkAssignment.second){
         findVar = _context.bindings.find(left);
         std::string regUsed = _context.popRegister("rv");
         currentVarMem = findVar->second->getCurrentMemOffset();
 
         // write out
+        std::cout << "RIGHT-->" << right << std::endl;
+        std::cout << "OFFSET-->" << currentVarMem << std::endl;
         if(right == "0"){
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << "$0" << "," << currentVarMem << "($fp)"  << std::endl;
         }
@@ -115,8 +120,12 @@ public:
         findVar = findVar = _context.bindings.find(right);
         int memOffsetRight = findVar->second->getCurrentMemOffset();
 
-        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << currentVarMem << "($fp)"  << std::endl;
+        std::string regUsed = _context.popRegister("rv");
 
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << memOffsetRight << "($fp)"  << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
+
+        _context.pushRegister(regUsed,"rv");
       }
     }
 

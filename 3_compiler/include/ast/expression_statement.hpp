@@ -34,7 +34,7 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-    this->getExpression()->codegen();
+    this->getExpression()->codegen(_context);
   }
 
   virtual std::string ReturnName() const override

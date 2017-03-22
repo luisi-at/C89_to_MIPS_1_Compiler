@@ -90,7 +90,10 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
-
+      for(int i = 0; i < declarations_list.size(); i++){
+        //std::cout << "PRINTING DECLARATION LIST: " << i << std::endl;
+        declarations_list[i]->codegen(_context);
+      }
     }
 
     virtual std::string ReturnName() const override
@@ -138,7 +141,10 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
+      for(int i = 0; i < param_declarations_list.size(); i++){
 
+        param_declarations_list[i]->codegen(_context);
+      }
     }
 
     virtual std::string ReturnName() const override

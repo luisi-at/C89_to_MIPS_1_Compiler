@@ -1,15 +1,6 @@
-int function(){
-  return 12;
-}
-
 int main()
 {
-  int x;
-  x = function();
-  if(x==12){
+    int xname;
+    xname = 1;
     return 0;
-  }
-  else{
-    return 1;
-  }
 }

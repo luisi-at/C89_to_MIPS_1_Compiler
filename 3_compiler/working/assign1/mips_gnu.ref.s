@@ -21,8 +21,7 @@ main:
 	addiu	$sp,$sp,-16
 	sw	$fp,12($sp)
 	move	$fp,$sp
-	li	$2,1			# 0x1
-	sw	$2,4($fp)
+	sw	$0,4($fp)
 	move	$2,$0
 	move	$sp,$fp
 	lw	$fp,12($sp)

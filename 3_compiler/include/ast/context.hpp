@@ -56,13 +56,16 @@ public:
   Context()
   {
     functionMemOffset = 4;
-    availableRegisters_rv.push("$2");
     availableRegisters_rv.push("$3");
+    availableRegisters_rv.push("$2");
 
-    availableRegisters_fa.push("$4");
     availableRegisters_fa.push("$5");
     availableRegisters_fa.push("$6");
     availableRegisters_fa.push("$7");
+    availableRegisters_fa.push("$4");
+
+
+
 
     std::string tempReg;
     for(int i = 8; i < 16; i++){
@@ -130,9 +133,20 @@ public:
 
   // return a register available for use
   // now return that register back to the top of the stack
-  std::string pushRegister(std::string _reg, std::string _range)
+  void pushRegister(std::string _reg, std::string _range)
   {
-
+    if(_range == "rv"){
+      availableRegisters_rv.push(_reg);
+    }
+    else if(_range == "fa"){
+      availableRegisters_fa.push(_reg);
+    }
+    else if(_range == "tp"){
+      availableRegisters_tp.push(_reg);
+    }
+    else if(_range == "st"){
+      availableRegisters_st.push(_reg);
+    }
   }
 
   void setRegisterCount(int _allocatedRegisters)

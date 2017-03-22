@@ -21,6 +21,15 @@ main:
      addiu     $sp,$sp,-20
      sw        $fp,16($sp)
 #====== ASSEMBLY COMING ======
+ASSIGNMENT CODGEN
+ASSIGNMENT CODGEN OPERATOR--> =
+CONST BOOL--> 0
+     lw          $2,14347872($fp)
+     sw          $2,14347872($fp)
+     lw          $2,8($fp)
+     addiu     $2,$2,1
+     sw         $2,8($fp)
+#====== ASSEMBLY ENDING ======
      move      $sw,$fp
      lw        $fp,16($sp)
      addiu     $sp,$sp,20

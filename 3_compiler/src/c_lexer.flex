@@ -59,7 +59,7 @@ preprocessor                  #[ ]{digit_sequence}[ ]\".*\"([ ]{digit_sequence})
 
 string_literal                L?\"(\\.|[^\\"\n])*\"
 
-single_operator               [&*+-~!\^|,:;=#%<>\{\}\[\]\(\)]
+
 ellipsis                      (\.\.\.)
 operator                      {single_operator}
 /* are there more ^^? */
@@ -83,6 +83,7 @@ operator                      {single_operator}
 {string_literal}              { yylval.string_value = new std::string(yytext); return(STRING_LITERAL); } //return constant and value
 
 {escape_sequence}             { }
+
 
 auto                          { return AUTO; }
 double                        { return DOUBLE; }
@@ -119,6 +120,8 @@ while                         { return(WHILE); }
 
 {identifier}                  { yylval.string_value = new std::string(yytext); return(IDENTIFIER); } //return identifier
 
+
+
 "++"                          { return INC_OP; }
 "--"                          { return DEC_OP; }
 "+="                          { yylval.string_value = new std::string(yytext); return ADD_ASSIGN; }
@@ -153,7 +156,7 @@ while                         { return(WHILE); }
 "-"                           { return('-'); }
 "*"                           { return('*'); }
 "/"                           { return('/'); }
-"="                           { return(ASSIGN); }
+"="                           { yylval.string_value = new std::string(yytext); return ASSIGN; }
 "%"                           { return('%'); }
 "."                           { return('.'); }
 ","                           { return(','); }

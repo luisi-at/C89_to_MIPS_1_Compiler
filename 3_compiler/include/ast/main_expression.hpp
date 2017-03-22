@@ -90,7 +90,7 @@ public:
   {
     for(int i = 0; i < expressions_list.size(); i++){
       //std::cout << "PRINTING EXPRESSION LIST: " << i << std::endl;
-      expressions_list[i]->codegen();
+      expressions_list[i]->codegen(_context);
 
     }
   }

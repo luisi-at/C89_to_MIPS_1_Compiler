@@ -27,9 +27,9 @@ main:
      sw          $2,8($fp)
      lw          $2,4($fp)
      lw          $3,8($fp)
-     mult        $2,$3
+     div         $2,$3
      mflo        $2
-     sw          $2,4($fp)
+     sw          $2,8($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp

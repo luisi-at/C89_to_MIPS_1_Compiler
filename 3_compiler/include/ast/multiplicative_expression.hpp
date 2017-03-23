@@ -145,7 +145,7 @@ public:
           int memOffsetRight = findVar->second->getCurrentMemOffset();
 
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetLeft << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetRight << "($fp)"  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << memOffsetRight << "($fp)"  << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mult " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
 
@@ -219,7 +219,7 @@ public:
           int memOffsetRight = findVar->second->getCurrentMemOffset();
 
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetLeft << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetRight << "($fp)"  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << memOffsetRight << "($fp)"  << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
 

@@ -4,7 +4,7 @@ int main()
   int y;
 
   x = 3;
-  y = x + 4;
+  y = 13 + x;
 
   return 0;
 }

@@ -13,24 +13,27 @@
      .ent      main      
      .type     main,     @function
 main:
-     .frame    $fp,20,$31
+     .frame    $fp,24,$31
      .mask     0x40000000,-4
      .fmask    0x00000000,0
      .set      noreorder
      .set      nomacro
-     addiu     $sp,$sp,-20
-     sw        $fp,16($sp)
+     addiu     $sp,$sp,-24
+     sw        $fp,20($sp)
 #====== ASSEMBLY COMING ======
-     li          $2,3
+     li          $2,12
      sw          $2,4($fp)
+     li          $2,6
+     sw          $2,8($fp)
      lw          $2,4($fp)
-     addiu       $2,$2,4
+     lw          $3,8($fp)
+     addu        $2,$3,$2
      sw          $2,8($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
-     lw        $fp,16($sp)
-     addiu     $sp,$sp,20
+     lw        $fp,20($sp)
+     addiu     $sp,$sp,24
      j         $31 
      nop       
      .set      macro     

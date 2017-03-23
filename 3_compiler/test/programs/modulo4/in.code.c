@@ -3,8 +3,9 @@ int main()
   int x;
   int y;
 
-  x = 3;
-  y = x + 4;
+  x = 12;
+  y = 6;
+  y = x%y;
 
   return 0;
 }

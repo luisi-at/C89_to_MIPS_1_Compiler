@@ -81,6 +81,8 @@ public:
     }
 
   }
+  ~Context()
+  {}
 
   std::map<std::string, RegisterAllocations*> bindings;
   // checking for constant assignment

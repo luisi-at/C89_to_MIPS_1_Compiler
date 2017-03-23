@@ -21,11 +21,13 @@ main:
      addiu     $sp,$sp,-20
      sw        $fp,16($sp)
 #====== ASSEMBLY COMING ======
-     li          $2,3
+     li          $2,1
      sw          $2,4($fp)
+     li          $3,13
      lw          $2,4($fp)
-     addiu       $2,$2,4
-     sw          $2,8($fp)
+     div         $3,$2
+     mfhi        $2
+     sw          $2,4($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp

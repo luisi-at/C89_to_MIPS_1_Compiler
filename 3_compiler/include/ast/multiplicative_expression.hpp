@@ -130,6 +130,19 @@ public:
           _context.pushRegister(regUsed, "rv");
 
         }
+        else if((isLeftConst) && (!isRightConst)){
+          std::string regUsedFirst = _context.popRegister("rv");
+          currentVarMem = findVar->second->getCurrentMemOffset();
+          // load the word
+          std::string regUsedSecond = _context.popRegister("rv");
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mult " << std::setw(4) << std::right << regUsedSecond << "," << regUsedFirst  << std::endl;
+          _context.pushRegister(regUsedSecond, "rv");
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
+          //std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+          _context.pushRegister(regUsedFirst, "rv");
+        }
         // both variables
         else{
           // load value from left register
@@ -248,6 +261,20 @@ public:
           _context.pushRegister(regUsedFirst, "rv");
 
         }
+        else if((isLeftConst) && (!isRightConst)){
+          std::string regUsedFirst = _context.popRegister("rv");
+          currentVarMem = findVar->second->getCurrentMemOffset();
+          // load the word
+          std::string regUsedSecond = _context.popRegister("rv");
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedSecond << "," << regUsedFirst  << std::endl;
+          _context.pushRegister(regUsedSecond, "rv");
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mfhi " << std::setw(4) << std::right << regUsedFirst  << std::endl;
+          //std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+          _context.pushRegister(regUsedFirst, "rv");
+        }
+
         // check if both constants
         else if((isLeftConst) && (isRightConst)){
           // constant fold and load immediate value
@@ -255,13 +282,14 @@ public:
           int rightValue = std::stoi(right, nullptr, 0);
           std::string regUsed = _context.popRegister("rv");
 
-          inLineConstFold = leftValue / rightValue;
+          inLineConstFold = leftValue % rightValue;
           // will have to deal with floatig point here
 
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << inLineConstFold << std::endl;
           _context.pushRegister(regUsed, "rv");
 
         }
+
         // both variables
         else{
           // load value from left register
@@ -277,14 +305,15 @@ public:
           int memOffsetRight = findVar->second->getCurrentMemOffset();
 
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetLeft << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetRight << "($fp)"  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << memOffsetRight << "($fp)"  << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mfhi " << std::setw(4) << std::right << regUsedFirst  << std::endl;
 
           _context.pushRegister(regUsedSecond, "rv");
           _context.pushRegister(regUsedFirst, "rv");
+
+        }
       }
-    }
   }
 
     virtual std::string ReturnName() const override

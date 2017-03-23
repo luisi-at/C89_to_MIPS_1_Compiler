@@ -24,7 +24,7 @@ main:
 	li	$2,3			# 0x3
 	sw	$2,0($fp)
 	lw	$2,0($fp)
-	addiu	$2,$2,4
+	addiu	$2,$2,13
 	sw	$2,4($fp)
 	move	$2,$0
 	move	$sp,$fp

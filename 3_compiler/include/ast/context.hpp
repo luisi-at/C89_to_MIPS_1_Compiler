@@ -84,6 +84,7 @@ public:
 
   std::map<std::string, RegisterAllocations*> bindings;
   std::pair<std::string, bool> checkAssignment;
+  std::string varInUse;
 
   // add to the parameters
   int addParam(int _inparam){

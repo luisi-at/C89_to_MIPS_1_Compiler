@@ -54,6 +54,7 @@ public:
     std::cout << "ASSIGNMENT CODGEN" << std::endl;
     this->getLeft()->codegen(_context); // as a unary expression is always on the left of an assignment expression
     this->getRight()->codegen(_context);
+    std::cout << "ASSIGNMENT CODGEN" << std::endl;
     // search for variable name in context map
     std::string left = this->getLeft()->ReturnName();
     std::map<std::string, RegisterAllocations*>::iterator findVar;
@@ -74,15 +75,16 @@ public:
       RegisterAllocations *tempAlloc = new RegisterAllocations("", _context.getAwaitingValue(), _context.getMemOffset());
       _context.updateMemOffset();
       _context.addBinding(left,tempAlloc);
-
+      _context.varInUse = left;
       // don't bind a constant if variable on other side
       }
       else{
-        std::cout << "MAKE BINDING" << std::endl;
+        //std::cout << "MAKE BINDING" << std::endl;
         RegisterAllocations *tempAlloc = new RegisterAllocations("", "", _context.getMemOffset());
 
         _context.updateMemOffset();
         _context.bindings.emplace(left,tempAlloc);
+        _context.varInUse = left;
       }
     }
 
@@ -108,19 +110,24 @@ public:
         //std::cout << "THIS STORED OFFSET--> " << currentVarMem << std::endl;
         //std::cout << "RIGHT--> " << right << std::endl;
         if(right == "0"){
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(3) << std::right << "$0" << "," << currentVarMem << "($fp)"  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << "$0" << "," << currentVarMem << "($fp)"  << std::endl;
         }
         else{
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << right << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << currentVarMem << "($fp)"  << std::endl;
         }
         _context.pushRegister(regUsed,"rv");
+        _context.checkAssignment.second = false;
       }
       else{
         // assign a variable
-        findVar = findVar = _context.bindings.find(left);
+        findVar = _context.bindings.find(left);
+        //std::cout << "LEFT NAME--> " << left << std::endl;
         int memOffsetLeft = findVar->second->getCurrentMemOffset();
-        findVar = findVar = _context.bindings.find(right);
+        findVar = _context.bindings.find(right);
+        right = _context.varInUse;
+        //std::cout << "RIGHT NAME--> " << right << std::endl;
+        findVar = _context.bindings.find(right);
         int memOffsetRight = findVar->second->getCurrentMemOffset();
 
         std::string regUsed = _context.popRegister("rv");

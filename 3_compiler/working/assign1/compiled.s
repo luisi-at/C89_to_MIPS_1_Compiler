@@ -22,9 +22,9 @@ main:
      sw        $fp,12($sp)
 #====== ASSEMBLY COMING ======
 ASSIGNMENT CODGEN
-MAKE BINDING
-     sw         $0,4($fp)
-     move       $2,$0
+ASSIGNMENT CODGEN
+     sw          $0,4($fp)
+     move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sw,$fp
      lw        $fp,12($sp)

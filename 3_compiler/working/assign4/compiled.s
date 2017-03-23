@@ -24,9 +24,14 @@ main:
 ASSIGNMENT CODGEN
 ASSIGNMENT CODGEN
      sw          $0,4($fp)
+ASSIGNMENT CODGEN
+ASSIGNMENT CODGEN
+ASSIGNMENT CODGEN
+     li          $2,13
+     sw          $2,8($fp)
+ASSIGNMENT CODGEN
      lw          $2,8($fp)
-     addiu     $2,$2,1
-     sw         $2,8($fp)
+     sw          $2,4($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sw,$fp

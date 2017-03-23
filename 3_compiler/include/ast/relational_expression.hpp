@@ -105,7 +105,7 @@ public:
 
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "slt " << std::setw(4) << std::right << regUsedFirst << "," << regUsedFirst << "," << right  << std::endl;
-
+          _context.pushRegister(regUsedFirst, "rv");
         }
 
         else if((isLeftConst) && (isRightConst)){
@@ -121,6 +121,7 @@ public:
 
         else if((isLeftConst) && (!isRightConst)){
           _context.canIgnore.first = false;
+          findVar = _context.bindings.find(right);
           std::string regUsedFirst = _context.popRegister("rv");
           currentVarMem = findVar->second->getCurrentMemOffset();
 
@@ -172,7 +173,7 @@ public:
 
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "slt " << std::setw(4) << std::right << regUsedFirst << "," << regUsedFirst << "," << right  << std::endl;
-
+          _context.pushRegister(regUsedFirst, "rv");
         }
 
         else if((isLeftConst) && (isRightConst)){
@@ -188,6 +189,7 @@ public:
 
         else if((isLeftConst) && (!isRightConst)){
           _context.canIgnore.first = false;
+          findVar = _context.bindings.find(right);
           std::string regUsedFirst = _context.popRegister("rv");
           currentVarMem = findVar->second->getCurrentMemOffset();
 
@@ -243,7 +245,7 @@ public:
 
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "slt " << std::setw(4) << std::right << regUsedFirst << "," << regUsedFirst << "," << right  << std::endl;
-
+          _context.pushRegister(regUsedFirst, "rv");
         }
 
         else if((isLeftConst) && (isRightConst)){
@@ -259,6 +261,7 @@ public:
 
         else if((isLeftConst) && (!isRightConst)){
           _context.canIgnore.first = false;
+          findVar = _context.bindings.find(right);
           std::string regUsedFirst = _context.popRegister("rv");
           currentVarMem = findVar->second->getCurrentMemOffset();
 
@@ -326,6 +329,7 @@ public:
 
         else if((isLeftConst) && (!isRightConst)){
           _context.canIgnore.first = false;
+          findVar = _context.bindings.find(right);
           std::string regUsedFirst = _context.popRegister("rv");
           currentVarMem = findVar->second->getCurrentMemOffset();
 

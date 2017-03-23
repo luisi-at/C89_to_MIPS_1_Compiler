@@ -90,6 +90,10 @@ public:
   std::string varInUse;
   bool multipleCodegen = false;
   bool operationInAssignment = false;
+  // bool false for const right
+  // bool true for const left
+  std::pair<std::string, bool> opUsedInIf;
+  std::pair<bool, bool> canIgnore;
 
   // add to the parameters
   int addParam(int _inparam){
@@ -111,10 +115,9 @@ public:
   }
 
 
-
   std::string makeLabel(std::string inName){
     //make a label
-    return "_"+inName+"_"+std::to_string(labelCount++);
+    return "$L_"+inName+"_"+std::to_string(labelCount++);
   }
 
   // remove a register in use

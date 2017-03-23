@@ -21,7 +21,7 @@ whitespace                    {delim}
 
 nondigit                      [_a-zA-Z]
 digit                         [0-9]
-sign                          [+|-]
+sign                          [+-]
 
 nonzero_digit                 [1-9]
 octal_digit                   [0-7]

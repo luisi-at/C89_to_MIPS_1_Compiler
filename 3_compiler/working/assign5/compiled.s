@@ -28,10 +28,6 @@ MULTIPLE RECURSION 1
      lw         $2,8($fp)
      addiu     $3,$2,1
      sw         $3,8($fp)
-LEFT NAME--> x
-MEM OFFSET LEFT--> 4
-RIGHT NAME--> y
-MEM OFFSET RIGHT--> 8
      lw          $2,8($fp)
      sw          $2,4($fp)
      move        $2,$0

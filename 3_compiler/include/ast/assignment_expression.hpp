@@ -127,15 +127,15 @@ public:
       else if (!_context.operationInAssignment){
         // assign a variable that is being assigned
         findVar = _context.bindings.find(left);
-        std::cout << "LEFT NAME--> " << left << std::endl;
+        //std::cout << "LEFT NAME--> " << left << std::endl;
         int memOffsetLeft = findVar->second->getCurrentMemOffset();
-        std::cout << "MEM OFFSET LEFT--> " << memOffsetLeft << std::endl;
+        //td::cout << "MEM OFFSET LEFT--> " << memOffsetLeft << std::endl;
         findVar = _context.bindings.find(right);
         right = _context.varInUse;
-        std::cout << "RIGHT NAME--> " << right << std::endl;
+        //std::cout << "RIGHT NAME--> " << right << std::endl;
         findVar = _context.bindings.find(right);
         int memOffsetRight = findVar->second->getCurrentMemOffset();
-        std::cout << "MEM OFFSET RIGHT--> " << memOffsetRight << std::endl;
+        //std::cout << "MEM OFFSET RIGHT--> " << memOffsetRight << std::endl;
 
         std::string regUsed = _context.popRegister("rv");
 

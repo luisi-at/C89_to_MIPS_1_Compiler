@@ -181,11 +181,22 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+    std::string returnReg = _context.popRegister("rv");
+    std::string value = this->getJump()->ReturnName();
 
+    if(value == "0"){
+      value = "$0";
+    }
+    else{
+      // do the rest of the trickery here
+    }
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(3) << std::right << returnReg << "," << value << std::endl;
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    // dealing only with constants currently
+  }
 
   virtual int statementCount() const override
   {

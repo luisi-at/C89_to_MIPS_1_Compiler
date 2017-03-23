@@ -171,7 +171,11 @@ public:
 
           int rightValue = std::stoi(right, nullptr, 0);
           if(rightValue < 0){
-            
+            rightValue = -rightValue;
+            right = std::to_string(rightValue);
+          }
+          else{
+            right = "-"+right;
           }
 
           // load the word
@@ -184,14 +188,15 @@ public:
         else if((isLeftConst) && (!isRightConst)){
           std::string regUsedFirst = _context.popRegister("rv");
           currentVarMem = findVar->second->getCurrentMemOffset();
-          // load the word
+
+          
           std::string regUsedSecond = _context.popRegister("rv");
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
+          //load immediate
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left << std::endl;
+          // load the word
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedSecond << "," << regUsedFirst  << std::endl;
-          _context.pushRegister(regUsedSecond, "rv");
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
-          //std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "subu " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst << std::endl;
+
           _context.pushRegister(regUsedFirst, "rv");
         }
 
@@ -226,8 +231,8 @@ public:
 
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetLeft << "($fp)"  << std::endl;
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << memOffsetRight << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "subu " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
+
 
           _context.pushRegister(regUsedSecond, "rv");
           _context.pushRegister(regUsedFirst, "rv");

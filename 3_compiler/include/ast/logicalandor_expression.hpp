@@ -47,6 +47,20 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
+      if(this->getOperator() == "&&"){
+        _context.opUsedInIf.first = "&&";
+        // essentially just carries out what is in the brackets that number of times
+        // leave the if statement or the loop to deal with the labelling and the nops
+        // both branch commands are dependent opposite to what is in the sub expression
+        this->getLeft()->codegen(_context);
+        this->getRight()->codegen(_context);
+      }
+      else if(this->getOperator() == "||"){
+        // both branch commands are opposite to what corresponds to the sub expression
+        _context.opUsedInIf.first = "||";
+        this->getLeft()->codegen(_context);
+        this->getRight()->codegen(_context);
+      }
 
     }
 

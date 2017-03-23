@@ -21,8 +21,6 @@ main:
      addiu     $sp,$sp,-20
      sw        $fp,16($sp)
 #====== ASSEMBLY COMING ======
-ASSIGNMENT CODGEN
-ASSIGNMENT CODGEN
      sw          $0,4($fp)
 MULTIPLE RECURSION 0
      lw         $2,4($fp)

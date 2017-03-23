@@ -47,7 +47,9 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
-
+      // codegen lefthand
+      // codegen righthand
+      // refer to assignment expression
     }
 
     virtual std::string ReturnName() const override

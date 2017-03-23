@@ -21,27 +21,17 @@ main:
      addiu     $sp,$sp,-28
      sw        $fp,24($sp)
 #====== ASSEMBLY COMING ======
-ASSIGNMENT CODGEN
-ASSIGNMENT CODGEN
      sw          $0,4($fp)
-ASSIGNMENT CODGEN
-ASSIGNMENT CODGEN
      li          $2,13
      sw          $2,8($fp)
-ASSIGNMENT CODGEN
-ASSIGNMENT CODGEN
      li          $2,3
      sw          $2,12($fp)
-ASSIGNMENT CODGEN
-ASSIGNMENT CODGEN
 MULTIPLE RECURSION 1
      lw         $2,12($fp)
      addiu     $3,$2,1
      sw         $3,12($fp)
-ASSIGNMENT CODGEN
      lw          $2,12($fp)
      sw          $2,8($fp)
-ASSIGNMENT CODGEN
      lw          $2,12($fp)
      sw          $2,4($fp)
      move        $2,$0

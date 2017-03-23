@@ -53,10 +53,10 @@ public:
     // the left unary expression gets sorted first
     _context.multipleCodegen = true;
 
-    std::cout << "ASSIGNMENT CODGEN" << std::endl;
+    //std::cout << "ASSIGNMENT CODGEN" << std::endl;
     this->getLeft()->codegen(_context); // as a unary expression is always on the left of an assignment expression
     this->getRight()->codegen(_context);
-    std::cout << "ASSIGNMENT CODGEN" << std::endl;
+    //std::cout << "ASSIGNMENT CODGEN" << std::endl;
     // search for variable name in context map
     std::string left = this->getLeft()->ReturnName();
     std::map<std::string, RegisterAllocations*>::iterator findVar;
@@ -78,8 +78,8 @@ public:
       _context.updateMemOffset();
       _context.addBinding(left,tempAlloc);
       _context.varInUse = left;
-      // don't bind a constant if variable on other side
       }
+      // don't bind a constant if variable on other side
       else{
         //std::cout << "MAKE BINDING" << std::endl;
         RegisterAllocations *tempAlloc = new RegisterAllocations("", "", _context.getMemOffset());

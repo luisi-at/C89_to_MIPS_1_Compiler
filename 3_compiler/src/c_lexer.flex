@@ -70,7 +70,7 @@ operator                      {single_operator}
 
 {preprocessor}                { }
 
-{digit_sequence}              {yylval.string_value = new std::string(yytext); return CONSTANT; }
+{digit_sequence}              { yylval.string_value = new std::string(yytext); return CONSTANT; }
 
 {hexadecimal_constant}        { yylval.string_value = new std::string(yytext); return CONSTANT; } //return constant and the value
 
@@ -152,12 +152,12 @@ while                         { return(WHILE); }
 "]"                           { return(']'); }
 "("                           { return('('); }
 ")"                           { return(')'); }
-"+"                           { return('+'); }
-"-"                           { return('-'); }
-"*"                           { return('*'); }
-"/"                           { return('/'); }
+"+"                           { yylval.string_value = new std::string(yytext); return('+'); }
+"-"                           { yylval.string_value = new std::string(yytext); return('-'); }
+"*"                           { yylval.string_value = new std::string(yytext); return('*'); }
+"/"                           { yylval.string_value = new std::string(yytext); return('/'); }
 "="                           { yylval.string_value = new std::string(yytext); return ASSIGN; }
-"%"                           { return('%'); }
+"%"                           { yylval.string_value = new std::string(yytext); return('%'); }
 "."                           { return('.'); }
 ","                           { return(','); }
 ":"                           { return(':'); }

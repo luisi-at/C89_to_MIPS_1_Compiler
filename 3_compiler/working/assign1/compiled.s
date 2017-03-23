@@ -21,8 +21,6 @@ main:
      addiu     $sp,$sp,-16
      sw        $fp,12($sp)
 #====== ASSEMBLY COMING ======
-ASSIGNMENT CODGEN
-ASSIGNMENT CODGEN
      sw          $0,4($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======

@@ -48,6 +48,65 @@ public:
     virtual void codegen(Context &_context) const override
     {
 
+      this->getRight()->codegen(_context); // as the right side is a unary expression and must be done first
+      bool isRightConst = _context.checkAssignment.second;
+      this->getLeft()->codegen(_context); // left side is a multiplicative expression
+      bool isLeftConst = _context.checkAssignment.second;
+
+      int inLineConstFold; // used to hold constants after being folded, may need to type check (look for "")
+
+      std::map<std::string, RegisterAllocations*>::iterator findVar;
+      std::string left = this->getLeft()->ReturnName();
+      int currentVarMem;
+
+      if(!isLeftConst){
+        // check if the left side exists in the context:
+        
+        findVar = _context.bindings.find(left);
+        if(findVar != _context.bindings.end()){
+          // get memory location
+           currentVarMem = findVar->second->getCurrentMemOffset();
+        }
+        else{
+          // variable does not exist, implement somewhat undefined behaviour
+          RegisterAllocations *tempAlloc = new RegisterAllocations("", "0xDEADBEEF", _context.getMemOffset());
+
+          _context.updateMemOffset();
+          _context.bindings.emplace(left,tempAlloc);
+          _context.varInUse = left; // need this?
+        }
+      }
+      else{
+
+      }
+
+      if(this->getOperator() == "*"){
+
+        // check if a constant on the right
+        if((!isLeftConst) && (isRightConst)){
+          // load the left and load immediate right
+          findVar = _context.bindings.find(left);
+          //std::cout << "LEFT--> " << left << std::endl;
+          std::string regUsed = _context.popRegister("rv");
+          currentVarMem = findVar->second->getCurrentMemOffset();
+        }
+        // check if both constants
+        else if((isLeftConst) && (isRightConst)){
+          // constant fold and load immediate value
+        }
+        // both variables
+        else{
+          // load value from left register
+          // load value from right register
+        }
+
+      }
+      else if(this->getOperator() == "/"){
+
+      }
+      else if(this->getOperator() == "%"){
+
+      }
     }
 
     virtual std::string ReturnName() const override

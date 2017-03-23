@@ -30,8 +30,16 @@ MULTIPLE RECURSION 1
      lw         $2,12($fp)
      addiu     $3,$2,1
      sw         $3,12($fp)
+LEFT NAME--> y
+MEM OFFSET LEFT--> 8
+RIGHT NAME--> z
+MEM OFFSET RIGHT--> 12
      lw          $2,12($fp)
      sw          $2,8($fp)
+LEFT NAME--> x
+MEM OFFSET LEFT--> 4
+RIGHT NAME--> z
+MEM OFFSET RIGHT--> 12
      lw          $2,12($fp)
      sw          $2,4($fp)
      move        $2,$0

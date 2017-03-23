@@ -83,9 +83,11 @@ public:
   }
 
   std::map<std::string, RegisterAllocations*> bindings;
+  // checking for constant assignment
   std::pair<std::string, bool> checkAssignment;
   std::string varInUse;
   bool multipleCodegen = false;
+  bool operationInAssignment = false;
 
   // add to the parameters
   int addParam(int _inparam){

@@ -114,23 +114,28 @@ public:
         if(right == "0"){
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << "$0" << "," << currentVarMem << "($fp)"  << std::endl;
         }
-        else{
+        else if (!_context.operationInAssignment){
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << right << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << currentVarMem << "($fp)"  << std::endl;
+        }
+        else{
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << currentVarMem << "($fp)"  << std::endl;
         }
         _context.pushRegister(regUsed,"rv");
         _context.checkAssignment.second = false;
       }
-      else{
-        // assign a variable
+      else if (!_context.operationInAssignment){
+        // assign a variable that is being assigned
         findVar = _context.bindings.find(left);
-        //std::cout << "LEFT NAME--> " << left << std::endl;
+        std::cout << "LEFT NAME--> " << left << std::endl;
         int memOffsetLeft = findVar->second->getCurrentMemOffset();
+        std::cout << "MEM OFFSET LEFT--> " << memOffsetLeft << std::endl;
         findVar = _context.bindings.find(right);
         right = _context.varInUse;
-        //std::cout << "RIGHT NAME--> " << right << std::endl;
+        std::cout << "RIGHT NAME--> " << right << std::endl;
         findVar = _context.bindings.find(right);
         int memOffsetRight = findVar->second->getCurrentMemOffset();
+        std::cout << "MEM OFFSET RIGHT--> " << memOffsetRight << std::endl;
 
         std::string regUsed = _context.popRegister("rv");
 
@@ -138,6 +143,15 @@ public:
         std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
 
         _context.pushRegister(regUsed,"rv");
+      }
+      else{
+        findVar = _context.bindings.find(left);
+        //std::cout << "LEFT NAME--> " << left << std::endl;
+        int memOffsetLeft = findVar->second->getCurrentMemOffset();
+        std::string regUsed = _context.popRegister("rv");
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
+        _context.pushRegister(regUsed,"rv");
+        _context.operationInAssignment = false;
       }
     }
 

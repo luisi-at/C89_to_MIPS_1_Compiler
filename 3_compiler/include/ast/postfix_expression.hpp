@@ -55,22 +55,47 @@ public:
     _context.updateMemOffset();
 
     if(getOperator() == "++"){
-      //increment
+      int currentVarMem;
+      // increment
       // add the left item to the context
       std::string temp = this->getLeft()->ReturnName();
-      _context.addBinding(temp,tempAlloc);
+      // check to see if left item exists:
+      std::pair<std::map<std::string, RegisterAllocations*>::iterator, bool> tryAdd = _context.bindings.emplace(temp, tempAlloc);
+      if(tryAdd.second)
+      {
+        // binding exists previously, use that memory location
+        currentVarMem = tryAdd.first->second->getCurrentMemOffset();
+      }
+      else{
+        currentVarMem = tryAdd.first->second->getCurrentMemOffset();
+        _context.addBinding(temp, tempAlloc);
+      }
 
       // get the top scratch register
       std::string regUsed = _context.popRegister("rv");
-      int currentVarMem = tempAlloc->getCurrentMemOffset();
+      std::cout << "MULTIPLE RECURSION " << _context.multipleCodegen << std::endl;
+      //std::cout << "VAR IN USE--> " << _context.varInUse << std::endl;
 
       // write out
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << currentVarMem << "($fp)"  << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(4) << std::right << regUsed+","+regUsed+"," << "1"  << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed+"," << currentVarMem << "($fp)" << std::endl;
+      if(_context.multipleCodegen){
+        std::string assignReg = _context.popRegister("rv");
+        //std::cout << "ASSIGN REG--> " << assignReg << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(3) << std::right << regUsed << "," << currentVarMem << "($fp)"  << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(4) << std::right << assignReg+","+regUsed+"," << "1"  << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << assignReg+"," << currentVarMem << "($fp)" << std::endl;
+        _context.pushRegister(assignReg, "rv");
+      }
+      else{
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(3) << std::right << regUsed << "," << currentVarMem << "($fp)"  << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(4) << std::right << regUsed+","+regUsed+"," << "1"  << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed+"," << currentVarMem << "($fp)" << std::endl;
+      }
+
 
       // return the scratch register to the stack
+
       _context.pushRegister(regUsed, "rv");
+
 
     }
     else if(getOperator() == "--"){
@@ -96,6 +121,8 @@ public:
     else {
 
     }
+
+
 
   }
 

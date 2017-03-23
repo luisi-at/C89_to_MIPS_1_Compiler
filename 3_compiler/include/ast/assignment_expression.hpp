@@ -51,6 +51,8 @@ public:
   virtual void codegen(Context &_context) const override
   {
     // the left unary expression gets sorted first
+    _context.multipleCodegen = true;
+
     std::cout << "ASSIGNMENT CODGEN" << std::endl;
     this->getLeft()->codegen(_context); // as a unary expression is always on the left of an assignment expression
     this->getRight()->codegen(_context);

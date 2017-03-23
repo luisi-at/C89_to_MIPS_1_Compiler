@@ -85,6 +85,7 @@ public:
   std::map<std::string, RegisterAllocations*> bindings;
   std::pair<std::string, bool> checkAssignment;
   std::string varInUse;
+  bool multipleCodegen = false;
 
   // add to the parameters
   int addParam(int _inparam){
@@ -94,9 +95,9 @@ public:
   std::pair<std::string, RegisterAllocations*> addBinding(std::string _variableName, RegisterAllocations *_allocated)
   {
     // make a pair
-    std::pair<std::string, RegisterAllocations*> temp;
+    //std::pair<std::string, RegisterAllocations*> temp;
     //temp = std::make_pair(_variableName, _allocated);
-    //bindings.emplace(_variableName, _allocated);
+    bindings.emplace(_variableName, _allocated);
 
   }
 
@@ -116,22 +117,24 @@ public:
   // remove the register from the top of the list
   std::string popRegister(std::string _range)
   {
+    std::string returnReg;
     if(_range == "rv"){
-      return availableRegisters_rv.top();
+      returnReg = availableRegisters_rv.top();
       availableRegisters_rv.pop();
     }
     else if(_range == "fa"){
-      return availableRegisters_fa.top();
+      returnReg = availableRegisters_fa.top();
       availableRegisters_fa.pop();
     }
     else if(_range == "tp"){
-      return availableRegisters_tp.top();
+      returnReg = availableRegisters_tp.top();
       availableRegisters_tp.pop();
     }
     else if(_range == "st"){
-      return availableRegisters_st.top();
+      returnReg = availableRegisters_st.top();
       availableRegisters_st.pop();
     }
+    return returnReg;
   }
 
   // return a register available for use

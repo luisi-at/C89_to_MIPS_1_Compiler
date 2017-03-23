@@ -191,6 +191,7 @@ public:
       // do the rest of the trickery here
     }
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(4) << std::right << returnReg << "," << value << std::endl;
+    _context.pushRegister(returnReg,"rv");
   }
 
   virtual std::string ReturnName() const override

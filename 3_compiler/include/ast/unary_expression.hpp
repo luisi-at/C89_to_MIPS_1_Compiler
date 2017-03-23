@@ -95,6 +95,8 @@ public:
 
       }
 
+      _context.multipleCodegen = true;
+
     }
 
     virtual std::string ReturnName() const override

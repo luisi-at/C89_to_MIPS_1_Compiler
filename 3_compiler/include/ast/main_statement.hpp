@@ -86,6 +86,7 @@ public:
     for(int i = 0; i < statements_list.size(); i++){
       //std::cout << "PRINTING STATEMENT LIST: " << i << std::endl;
       statements_list[i]->codegen(_context);
+      _context.multipleCodegen = false;
     }
   }
 

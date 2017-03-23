@@ -27,7 +27,7 @@ ASSIGNMENT CODGEN
      sw          $2,4($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======
-     move      $sw,$fp
+     move      $sp,$fp
      lw        $fp,12($sp)
      addiu     $sp,$sp,16
      j         $31 

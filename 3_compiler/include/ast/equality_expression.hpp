@@ -108,6 +108,7 @@ public:
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
           std::string regUsedSecond = _context.popRegister("rv");
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << right << std::endl;
+
           _context.pushRegister(regUsedSecond, "rv");
           _context.pushRegister(regUsedFirst, "rv");
         }

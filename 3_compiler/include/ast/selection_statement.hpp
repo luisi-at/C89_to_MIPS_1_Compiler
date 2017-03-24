@@ -35,7 +35,29 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+    // any new variables declared here need to be removed from the map
+    std::string label;
+    this->getFirst()->codegen(_context);
+    if(_context.opUsedInIf.first == "=="){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+      std::string regUsedSecond = _context.popRegister("rv");
 
+      // make label
+      label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "bne " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << label << std::endl;
+
+      _context.pushRegister(regUsedSecond, "rv");
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+
+
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::setw(4) << std::right << std::endl;
+    std::cout << std::endl;
+    this->getNext()->codegen(_context);
+    std::cout << label << std::endl;
   }
 
   virtual std::string ReturnName() const override

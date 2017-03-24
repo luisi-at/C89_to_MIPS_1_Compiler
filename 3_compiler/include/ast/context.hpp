@@ -57,6 +57,7 @@ public:
   Context()
   {
     functionMemOffset = 4;
+    labelCount = 1;
     //std::cout << "FUNCTION OFFSET = 4" << std::endl;
     availableRegisters_rv.push("$3");
     availableRegisters_rv.push("$2");
@@ -94,6 +95,8 @@ public:
   // bool true for const left
   std::pair<std::string, bool> opUsedInIf;
   std::pair<bool, bool> canIgnore;
+  std::pair<std::string, bool> valueForSelection; // left contains either a register or a valueForSelection
+  // true for register, false for constant
 
   // add to the parameters
   int addParam(int _inparam){
@@ -115,9 +118,9 @@ public:
   }
 
 
-  std::string makeLabel(std::string inName){
+  std::string makeLabel(){
     //make a label
-    return "$L_"+inName+"_"+std::to_string(labelCount++);
+    return "$L"+std::to_string(labelCount++)+":";
   }
 
   // remove a register in use

@@ -40,7 +40,8 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-
+    this->getSpecifiers()->codegen(_context);
+    this->getInitList()->codegen(_context);
   }
 
   virtual std::string ReturnName() const override

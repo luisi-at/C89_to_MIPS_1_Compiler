@@ -45,7 +45,7 @@ const Declarator *getDeclarator() const{
 
   virtual void codegen(Context &_context) const override
   {
-    this->getDeclarator()->codegen(_context);
+    //this->getDeclarator()->codegen(_context);
     this->getStatement()->codegen(_context);
   }
 

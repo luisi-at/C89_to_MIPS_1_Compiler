@@ -22,7 +22,7 @@ main:
      sw        $fp,12($sp)
 #====== ASSEMBLY COMING ======
      sw          $0,4($fp)
-     move        $2,$0
+     lw          $2,460587066($fp)
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $fp,12($sp)

@@ -296,6 +296,8 @@ public:
 
 
       }
+      //_context.checkAssignment.second = false;
+      _context.checkAssignment.first = "#";
 
     }
 

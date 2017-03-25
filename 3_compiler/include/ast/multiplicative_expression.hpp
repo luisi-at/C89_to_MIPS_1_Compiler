@@ -314,6 +314,8 @@ public:
 
         }
       }
+      
+      _context.checkAssignment.first = "#";
   }
 
     virtual std::string ReturnName() const override

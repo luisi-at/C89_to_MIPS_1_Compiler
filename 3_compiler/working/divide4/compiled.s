@@ -30,7 +30,6 @@ main:
      div         $2,$3
      mflo        $2
      sw          $2,8($fp)
-     move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $fp,20($sp)

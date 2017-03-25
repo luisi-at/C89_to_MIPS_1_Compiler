@@ -28,7 +28,7 @@ main:
      addiu     $3,$2,1
      sw         $3,8($fp)
      sw          $2,4($fp)
-     move        $2,$0
+     lw          $2,280367103($fp)
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $fp,20($sp)

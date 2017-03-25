@@ -26,7 +26,6 @@ main:
      lw          $2,4($fp)
      ori         $2,$2,13
      sw          $2,8($fp)
-     move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $fp,16($sp)

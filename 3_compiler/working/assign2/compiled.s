@@ -23,7 +23,7 @@ main:
 #====== ASSEMBLY COMING ======
      li          $2,1
      sw          $2,4($fp)
-     move        $2,$0
+     lw          $2,460587066($fp)
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $fp,12($sp)

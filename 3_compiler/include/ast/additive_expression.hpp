@@ -189,7 +189,7 @@ public:
           std::string regUsedFirst = _context.popRegister("rv");
           currentVarMem = findVar->second->getCurrentMemOffset();
 
-          
+
           std::string regUsedSecond = _context.popRegister("rv");
           //load immediate
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left << std::endl;
@@ -239,6 +239,8 @@ public:
 
         }
       }
+      //_context.checkAssignment.second = false;
+      _context.checkAssignment.first = "#";
     }
 
     virtual std::string ReturnName() const override

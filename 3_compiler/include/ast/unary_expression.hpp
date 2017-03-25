@@ -92,11 +92,9 @@ public:
         _context.pushRegister(regUsed, "rv");
 
       }
-      else {
-
-      }
 
       _context.multipleCodegen = true;
+      //_context.checkAssignment.first = "#";
 
     }
 

@@ -30,6 +30,7 @@ main:
      mult        $2,$3
      mflo        $2
      sw          $2,4($fp)
+     move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $fp,20($sp)

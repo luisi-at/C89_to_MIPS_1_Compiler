@@ -40,7 +40,7 @@ main:
 $L2:
      sw          $0,8($fp)
 $L3:
-     lw          $2,280367103($fp)
+     move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $fp,20($sp)

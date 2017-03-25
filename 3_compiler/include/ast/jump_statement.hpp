@@ -104,7 +104,8 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-
+    // a no op at the end of the codegen
+    // maybe implement a return label?
   }
 
   virtual std::string ReturnName() const override
@@ -181,14 +182,20 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+
     std::string returnReg;
-    bool isJumpConst = _context.checkAssignment.second;
-    std::string isExpression = _context.checkAssignment.first;
+    bool isJumpConst;
+    std::string isExpression;
     std::map<std::string, RegisterAllocations*>::iterator findVar;
     std::string value;
 
+    this->getJump()->codegen(_context);
+    isJumpConst = _context.checkAssignment.second;
+    isExpression = _context.checkAssignment.first;
+
     if(isJumpConst){
       value = this->getJump()->ReturnName();
+
       if(value == "0"){
         value = "$0";
       }
@@ -198,15 +205,18 @@ public:
     }
     else if(isExpression != "#"){
       // do the rest of the trickery here
-      findVar = _context.bindings.find(value);
+
+      findVar = _context.bindings.find(isExpression);
       int currentVarMem = findVar->second->getCurrentMemOffset();
       returnReg = _context.popRegister("rv");
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << returnReg << "," << currentVarMem << "($fp)"  << std::endl;
       _context.pushRegister(returnReg,"rv");
     }
     else{
+      isJumpConst = _context.checkAssignment.second;
       this->getJump()->codegen(_context);
     }
+
 
 
   }

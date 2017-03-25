@@ -28,6 +28,7 @@ main:
      div         $3,$2
      mfhi        $2
      sw          $2,4($fp)
+     move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $fp,16($sp)

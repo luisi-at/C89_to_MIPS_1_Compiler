@@ -41,6 +41,7 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+    
     _context.checkAssignment = std::make_pair(this->GetValue(), false);
     _context.setAwaitingValue("#");
 
@@ -81,7 +82,9 @@ public:
 
   virtual std::string ReturnName() const override
   {
+    //std::cout << "CONST RETURN NAME" << std::endl;
     return this->GetValue();
+
   }
 
 };

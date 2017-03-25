@@ -119,11 +119,9 @@ public:
       _context.pushRegister(regUsed, "rv");
 
     }
-    else {
 
-    }
-
-
+    _context.checkAssignment.first = "#";
+    _context.checkAssignment.second = false;
 
   }
 

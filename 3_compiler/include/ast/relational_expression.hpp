@@ -45,6 +45,7 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
+      //std::cout << "relational_expression" << std::endl;
       this->getRight()->codegen(_context); // as the right side is a unary expression and must be done first
       bool isRightConst = _context.checkAssignment.second;
       this->getLeft()->codegen(_context); // left side is a multiplicative expression

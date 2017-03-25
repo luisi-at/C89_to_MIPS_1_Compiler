@@ -78,6 +78,7 @@ primary_expression
   : IDENTIFIER            { $$ = new Identifier( *$1 ); }
   | CONSTANT              { $$ = new Constant( *$1 ); }
   | STRING_LITERAL        { $$ = new StringLiteral( *$1 ); }
+  | '(' expression ')'
   ;
 
 postfix_expression
@@ -125,7 +126,7 @@ shift_expression
 
 relational_expression
   : shift_expression
-  | relational_expression '<' shift_expression          { $$ = new StrictLessThanExpression ( $1, $3 ); }
+  | relational_expression '<' shift_expression          { std::cout << "LE!" << std::endl; $$ = new StrictLessThanExpression ( $1, $3 ); }
   | relational_expression '>' shift_expression          { $$ = new StrictGreaterThanExpression ( $1, $3 ); }
   | relational_expression LE_OP shift_expression        { $$ = new LessEqualExpression ( $1, $3 ); }
   | relational_expression GE_OP shift_expression        { $$ = new GreaterEqualExpression ( $1, $3 ); }

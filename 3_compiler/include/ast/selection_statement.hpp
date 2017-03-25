@@ -36,7 +36,18 @@ public:
   virtual void codegen(Context &_context) const override
   {
     // any new variables declared here need to be removed from the map
-    std::string label;
+    // due to scoping constraints
+    std::string label = _context.makeLabel();
+    /*if(_context.nestedIf.second){
+      // use the label stored in first
+      std::cout << "NESTED IF! " << std::endl;
+      label = _context.nestedIf.first;
+    }
+    else{
+      std::cout << "NOT NESTED IF! " << std::endl;
+      label = _context.makeLabel();
+    }*/
+    _context.currentLabel = label;
     this->getFirst()->codegen(_context);
     if(_context.opUsedInIf.first == "=="){
       std::string compValueOrReg = _context.valueForSelection.first;
@@ -44,7 +55,7 @@ public:
       std::string regUsedSecond = _context.popRegister("rv");
 
       // make label
-      label = _context.makeLabel();
+      //label = _context.makeLabel();
 
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "bne " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << label << std::endl;
 
@@ -52,12 +63,82 @@ public:
       _context.pushRegister(regUsedFirst, "rv");
 
     }
+    if(_context.opUsedInIf.first == "!="){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+      std::string regUsedSecond = _context.popRegister("rv");
 
+      // make label
+      //label = _context.makeLabel();
 
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::setw(4) << std::right << std::endl;
-    std::cout << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "beq " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << label << std::endl;
+
+      _context.pushRegister(regUsedSecond, "rv");
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+    else if(_context.opUsedInIf.first == "<"){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+
+      // make label
+      //label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "beq " << std::setw(4) << std::right << regUsedFirst << "," << "$0" << "," << label << std::endl;
+
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+    else if(_context.opUsedInIf.first == ">"){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+
+      // make label
+      //label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "bne " << std::setw(4) << std::right << regUsedFirst << "," << "$0" << "," << label << std::endl;
+
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+    else if(_context.opUsedInIf.first == "<="){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+
+      // make label
+      //label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "beq " << std::setw(4) << std::right << regUsedFirst << "," << "$0" << "," << label << std::endl;
+
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+    else if(_context.opUsedInIf.first == ">="){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+
+      // make label
+      //label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "bne " << std::setw(4) << std::right << regUsedFirst << "," << "$0" << "," << label << std::endl;
+
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+
+    if((_context.opUsedInIf.first != "&&") && (_context.opUsedInIf.first != "||")){
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::setw(4) << std::right << std::endl;
+      std::cout << std::endl;
+    }
+
+    //_context.nestedIf.first = label;
+    //_context.nestedIf.second = true;
     this->getNext()->codegen(_context);
+    //if(!_context.nestedIf.second){
     std::cout << label << std::endl;
+    //}
+
   }
 
   virtual std::string ReturnName() const override
@@ -112,6 +193,107 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+    // any new variables declared here need to be removed from the map
+    // due to scoping constraints
+
+    std::string label = _context.makeLabel();
+    std::string elseLabel = _context.makeLabel();
+
+    _context.currentLabel = elseLabel;
+    this->getFirst()->codegen(_context);
+    if(_context.opUsedInIf.first == "=="){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+      std::string regUsedSecond = _context.popRegister("rv");
+
+      // make label
+      //label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "bne " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << label << std::endl;
+
+      _context.pushRegister(regUsedSecond, "rv");
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+    if(_context.opUsedInIf.first == "!="){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+      std::string regUsedSecond = _context.popRegister("rv");
+
+      // make label
+      //label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "beq " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << label << std::endl;
+
+      _context.pushRegister(regUsedSecond, "rv");
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+    else if(_context.opUsedInIf.first == "<"){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+
+      // make label
+      //label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "beq " << std::setw(4) << std::right << regUsedFirst << "," << "$0" << "," << label << std::endl;
+
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+    else if(_context.opUsedInIf.first == ">"){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+
+      // make label
+      //label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "bne " << std::setw(4) << std::right << regUsedFirst << "," << "$0" << "," << label << std::endl;
+
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+    else if(_context.opUsedInIf.first == "<="){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+
+      // make label
+      //label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "beq " << std::setw(4) << std::right << regUsedFirst << "," << "$0" << "," << label << std::endl;
+
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+    else if(_context.opUsedInIf.first == ">="){
+      std::string compValueOrReg = _context.valueForSelection.first;
+      std::string regUsedFirst = _context.popRegister("rv");
+
+      // make label
+      //label = _context.makeLabel();
+
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "bne " << std::setw(4) << std::right << regUsedFirst << "," << "$0" << "," << label << std::endl;
+
+      _context.pushRegister(regUsedFirst, "rv");
+
+    }
+
+    if((_context.opUsedInIf.first != "&&") && (_context.opUsedInIf.first != "||")){
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::setw(4) << std::right << std::endl;
+      std::cout << std::endl;
+    }
+
+    //std::cout << _context.opUsedInIf.first;
+    //label = _context.makeLabel();
+    _context.nestedIf.first = label;
+    _context.nestedIf.second = true;
+    this->getNext()->codegen(_context);
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "b " << std::setw(6) << std::right << elseLabel << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::setw(4) << std::right << std::endl;
+    std::cout << std::endl;
+    std::cout << label << std::endl;
+    this->getElse()->codegen(_context);
+    std::cout << elseLabel << std::endl;
 
   }
 

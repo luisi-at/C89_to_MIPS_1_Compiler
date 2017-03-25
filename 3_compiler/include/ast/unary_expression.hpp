@@ -49,6 +49,7 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
+      _context.operationInAssignment = true;
       RegisterAllocations *tempAlloc = new RegisterAllocations("", "", _context.getMemOffset());
       _context.updateMemOffset();
 

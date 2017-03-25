@@ -17,7 +17,7 @@ public:
   : local_expression(_local_expression)
   {}
 
-    const Expression *getExpr() const{
+    const Expression *getExpression() const{
       return local_expression;
     }
 
@@ -25,7 +25,7 @@ public:
     {
       //std::cout << "IdentifierDeclarator trace" << std::endl;
       //std::cout << "<Variable id= \"";
-      this->getExpr()->print_xml();
+      this->getExpression()->print_xml();
       //std::cout << "\"/>" << std::endl;
     }
 
@@ -36,13 +36,13 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
-
+      this->getExpression()->codegen(_context);
     }
 
     virtual std::string ReturnName() const override
     {
       //std::cout << "RETURN NAME IDENTIFIER DECLARATOR" << std::endl;
-      return this->getExpr()->ReturnName();
+      return this->getExpression()->ReturnName();
     }
 
 };
@@ -57,14 +57,14 @@ public:
   : local_declarator(_local_declarator)
   {}
 
-    const Declarator *getDecl() const{
+    const Declarator *getDeclarator() const{
       return local_declarator;
     }
 
     virtual void print_xml() const override
     {
       //std::cout << "Bracketed trace" << std::endl;
-      this->getDecl()->print_xml();
+      this->getDeclarator()->print_xml();
     }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override
@@ -74,7 +74,7 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
-
+      this->getDeclarator()->codegen(_context);
     }
 
     virtual std::string ReturnName() const override
@@ -95,14 +95,14 @@ public:
   , left(_left)
   {}
 
-    const Expression *getExpr() const{
+    const Expression *getExpression() const{
       return declarator_identifier;
     }
 
     virtual void print_xml() const override
     {
       //std::cout << "ExpressionDeclarator trace" << std::endl;
-      this->getExpr()->print_xml();
+      this->getExpression()->print_xml();
     }
 
     virtual Declarator* *AddItem(const Declarator *_item) const override
@@ -112,7 +112,7 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
-
+      this->getExpression()->codegen(_context);
     }
 
     virtual std::string ReturnName() const override
@@ -149,7 +149,7 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
-
+      this->getLeft()->codegen(_context);
     }
 
     virtual std::string ReturnName() const override
@@ -201,12 +201,13 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-
+    this->getLeft()->codegen(_context);
+    this->getRight()->codegen(_context);
   }
 
   virtual std::string ReturnName() const override
   {
-    std::cout << "RETURN NAME DIRECT DEC PARAMS" << std::endl;
+    //std::cout << "RETURN NAME DIRECT DEC PARAMS" << std::endl;
     return this->getLeft()->ReturnName();
   }
 

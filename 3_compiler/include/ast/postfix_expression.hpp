@@ -50,11 +50,12 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-
+    _context.operationInAssignment = true;
     RegisterAllocations *tempAlloc = new RegisterAllocations("", "", _context.getMemOffset());
     _context.updateMemOffset();
 
     if(getOperator() == "++"){
+
       int currentVarMem;
       // increment
       // add the left item to the context
@@ -73,7 +74,7 @@ public:
 
       // get the top scratch register
       std::string regUsed = _context.popRegister("rv");
-      std::cout << "MULTIPLE RECURSION " << _context.multipleCodegen << std::endl;
+      //std::cout << "MULTIPLE RECURSION " << _context.multipleCodegen << std::endl;
       //std::cout << "VAR IN USE--> " << _context.varInUse << std::endl;
 
       // write out

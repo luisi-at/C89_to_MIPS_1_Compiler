@@ -22,7 +22,6 @@ main:
      sw        $fp,16($sp)
 #====== ASSEMBLY COMING ======
      sw          $0,4($fp)
-MULTIPLE RECURSION 0
      lw         $2,4($fp)
      addiu     $2,$2,1
      sw         $2,4($fp)

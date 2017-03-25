@@ -26,11 +26,9 @@ main:
      sw          $2,8($fp)
      li          $2,3
      sw          $2,12($fp)
-MULTIPLE RECURSION 1
      lw         $2,12($fp)
      addiu     $3,$2,1
      sw         $3,12($fp)
-     lw          $2,12($fp)
      sw          $2,8($fp)
      lw          $2,12($fp)
      sw          $2,4($fp)

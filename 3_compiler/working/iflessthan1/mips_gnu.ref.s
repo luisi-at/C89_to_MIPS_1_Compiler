@@ -21,11 +21,13 @@ main:
 	addiu	$sp,$sp,-16
 	sw	$fp,12($sp)
 	move	$fp,$sp
+	li	$2,4			# 0x4
+	sw	$2,0($fp)
 	li	$2,2			# 0x2
 	sw	$2,4($fp)
-	lw	$3,4($fp)
-	li	$2,2			# 0x2
-	bne	$3,$2,$L2
+	lw	$2,4($fp)
+	slt	$2,$2,2
+	beq	$2,$0,$L2
 	nop
 
 	li	$2,30			# 0x1e

@@ -10,4 +10,6 @@ int main()
 
   x = x + 4;
 
+  return 0;
+
 }

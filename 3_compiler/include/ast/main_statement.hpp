@@ -87,6 +87,7 @@ public:
       //std::cout << "PRINTING STATEMENT LIST: " << i << std::endl;
       statements_list[i]->codegen(_context);
       _context.multipleCodegen = false;
+      //_context.nestedIf.second = false;
     }
   }
 

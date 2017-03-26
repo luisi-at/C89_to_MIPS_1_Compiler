@@ -75,6 +75,7 @@ public:
       std::string functionLabel;
       std::string functionProgramLabel;
       int stackAllocation = 8;
+      _context.resetScopeLevel();
       //std::cout << "CODEGEN FUNCTION DEF" << std::endl;
       // set function name/label here
       functionLabel = this->getDeclarator()->ReturnName();
@@ -130,6 +131,9 @@ public:
 
       }
 
+      if(_context.innerScopeReturn.first){
+        std::cout << _context.innerScopeReturn.second << ":" << std::endl;
+      }
       std::cout << "#====== ASSEMBLY ENDING ======" << std::endl;
 
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(4) << std::left << "$sp,$fp" << std::endl;

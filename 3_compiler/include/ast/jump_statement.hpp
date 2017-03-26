@@ -193,15 +193,26 @@ public:
     isJumpConst = _context.checkAssignment.second;
     isExpression = _context.checkAssignment.first;
 
+    if(_context.getScopeLevel() > 0){
+      _context.innerScopeReturn.first = true;
+      _context.innerScopeReturn.second = _context.makeLabel();
+    }
+
     if(isJumpConst){
       value = this->getJump()->ReturnName();
 
       if(value == "0"){
         value = "$0";
+        returnReg = _context.popRegister("rv");
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(4) << std::right << returnReg << "," << value << std::endl;
+        _context.pushRegister(returnReg,"rv");
       }
-      returnReg = _context.popRegister("rv");
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(4) << std::right << returnReg << "," << value << std::endl;
-      _context.pushRegister(returnReg,"rv");
+      else{
+        returnReg = _context.popRegister("rv");
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << returnReg << "," << value << std::endl;
+        _context.pushRegister(returnReg,"rv");
+      }
+
     }
     else if(isExpression != "#"){
       // do the rest of the trickery here
@@ -217,13 +228,20 @@ public:
       this->getJump()->codegen(_context);
     }
 
-
+    if(_context.getScopeLevel() > 0){
+      _context.innerScopeReturn.first = true;
+      std::string returnLabel = _context.makeLabel();
+      _context.innerScopeReturn.second = returnLabel;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "b " << std::setw(4) << std::right << returnLabel << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::endl;
+      std::cout << std::endl;
+    }
 
   }
 
   virtual std::string ReturnName() const override
   {
-    // dealing only with constants currently
+
   }
 
   virtual int statementCount() const override

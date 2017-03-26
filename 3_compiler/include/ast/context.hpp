@@ -13,6 +13,7 @@ private:
   std::string value;
   int memOffset;
   std::string functionName; // for scoping purposes
+  int variableScopeLevel;
 public:
   RegisterAllocations(std::string _reg, std::string _val, int _offset)
   : allocatedRegister(_reg)
@@ -71,12 +72,17 @@ private:
   int functionMemOffset; // global memory offset for the function
   std::string valueAwaitingBinding; // used for assignments
 
+  int scopeLevel;
+
 public:
   Context()
   {
     functionMemOffset = 4;
     labelCount = 2;
     functionLabelCount = 0;
+
+    scopeLevel = 0;
+
     //std::cout << "FUNCTION OFFSET = 4" << std::endl;
     availableRegisters_rv.push("$3");
     availableRegisters_rv.push("$2");
@@ -113,8 +119,10 @@ public:
   bool multipleCodegen = false;
   bool operationInAssignment = false;
   bool assignFunction = false;
-
+  // parameters for function calls
   bool hasParams = false;
+  // pair to hold boolean for return statement in the middle of the assembly code and the corresponding label
+  std::pair<bool, std::string> innerScopeReturn;
 
   // bool false for const right
   // bool true for const left
@@ -146,7 +154,7 @@ public:
 
   std::string makeLabel(){
     //make a label
-    return "$L"+std::to_string(labelCount++)+":";
+    return "$L"+std::to_string(labelCount++);
     labelCount++;
   }
 
@@ -229,8 +237,24 @@ public:
     return valueAwaitingBinding;
   }
 
-  void addFunction(std::string _name, std::string _label){
+  //===============================
+  // Scoping Level functions
+  //===============================
 
+  void increaseScopeLevel(){
+    scopeLevel++;
+  }
+
+  int getScopeLevel(){
+    return scopeLevel;
+  }
+
+  void decreaseScopeLevel(){
+    scopeLevel--;
+  }
+
+  void resetScopeLevel(){
+    scopeLevel = 0;
   }
 
 };

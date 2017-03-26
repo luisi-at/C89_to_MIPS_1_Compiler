@@ -36,12 +36,16 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+
+    // update scope level
+    _context.increaseScopeLevel();
+
     std::string bottomContinueLabel = _context.makeLabel();
     std::string topLoopLabel = _context.makeLabel();
 
 
     //_context.currentLabel = label;
-    std::cout << topLoopLabel << std::endl;
+    std::cout << topLoopLabel << ":" << std::endl;
     this->getFirst()->codegen(_context);
     if(_context.opUsedInIf.first == "=="){
       std::string compValueOrReg = _context.valueForSelection.first;
@@ -131,9 +135,12 @@ public:
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "b " << std::setw(4) << std::right << topLoopLabel << std::endl;
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::setw(4) << std::right << std::endl;
     std::cout << std::endl;
-    std::cout << bottomContinueLabel << std::endl;
+    std::cout << bottomContinueLabel << ":" << std::endl;
 
     _context.checkAssignment.first = "#";
+
+    // decrease scope level
+    _context.decreaseScopeLevel();
 
   }
 
@@ -180,10 +187,13 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+
+    _context.increaseScopeLevel();
+
     std::string bottomContinueLabel = _context.makeLabel();
     std::string topLoopLabel = _context.makeLabel();
 
-    std::cout << topLoopLabel << std::endl;
+    std::cout << topLoopLabel << ":" << std::endl;
     // get the statement inside the loop
     this->getFirst()->codegen(_context);
 
@@ -275,9 +285,11 @@ public:
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "b " << std::setw(4) << std::right << topLoopLabel << std::endl;
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::setw(4) << std::right << std::endl;
     std::cout << std::endl;
-    std::cout << bottomContinueLabel << std::endl;
+    std::cout << bottomContinueLabel << ":" << std::endl;
 
     _context.checkAssignment.first = "#";
+
+    _context.decreaseScopeLevel();
 
   }
 
@@ -330,11 +342,14 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+
+    _context.increaseScopeLevel();
+
     std::string bottomContinueLabel = _context.makeLabel();
     std::string topLoopLabel = _context.makeLabel();
 
     this->getFirst()->codegen(_context);
-    std::cout << topLoopLabel << std::endl;
+    std::cout << topLoopLabel << ":" << std::endl;
     this->getSecond()->codegen(_context);
     if(_context.opUsedInIf.first == "=="){
       std::string compValueOrReg = _context.valueForSelection.first;
@@ -424,8 +439,9 @@ public:
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "b " << std::setw(4) << std::right << topLoopLabel << std::endl;
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::setw(4) << std::right << std::endl;
     std::cout << std::endl;
-    std::cout << bottomContinueLabel << std::endl;
+    std::cout << bottomContinueLabel << ":" << std::endl;
 
+    _context.decreaseScopeLevel();
 
   }
 
@@ -483,11 +499,14 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+
+    _context.increaseScopeLevel();
+
     std::string bottomContinueLabel = _context.makeLabel();
     std::string topLoopLabel = _context.makeLabel();
 
     this->getFirst()->codegen(_context);
-    std::cout << topLoopLabel << std::endl;
+    std::cout << topLoopLabel << ":" << std::endl;
     this->getSecond()->codegen(_context);
     if(_context.opUsedInIf.first == "=="){
       std::string compValueOrReg = _context.valueForSelection.first;
@@ -577,7 +596,12 @@ public:
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "b " << std::setw(4) << std::right << topLoopLabel << std::endl;
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::setw(4) << std::right << std::endl;
     std::cout << std::endl;
-    std::cout << bottomContinueLabel << std::endl;
+    std::cout << bottomContinueLabel << ":" << std::endl;
+
+
+    _context.decreaseScopeLevel();
+
+
   }
 
   virtual std::string ReturnName() const override

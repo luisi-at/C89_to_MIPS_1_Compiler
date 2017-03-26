@@ -35,6 +35,9 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+
+    _context.increaseScopeLevel();
+
     // any new variables declared here need to be removed from the map
     // due to scoping constraints
     std::string label = _context.makeLabel();
@@ -136,8 +139,10 @@ public:
     //_context.nestedIf.second = true;
     this->getNext()->codegen(_context);
     //if(!_context.nestedIf.second){
-    std::cout << label << std::endl;
+    std::cout << label << ":" << std::endl;
     //}
+
+    _context.decreaseScopeLevel();
 
   }
 
@@ -193,6 +198,9 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+
+    _context.increaseScopeLevel();
+
     // any new variables declared here need to be removed from the map
     // due to scoping constraints
 
@@ -294,6 +302,8 @@ public:
     std::cout << label << std::endl;
     this->getElse()->codegen(_context);
     std::cout << elseLabel << std::endl;
+
+    _context.decreaseScopeLevel();
 
   }
 

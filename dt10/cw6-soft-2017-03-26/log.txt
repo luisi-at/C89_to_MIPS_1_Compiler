@@ -1,0 +1,38 @@
+al3515 : Cloning repo
+Cloning into 'al3515'...
+al3515 : Fetching repo
+al3515 : Checking out branch cw6-soft-2017-03-26 if it exists...
+error: pathspec 'cw6-soft-2017-03-26' did not match any file(s) known to git.
+al3515 : Checking out specified hash and creating new branch cw6-soft-2017-03-26
+Switched to a new branch 'cw6-soft-2017-03-26'
+Already on 'cw6-soft-2017-03-26'
+al3515 : Checking we're on the right hash 4dfaddf81bff3ba1e670c91da330a5621924387a...
+cd ${REPOS}/$U && git rev-parse $RUN
+al3515 : Checking we're on branch cw6-soft-2017-03-26
+cd ${REPOS}/$U && git rev-parse --abbrev-ref HEAD
+al3515 : Downloading latest spec
+Cloning into 'spec'...
+
+log_msg "########################################################"
+al3515 : ########################################################
+log_msg "## Building"
+al3515 : ## Building
+
+log_msg "Cleaning"
+al3515 : Cleaning
+(cd $REPO && rm bin/c_compiler)
+rm: cannot remove 'bin/c_compiler': No such file or directory
+(cd $REPO && make clean)
+make: *** No rule to make target 'clean'.  Stop.
+
+log_msg "Building"
+al3515 : Building
+(cd $REPO && make bin/c_compiler)
+make: *** No rule to make target 'bin/c_compiler'.  Stop.
+
+if [[ ! -f $REPO/bin/c_compiler ]]; then
+    log_msg "No executable built"
+    exit 0;
+fi
+al3515 : No executable built
+al3515 : Test Complete

@@ -1540,7 +1540,7 @@ yyreduce:
 
   case 8:
 #line 86 "src/c_parser.y" /* yacc.c:1646  */
-    { (yyval.expr) = new PostfixEmpty( (yyvsp[-2].expr), NULL ); }
+    { (yyval.expr) = new PostfixEmpty( (yyvsp[-2].expr) ); }
 #line 1545 "src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 

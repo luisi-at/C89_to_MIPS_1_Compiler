@@ -83,7 +83,7 @@ primary_expression
 
 postfix_expression
   : primary_expression
-  | postfix_expression '(' ')'            { $$ = new PostfixEmpty( $1, NULL ); }
+  | postfix_expression '(' ')'            { $$ = new PostfixEmpty( $1 ); } 
   | postfix_expression '.' IDENTIFIER     { $$ = new PostfixPeriod( $1, new Identifier(*$3) ); }
   | postfix_expression PTR_OP IDENTIFIER  { $$ = new PostfixPtrOp( $1, new Identifier(*$3 ) ); }
   | postfix_expression INC_OP             { $$ = new PostfixIncOp( $1, NULL ); }

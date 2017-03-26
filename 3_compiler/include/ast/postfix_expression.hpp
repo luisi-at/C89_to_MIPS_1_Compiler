@@ -132,19 +132,7 @@ public:
 
 };
 
-class PostfixEmpty
-  : public PostfixExpression
-{
-protected:
-  virtual const char *getOperator() const override
-  { return ""; }
 
-public:
-  PostfixEmpty(const Expression *_left, const Expression *_right)
-    :PostfixExpression(_left, _right)
-  {}
-
-};
 
 class PostfixPeriod
   : public PostfixExpression
@@ -199,6 +187,45 @@ public:
   PostfixDecOp(const Expression *_left, const Expression *_right)
   :PostfixExpression(_left, _right)
   {}
+
+};
+
+class PostfixEmpty: public Expression
+{
+private:
+  const Expression *left;
+
+public:
+  PostfixEmpty(const Expression *_left)
+    : left (_left)
+  {}
+
+  virtual ~PostfixEmpty()
+  {
+      delete left;
+  }
+
+  const Expression *getLeft() const
+  { return left; }
+
+  virtual void print_xml() const override
+  {}
+
+  virtual std::string ReturnName() const override
+  {
+    return this->getLeft()->ReturnName();
+  }
+
+  virtual Expression* *AddItem(const Expression *_item) const override
+  {
+      return 0;
+  }
+
+  virtual void codegen(Context &_context) const override
+  {
+    // look up left in the function table
+    // print out a jump then a no op and then the assignment 
+  }
 
 };
 

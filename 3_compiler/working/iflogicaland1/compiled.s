@@ -13,6 +13,7 @@ LE!
      .set      nomicromips
      .ent      main      
      .type     main,     @function
+$LFB0= .
 main:
      .frame    $fp,24,$31
      .mask     0x40000000,-4

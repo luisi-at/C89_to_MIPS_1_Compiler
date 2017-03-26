@@ -73,14 +73,21 @@ public:
     virtual void codegen(Context &_context) const override
     {
       std::string functionLabel;
+      std::string functionProgramLabel;
       int stackAllocation = 8;
       //std::cout << "CODEGEN FUNCTION DEF" << std::endl;
       // set function name/label here
       functionLabel = this->getDeclarator()->ReturnName();
       this->setFunctionName(functionLabel);
+      functionProgramLabel = _context.makeFunctionLabel();
 
       stackAllocation = stackAllocation + (4* this->getStatement()->statementCount());
       this->setAllocatedStack(stackAllocation);
+
+      // add function label to map in context detailing functions
+      FunctionAttributes* tempFuncAtt = new FunctionAttributes(functionProgramLabel);
+      _context.func_attributes.emplace(functionLabel, tempFuncAtt);
+
 
       _context.setRegisterCount(stackAllocation);
 
@@ -90,6 +97,8 @@ public:
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "nomicromips" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".ent " << std::setw(10) << std::left << functionLabel << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".type " << std::setw(10) << std::left << functionLabel + "," << "@function" << std::endl;
+
+      std::cout << functionProgramLabel << "= ." << std::endl;
       // print function label here!
       std::cout << functionLabel << ":" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".frame " << std::setw(4) << std::right << "$fp," << stackAllocation << ",$31" << std::endl;

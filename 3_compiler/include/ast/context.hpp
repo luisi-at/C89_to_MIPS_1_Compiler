@@ -12,6 +12,7 @@ private:
   std::string allocatedRegister;
   std::string value;
   int memOffset;
+  std::string functionName; // for scoping purposes
 public:
   RegisterAllocations(std::string _reg, std::string _val, int _offset)
   : allocatedRegister(_reg)
@@ -35,11 +36,28 @@ public:
   }
 };
 
+class FunctionAttributes{
+private:
+  std::string functionLabel;
+  std::vector<std::string> params; // vector to hold the parameters used in the function
+public:
+  FunctionAttributes(std::string _functionLabel)
+  : functionLabel(_functionLabel)
+  // add vector later when do params
+  {}
+
+  std::string getFunctionLabel(){
+    return functionLabel;
+  }
+
+};
+
 class Context
 {
 private:
   std::vector<int> params;
   int labelCount;
+  int functionLabelCount;
   int allocatedRegisters;
 
   // need to have a stack of available registers so can push on and push off
@@ -58,6 +76,7 @@ public:
   {
     functionMemOffset = 4;
     labelCount = 2;
+    functionLabelCount = 0;
     //std::cout << "FUNCTION OFFSET = 4" << std::endl;
     availableRegisters_rv.push("$3");
     availableRegisters_rv.push("$2");
@@ -86,12 +105,14 @@ public:
   {}
 
   std::map<std::string, RegisterAllocations*> bindings;
+  std::map<std::string, FunctionAttributes*> func_attributes;
   // checking for constant assignment
   std::pair<std::string, bool> checkAssignment;
   std::string varInUse;
   std::string currentLabel;
   bool multipleCodegen = false;
   bool operationInAssignment = false;
+  bool assignFunction = false;
   // bool false for const right
   // bool true for const left
   std::pair<std::string, bool> opUsedInIf;
@@ -124,6 +145,12 @@ public:
     //make a label
     return "$L"+std::to_string(labelCount++)+":";
     labelCount++;
+  }
+
+  std::string makeFunctionLabel(){
+    //make a label
+    return "$LFB"+std::to_string(functionLabelCount++);
+    functionLabelCount++;
   }
 
   // remove a register in use
@@ -197,6 +224,10 @@ public:
   std::string getAwaitingValue()
   {
     return valueAwaitingBinding;
+  }
+
+  void addFunction(std::string _name, std::string _label){
+
   }
 
 };

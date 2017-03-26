@@ -131,18 +131,26 @@ public:
         int memOffsetLeft = findVar->second->getCurrentMemOffset();
         //td::cout << "MEM OFFSET LEFT--> " << memOffsetLeft << std::endl;
         findVar = _context.bindings.find(right);
-        right = _context.varInUse;
-        //std::cout << "RIGHT NAME--> " << right << std::endl;
-        findVar = _context.bindings.find(right);
-        int memOffsetRight = findVar->second->getCurrentMemOffset();
-        //std::cout << "MEM OFFSET RIGHT--> " << memOffsetRight << std::endl;
+        if(findVar == _context.bindings.end()){
+          // look for the function name in the functions
+          // call codegen on this->getRight()
+          // then assign via a an sw with memOffsetLeft
+        }
+        else{
+          right = _context.varInUse;
+          //std::cout << "RIGHT NAME--> " << right << std::endl;
+          findVar = _context.bindings.find(right);
+          int memOffsetRight = findVar->second->getCurrentMemOffset();
+          //std::cout << "MEM OFFSET RIGHT--> " << memOffsetRight << std::endl;
 
-        std::string regUsed = _context.popRegister("rv");
+          std::string regUsed = _context.popRegister("rv");
 
-        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << memOffsetRight << "($fp)"  << std::endl;
-        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << memOffsetRight << "($fp)"  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
 
-        _context.pushRegister(regUsed,"rv");
+          _context.pushRegister(regUsed,"rv");
+        }
+
       }
       else{
         findVar = _context.bindings.find(left);

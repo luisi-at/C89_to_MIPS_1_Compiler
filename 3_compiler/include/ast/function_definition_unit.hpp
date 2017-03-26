@@ -109,6 +109,7 @@ public:
 
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(4) << std::right << "$sp,$sp,-" << stackAllocation  << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(3) << std::right << "$fp," << stackAllocation - 4 << "($sp)"  << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(3) << std::right << "$fp,"<< "$sp"  << std::endl;
 
       std::cout << "#====== ASSEMBLY COMING ======" << std::endl;
 

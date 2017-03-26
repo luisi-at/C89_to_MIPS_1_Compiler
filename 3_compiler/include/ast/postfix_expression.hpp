@@ -213,6 +213,7 @@ public:
 
   virtual std::string ReturnName() const override
   {
+
     return this->getLeft()->ReturnName();
   }
 
@@ -224,7 +225,14 @@ public:
   virtual void codegen(Context &_context) const override
   {
     // look up left in the function table
-    // print out a jump then a no op and then the assignment 
+    // print out a jump then a no op and then the assignment
+    _context.assignFunction = true;
+    std::string funcName = this->getLeft()->ReturnName();
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "jal " << std::setw(4) << std::right << funcName << "()"  << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::endl;
+    std::cout << std::endl;
+    //std::cout << "DONE POSTFIX EMPTY "<< std::endl;
+
   }
 
 };

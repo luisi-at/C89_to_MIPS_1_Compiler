@@ -21,12 +21,11 @@ main:
      .set      nomacro
      addiu     $sp,$sp,-20
      sw        $fp,16($sp)
+     move      $fp,$sp
 #====== ASSEMBLY COMING ======
      sw          $0,4($fp)
      li          $2,13
      sw          $2,8($fp)
-     lw          $2,8($fp)
-     sw          $2,4($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp

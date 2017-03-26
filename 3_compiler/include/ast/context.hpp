@@ -113,6 +113,9 @@ public:
   bool multipleCodegen = false;
   bool operationInAssignment = false;
   bool assignFunction = false;
+
+  bool hasParams = false;
+
   // bool false for const right
   // bool true for const left
   std::pair<std::string, bool> opUsedInIf;

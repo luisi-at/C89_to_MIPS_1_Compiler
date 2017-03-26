@@ -42,7 +42,7 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
-
+      std::cout << "PARAM CODGEN " << std::endl;
     }
 
     virtual std::string ReturnName() const override

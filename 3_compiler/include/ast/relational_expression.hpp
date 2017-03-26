@@ -35,7 +35,6 @@ public:
     virtual void print_xml() const override
     {
 
-
     }
 
     virtual Expression* *AddItem(const Expression *_item) const override

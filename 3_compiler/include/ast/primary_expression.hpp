@@ -41,7 +41,7 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-    
+
     _context.checkAssignment = std::make_pair(this->GetValue(), false);
     _context.setAwaitingValue("#");
 
@@ -76,6 +76,7 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+    
     _context.checkAssignment = std::make_pair(this->GetValue(), true);
     _context.setAwaitingValue(this->GetValue());
   }

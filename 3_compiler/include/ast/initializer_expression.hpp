@@ -7,20 +7,14 @@ class Initializer : public Expression
 {
 private:
   const Expression *left;
-  const Expression *right;
 
 public:
-  Initializer(const Expression *_left, const Expression *_right)
+  Initializer(const Expression *_left)
   : left(_left)
-  , right(_right)
   {}
 
     const Expression *getLeft() const
     { return left; }
-
-    const Expression *getRight() const
-    { return right; }
-
 
   virtual void print_xml() const override
   {
@@ -36,6 +30,8 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+    //std::cout << "INITIALIZER" << std::endl;
+    this->getLeft()->codegen(_context);
 
   }
 

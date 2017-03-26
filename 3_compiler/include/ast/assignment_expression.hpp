@@ -60,6 +60,7 @@ public:
     // search for variable name in context map
     std::string left = this->getLeft()->ReturnName();
     std::map<std::string, RegisterAllocations*>::iterator findVar;
+    std::map<std::string, FunctionAttributes*>::iterator findFunc;
     findVar = _context.bindings.find(left);
 
     if(findVar != _context.bindings.end()){
@@ -73,7 +74,8 @@ public:
     else{
       // make new value in context and bind
       // bind if constant on other side of assignment expression
-      if(!_context.checkAssignment.second){
+      if((!_context.checkAssignment.second) && (!_context.assignFunction)){
+      //std::cout << "BINDING CONSTANT--> " << _context.checkAssignment.second << std::endl;
       RegisterAllocations *tempAlloc = new RegisterAllocations("", _context.getAwaitingValue(), _context.getMemOffset());
       _context.updateMemOffset();
       _context.addBinding(left,tempAlloc);
@@ -81,20 +83,22 @@ public:
       }
       // don't bind a constant if variable on other side
       else{
-        //std::cout << "MAKE BINDING" << std::endl;
+        //std::cout << "LEFT--> " << left << std::endl;
+        //std::cout << "RIGHT--> " << right << std::endl;
+        //std::cout << "CHECK ASSIGNMENT--> " << _context.checkAssignment.second << std::endl;
         RegisterAllocations *tempAlloc = new RegisterAllocations("", "", _context.getMemOffset());
 
         _context.updateMemOffset();
         _context.bindings.emplace(left,tempAlloc);
         _context.varInUse = left;
+        _context.assignFunction = false;
       }
     }
 
-    //==============================================
-    // Need to constant fold unary expressions?
-    // =============================================
+
 
     std::string right = this->getRight()->ReturnName();
+    //std::cout << "RIGHT--> " << right << std::endl;
     int currentVarMem;
 
     if(this->getOperator() == "="){
@@ -132,16 +136,32 @@ public:
         //td::cout << "MEM OFFSET LEFT--> " << memOffsetLeft << std::endl;
         findVar = _context.bindings.find(right);
         if(findVar == _context.bindings.end()){
+          std::string functionJumpLabel;
+          //std::cout << "RIGHT--> " << right << std::endl;
+          // =======================================================
+          // FUNCTION ASSIGNMENTS
+          // =======================================================
           // look for the function name in the functions
           // call codegen on this->getRight()
           // then assign via a an sw with memOffsetLeft
+          findFunc = _context.func_attributes.find(right);
+          if(findFunc != _context.func_attributes.end()){
+            functionJumpLabel = findFunc->second->getFunctionLabel();
+            //this->getRight()->codegen(_context); <-- don't need to do this again
+
+            //std::cout << "POP REGISTER "<< std::endl;
+            std::string regUsed = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
+            _context.pushRegister(regUsed,"rv");
+            _context.checkAssignment.second = false;
+          }
         }
         else{
           right = _context.varInUse;
           //std::cout << "RIGHT NAME--> " << right << std::endl;
           findVar = _context.bindings.find(right);
           int memOffsetRight = findVar->second->getCurrentMemOffset();
-          //std::cout << "MEM OFFSET RIGHT--> " << memOffsetRight << std::endl;
+
 
           std::string regUsed = _context.popRegister("rv");
 

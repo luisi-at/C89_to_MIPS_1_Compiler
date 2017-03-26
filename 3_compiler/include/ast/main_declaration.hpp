@@ -193,7 +193,9 @@ public:
 
       virtual void codegen(Context &_context) const override
       {
-
+        for(int i = 0; i < init_declarations_list.size(); i++){
+          init_declarations_list[i]->codegen(_context);
+        }
       }
 
       virtual std::string ReturnName() const override

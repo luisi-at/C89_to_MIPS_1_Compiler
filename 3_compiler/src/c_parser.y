@@ -83,7 +83,7 @@ primary_expression
 
 postfix_expression
   : primary_expression
-  | postfix_expression '(' ')'            { $$ = new PostfixEmpty( $1 ); } 
+  | postfix_expression '(' ')'            { $$ = new PostfixEmpty( $1 ); }
   | postfix_expression '.' IDENTIFIER     { $$ = new PostfixPeriod( $1, new Identifier(*$3) ); }
   | postfix_expression PTR_OP IDENTIFIER  { $$ = new PostfixPtrOp( $1, new Identifier(*$3 ) ); }
   | postfix_expression INC_OP             { $$ = new PostfixIncOp( $1, NULL ); }
@@ -126,7 +126,7 @@ shift_expression
 
 relational_expression
   : shift_expression
-  | relational_expression '<' shift_expression          { std::cout << "LE!" << std::endl; $$ = new StrictLessThanExpression ( $1, $3 ); }
+  | relational_expression '<' shift_expression          { $$ = new StrictLessThanExpression ( $1, $3 ); }
   | relational_expression '>' shift_expression          { $$ = new StrictGreaterThanExpression ( $1, $3 ); }
   | relational_expression LE_OP shift_expression        { $$ = new LessEqualExpression ( $1, $3 ); }
   | relational_expression GE_OP shift_expression        { $$ = new GreaterEqualExpression ( $1, $3 ); }
@@ -203,7 +203,7 @@ declaration
   ;
 
 declaration_specifiers
-  : type_specifier                        { }
+  : type_specifier
   | type_specifier declaration_specifiers { $$ = new DeclarationSpecifier( $1, $2 ); }
   ;
 
@@ -213,7 +213,7 @@ init_declarator_list
   ;
 
 init_declarator
-  : declarator                            { $$ = new InitDeclarator( $1, NULL ); }
+  : declarator
   | declarator ASSIGN initializer         { $$ = new InitDeclarator( $1, $3 ); }
   ;
 
@@ -260,7 +260,7 @@ identifier_list
   ;
 
 initializer
-  : assignment_expression                         { $$ = new Initializer( $1, NULL ); }
+  : assignment_expression                         { $$ = new Initializer( $1 ); }
   ;
 
 statement

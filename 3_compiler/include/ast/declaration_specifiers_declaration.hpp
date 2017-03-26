@@ -44,6 +44,7 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+    //std::cout << "DECLARATION SPECIFIERS" << std::endl;
     this->getExpression()->codegen(_context);
     this->getDeclarator()->codegen(_context);
   }

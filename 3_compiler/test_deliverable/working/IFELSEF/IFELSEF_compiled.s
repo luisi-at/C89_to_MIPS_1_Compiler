@@ -7,13 +7,13 @@
      .abicalls 
      .text     
      .align    2         
-     .globl    ifelsetrue
+     .globl    ifelsefalse
      .set      nomips16  
      .set      nomicromips
-     .ent      ifelsetrue
-     .type     ifelsetrue,@function
+     .ent      ifelsefalse
+     .type     ifelsefalse,@function
 $LFB0= .
-ifelsetrue:
+ifelsefalse:
      .frame    $fp,16,$31
      .mask     0x40000000,-4
      .fmask    0x00000000,0
@@ -26,11 +26,11 @@ ifelsetrue:
      li          $2,6
      sw          $2,4($fp)
      lw          $2,4($fp)
-     li          $3,6
+     li          $3,13
      bne         $2,$3,$L2
      nop       
 
-     move        $2,$0
+     li          $2,1
      b          $L4
      nop       
 
@@ -38,7 +38,7 @@ ifelsetrue:
      nop       
 
  $L2:
-     li          $2,1
+     move        $2,$0
      b          $L4
      nop       
 
@@ -56,5 +56,5 @@ $L4:
      nop       
      .set      macro     
      .set      reorder   
-     .end      ifelsetrue
-     .size     ifelsetrue, .-ifelsetrue
+     .end      ifelsefalse
+     .size     ifelsefalse, .-ifelsefalse

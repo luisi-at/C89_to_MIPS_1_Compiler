@@ -81,7 +81,7 @@ public:
     labelCount = 2;
     functionLabelCount = 0;
 
-    scopeLevel = 0;
+    scopeLevel = -1;
 
     //std::cout << "FUNCTION OFFSET = 4" << std::endl;
     availableRegisters_rv.push("$3");

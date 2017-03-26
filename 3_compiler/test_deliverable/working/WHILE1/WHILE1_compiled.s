@@ -7,13 +7,13 @@
      .abicalls 
      .text     
      .align    2         
-     .globl    ifelsetrue
+     .globl    whiletrue 
      .set      nomips16  
      .set      nomicromips
-     .ent      ifelsetrue
-     .type     ifelsetrue,@function
+     .ent      whiletrue 
+     .type     whiletrue,@function
 $LFB0= .
-ifelsetrue:
+whiletrue:
      .frame    $fp,16,$31
      .mask     0x40000000,-4
      .fmask    0x00000000,0
@@ -23,26 +23,25 @@ ifelsetrue:
      sw        $fp,12($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
-     li          $2,6
-     sw          $2,4($fp)
+     sw          $0,4($fp)
+     sw          $0,8($fp)
+$L3:
      lw          $2,4($fp)
-     li          $3,6
-     bne         $2,$3,$L2
+     slt         $2,$2,1
+     beq         $2,$0,$L2
      nop       
 
+     lw         $2,4($fp)
+     addiu     $2,$2,1
+     sw         $2,4($fp)
      move        $2,$0
      b          $L4
      nop       
 
-     b            $L3
+     b          $L3
      nop       
 
  $L2:
-     li          $2,1
-     b          $L4
-     nop       
-
-$L3:
      li          $2,1
      b          $L4
      nop       
@@ -56,5 +55,5 @@ $L4:
      nop       
      .set      macro     
      .set      reorder   
-     .end      ifelsetrue
-     .size     ifelsetrue, .-ifelsetrue
+     .end      whiletrue 
+     .size     whiletrue, .-whiletrue

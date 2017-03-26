@@ -45,7 +45,7 @@ const Declarator *getLeft() const
 
   virtual void codegen(Context &_context) const override
   {
-    //std::cout << "INIT DEC CODEGEN" << std::endl;
+    std::cout << "INIT DEC CODEGEN" << std::endl;
     this->getLeft()->codegen(_context);
     //std::cout << this->getLeft()->ReturnName() << std::endl;
     this->getRight()->codegen(_context);

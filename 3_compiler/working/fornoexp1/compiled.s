@@ -29,16 +29,16 @@ main:
 $L3:
      lw          $2,8($fp)
      slt         $2,$2,4
-     bne         $2,$0,$L2:
+     bne         $2,$0,$L2
      nop       
 
      lw         $2,4($fp)
      addiu     $3,$2,1
      sw         $3,4($fp)
-     b         $L3:
+     b          $L3
      nop       
 
-$L2:
+ $L2:
      move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp

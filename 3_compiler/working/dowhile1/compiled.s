@@ -29,13 +29,13 @@ $L3:
      sw         $2,4($fp)
      lw          $2,4($fp)
      slt         $2,$2,4
-     beq         $2,$0,$L2:
+     beq         $2,$0,$L2
      nop       
 
-     b         $L3:
+     b          $L3
      nop       
 
-$L2:
+ $L2:
      move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp

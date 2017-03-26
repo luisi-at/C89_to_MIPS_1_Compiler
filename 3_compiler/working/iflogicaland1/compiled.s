@@ -30,12 +30,12 @@ main:
      lw          $2,8($fp)
      lw          $3,4($fp)
      slt         $2,$3,$2
-     beq         $2,$0,$L2:
+     beq         $2,$0,$L2
      nop       
 
      lw          $2,8($fp)
      slt         $2,$2,1
-     bne         $2,$0,$L2:
+     bne         $2,$0,$L2
      nop       
 
      li          $2,30

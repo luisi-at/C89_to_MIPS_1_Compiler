@@ -27,7 +27,7 @@ main:
      sw          $2,4($fp)
      lw          $2,4($fp)
      li          $3,2
-     bne         $2,$3,$L2:
+     bne         $2,$3,$L2
      nop       
 
      li          $2,30

@@ -29,32 +29,32 @@ main:
 $L3:
      lw          $2,8($fp)
      slt         $2,$2,4
-     bne         $2,$0,$L2:
+     bne         $2,$0,$L2
      nop       
 
      lw          $2,8($fp)
      li          $3,3
-     bne         $2,$3,$L4:
+     bne         $2,$3,$L4
      nop       
 
      lw          $2,4($fp)
      addiu       $2,$2,4
      sw          $2,4($fp)
-     b           $L5:
+     b            $L5
      nop       
 
-$L4:
+ $L4
      lw         $2,4($fp)
      addiu     $2,$2,1
      sw         $2,4($fp)
-$L5:
+$L5
      lw         $2,8($fp)
      addiu     $2,$2,1
      sw         $2,8($fp)
-     b         $L3:
+     b          $L3
      nop       
 
-$L2:
+ $L2:
      lw          $2,4($fp)
      addiu       $2,$2,2
      lw          $2,4($fp)

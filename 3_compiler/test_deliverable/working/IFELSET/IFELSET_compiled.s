@@ -7,54 +7,54 @@
      .abicalls 
      .text     
      .align    2         
-     .globl    main      
+     .globl    ifelsetrue
      .set      nomips16  
      .set      nomicromips
-     .ent      main      
-     .type     main,     @function
+     .ent      ifelsetrue
+     .type     ifelsetrue,@function
 $LFB0= .
-main:
-     .frame    $fp,24,$31
+ifelsetrue:
+     .frame    $fp,16,$31
      .mask     0x40000000,-4
      .fmask    0x00000000,0
      .set      noreorder
      .set      nomacro
-     addiu     $sp,$sp,-24
-     sw        $fp,20($sp)
+     addiu     $sp,$sp,-16
+     sw        $fp,12($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
-     li          $2,4
+     li          $2,6
      sw          $2,4($fp)
-     li          $2,2
-     sw          $2,8($fp)
-     lw          $2,8($fp)
-     lw          $3,4($fp)
-     slt         $2,$3,$2
-     beq         $2,$0,$L2
+     lw          $2,4($fp)
+     li          $3,13
+     bne         $2,$3,$L2
      nop       
 
-     li          $2,30
-     sw          $2,8($fp)
+     li          $2,1
+     b          $L4
+     nop       
+
      b            $L3
      nop       
 
- $L2
-     lw          $2,8($fp)
-     slt         $2,$2,2
-     beq         $2,$0,$L4
+ $L2:
+     move        $2,$0
+     b          $L4
      nop       
 
-     sw          $0,8($fp)
+$L3:
+     li          $2,1
+     b          $L4
+     nop       
+
 $L4:
-$L3
-     move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
-     lw        $fp,20($sp)
-     addiu     $sp,$sp,24
+     lw        $fp,12($sp)
+     addiu     $sp,$sp,16
      j         $31 
      nop       
      .set      macro     
      .set      reorder   
-     .end      main      
-     .size     main, .-main
+     .end      ifelsetrue
+     .size     ifelsetrue, .-ifelsetrue

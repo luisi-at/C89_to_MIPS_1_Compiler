@@ -299,9 +299,9 @@ public:
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "b " << std::setw(6) << std::right << elseLabel << std::endl;
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::setw(4) << std::right << std::endl;
     std::cout << std::endl;
-    std::cout << label << std::endl;
+    std::cout << label << ":" << std::endl;
     this->getElse()->codegen(_context);
-    std::cout << elseLabel << std::endl;
+    std::cout << elseLabel << ":" << std::endl;
 
     _context.decreaseScopeLevel();
 

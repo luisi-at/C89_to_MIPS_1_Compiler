@@ -31,12 +31,15 @@ iftrue:
      nop       
 
      move        $2,$0
-     b          $L4
+     b          $L3
      nop       
 
 $L2:
      li          $2,1
-$L4:
+     b          $L3
+     nop       
+
+$L3:
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $fp,12($sp)

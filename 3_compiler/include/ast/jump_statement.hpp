@@ -193,7 +193,7 @@ public:
     isJumpConst = _context.checkAssignment.second;
     isExpression = _context.checkAssignment.first;
 
-    if(_context.getScopeLevel() > 0){
+    if((_context.getScopeLevel() > 0) && (!_context.innerScopeReturn.first)){
       _context.innerScopeReturn.first = true;
       _context.innerScopeReturn.second = _context.makeLabel();
     }
@@ -228,10 +228,11 @@ public:
       this->getJump()->codegen(_context);
     }
 
-    if(_context.getScopeLevel() > 0){
-      _context.innerScopeReturn.first = true;
-      std::string returnLabel = _context.makeLabel();
-      _context.innerScopeReturn.second = returnLabel;
+    if(_context.innerScopeReturn.first){
+      //_context.innerScopeReturn.first = true;
+      //std::string returnLabel = _context.makeLabel();
+      //_context.innerScopeReturn.second = returnLabel;
+      std::string returnLabel = _context.innerScopeReturn.second;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "b " << std::setw(4) << std::right << returnLabel << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::endl;
       std::cout << std::endl;

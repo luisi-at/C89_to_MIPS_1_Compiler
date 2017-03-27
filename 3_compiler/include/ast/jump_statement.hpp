@@ -185,8 +185,13 @@ public:
 
     std::string returnReg;
     bool isJumpConst;
+
+    bool isGlobal = false;
+    bool isLocal = false;
+
     std::string isExpression;
     std::map<std::string, RegisterAllocations*>::iterator findVar;
+    std::map<std::string, GlobalRegisterAllocations*>::iterator findGlobalVar;
     std::string value;
 
     this->getJump()->codegen(_context);
@@ -218,10 +223,35 @@ public:
       // do the rest of the trickery here
 
       findVar = _context.bindings.find(isExpression);
-      int currentVarMem = findVar->second->getCurrentMemOffset();
-      returnReg = _context.popRegister("rv");
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << returnReg << "," << currentVarMem << "($fp)"  << std::endl;
-      _context.pushRegister(returnReg,"rv");
+      if(findVar != _context.bindings.end()){
+        // local exists
+        isLocal = true;
+      }
+      findGlobalVar = _context.globalBindings.find(isExpression);
+      if(findVar != _context.bindings.end()){
+        // local exists
+        isGlobal = true;
+      }
+
+      if((isGlobal) && (isLocal)){
+        // return only the local value
+        isGlobal = false;
+      }
+
+      if(isLocal){
+        int currentVarMem = findVar->second->getCurrentMemOffset();
+        returnReg = _context.popRegister("rv");
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << returnReg << "," << currentVarMem << "($fp)"  << std::endl;
+        _context.pushRegister(returnReg,"rv");
+      }
+      else if(isGlobal){
+        std::string globalVarMemLeft = findGlobalVar->second->getCurrentMemOffset();
+        returnReg = _context.popRegister("rv");
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << returnReg << "," << "%hi"+globalVarMemLeft << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << returnReg << "," << "%lo"+globalVarMemLeft+"("+returnReg+")" << std::endl;
+        _context.pushRegister(returnReg,"rv");
+      }
+
     }
     else{
       isJumpConst = _context.checkAssignment.second;

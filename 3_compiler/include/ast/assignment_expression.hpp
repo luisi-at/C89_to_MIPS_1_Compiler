@@ -292,9 +292,12 @@ public:
         else{
           findGlobal = _context.globalBindings.find(left);
           //std::cout << "LEFT NAME--> " << left << std::endl;
-          std::string memOffsetLeft = findGlobal->second->getCurrentMemOffset();
+          std::string currentGlobalMem = findGlobal->second->getCurrentMemOffset();
           std::string regUsed = _context.popRegister("rv");
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
+          std::string secondRegUsed = _context.popRegister("rv");
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsed << "," << "%hi"+currentGlobalMem << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << "%lo"+currentGlobalMem+"("+regUsed+")" << std::endl;
+
           _context.pushRegister(regUsed,"rv");
           _context.operationInAssignment = false;
         }

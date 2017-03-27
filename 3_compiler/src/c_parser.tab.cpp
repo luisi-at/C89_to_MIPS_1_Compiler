@@ -63,7 +63,7 @@
 
 /* Copy the first part of user declarations.  */
 
-#line 67 "src/c_parser.tab.cpp" /* yacc.c:339  */
+#line 67 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -83,8 +83,8 @@
 
 /* In a future release of Bison, this section will be replaced
    by #include "c_parser.tab.hpp".  */
-#ifndef YY_YY_SRC_C_PARSER_TAB_HPP_INCLUDED
-# define YY_YY_SRC_C_PARSER_TAB_HPP_INCLUDED
+#ifndef YY_YY_3_COMPILER_SRC_C_PARSER_TAB_HPP_INCLUDED
+# define YY_YY_3_COMPILER_SRC_C_PARSER_TAB_HPP_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -93,7 +93,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 1 "src/c_parser.y" /* yacc.c:355  */
+#line 1 "3_compiler/src/c_parser.y" /* yacc.c:355  */
 
   #include "ast.hpp"
   #include <cassert>
@@ -105,7 +105,7 @@ extern int yydebug;
 
 
 
-#line 109 "src/c_parser.tab.cpp" /* yacc.c:355  */
+#line 109 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:355  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -178,7 +178,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 13 "src/c_parser.y" /* yacc.c:355  */
+#line 13 "3_compiler/src/c_parser.y" /* yacc.c:355  */
 
   const Expression *expr;
   const Statement *stmt;
@@ -190,7 +190,7 @@ union YYSTYPE
   double number;
   std::string *string_value;
 
-#line 194 "src/c_parser.tab.cpp" /* yacc.c:355  */
+#line 194 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -203,11 +203,11 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_SRC_C_PARSER_TAB_HPP_INCLUDED  */
+#endif /* !YY_YY_3_COMPILER_SRC_C_PARSER_TAB_HPP_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 211 "src/c_parser.tab.cpp" /* yacc.c:358  */
+#line 211 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -1515,583 +1515,583 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 75 "src/c_parser.y" /* yacc.c:1646  */
+#line 75 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { prog_root = (yyvsp[0].unit); }
-#line 1521 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1521 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 78 "src/c_parser.y" /* yacc.c:1646  */
+#line 78 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new Identifier( *(yyvsp[0].string_value) ); }
-#line 1527 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1527 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 79 "src/c_parser.y" /* yacc.c:1646  */
+#line 79 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new Constant( *(yyvsp[0].string_value) ); }
-#line 1533 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1533 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 80 "src/c_parser.y" /* yacc.c:1646  */
+#line 80 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new StringLiteral( *(yyvsp[0].string_value) ); }
-#line 1539 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1539 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 86 "src/c_parser.y" /* yacc.c:1646  */
+#line 86 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new PostfixEmpty( (yyvsp[-2].expr) ); }
-#line 1545 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1545 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 87 "src/c_parser.y" /* yacc.c:1646  */
+#line 87 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new PostfixPeriod( (yyvsp[-2].expr), new Identifier(*(yyvsp[0].string_value)) ); }
-#line 1551 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1551 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 88 "src/c_parser.y" /* yacc.c:1646  */
+#line 88 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new PostfixPtrOp( (yyvsp[-2].expr), new Identifier(*(yyvsp[0].string_value) ) ); }
-#line 1557 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1557 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 89 "src/c_parser.y" /* yacc.c:1646  */
+#line 89 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new PostfixIncOp( (yyvsp[-1].expr), NULL ); }
-#line 1563 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1563 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 90 "src/c_parser.y" /* yacc.c:1646  */
+#line 90 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new PostfixDecOp( (yyvsp[-1].expr), NULL); }
-#line 1569 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1569 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 95 "src/c_parser.y" /* yacc.c:1646  */
+#line 95 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new UnaryIncExpression( (yyvsp[0].expr) ); }
-#line 1575 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1575 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 96 "src/c_parser.y" /* yacc.c:1646  */
+#line 96 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new UnaryDecExpression( (yyvsp[0].expr) ); }
-#line 1581 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1581 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 110 "src/c_parser.y" /* yacc.c:1646  */
+#line 110 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new MultiplyMultiplicative( (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1587 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1587 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 111 "src/c_parser.y" /* yacc.c:1646  */
+#line 111 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new DivideMultiplicative( (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1593 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1593 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 112 "src/c_parser.y" /* yacc.c:1646  */
+#line 112 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new ModMultiplicative( (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1599 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1599 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 117 "src/c_parser.y" /* yacc.c:1646  */
+#line 117 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new AddAdditive( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1605 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1605 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 118 "src/c_parser.y" /* yacc.c:1646  */
+#line 118 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new SubAdditive( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1611 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1611 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 123 "src/c_parser.y" /* yacc.c:1646  */
+#line 123 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new LeftOpExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1617 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1617 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 124 "src/c_parser.y" /* yacc.c:1646  */
+#line 124 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new RightOpExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1623 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1623 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 129 "src/c_parser.y" /* yacc.c:1646  */
+#line 129 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new StrictLessThanExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1629 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1629 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 130 "src/c_parser.y" /* yacc.c:1646  */
+#line 130 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new StrictGreaterThanExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1635 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1635 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 131 "src/c_parser.y" /* yacc.c:1646  */
+#line 131 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new LessEqualExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1641 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1641 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 132 "src/c_parser.y" /* yacc.c:1646  */
+#line 132 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new GreaterEqualExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1647 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1647 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 137 "src/c_parser.y" /* yacc.c:1646  */
+#line 137 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new EqualOpExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1653 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1653 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 138 "src/c_parser.y" /* yacc.c:1646  */
+#line 138 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new NotEqualOpExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1659 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1659 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 143 "src/c_parser.y" /* yacc.c:1646  */
+#line 143 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new AndExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1665 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1665 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 148 "src/c_parser.y" /* yacc.c:1646  */
+#line 148 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new XorExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1671 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1671 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 153 "src/c_parser.y" /* yacc.c:1646  */
+#line 153 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new OrExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1677 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1677 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 158 "src/c_parser.y" /* yacc.c:1646  */
+#line 158 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new LogicalAndExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1683 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1683 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 163 "src/c_parser.y" /* yacc.c:1646  */
+#line 163 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new LogicalOrExpression ( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1689 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1689 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 169 "src/c_parser.y" /* yacc.c:1646  */
+#line 169 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new ConditionalExpression ( (yyvsp[-4].expr), (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1695 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1695 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 174 "src/c_parser.y" /* yacc.c:1646  */
+#line 174 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new AssignmentExpression ( (yyvsp[-2].expr), *(yyvsp[-1].string_value), (yyvsp[0].expr) ); }
-#line 1701 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1701 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 193 "src/c_parser.y" /* yacc.c:1646  */
+#line 193 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new MainExpression( (yyvsp[-2].expr), (yyvsp[0].expr) ); }
-#line 1707 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1707 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 201 "src/c_parser.y" /* yacc.c:1646  */
+#line 201 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new MainDeclaration( (yyvsp[-1].dltr), NULL); }
-#line 1713 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1713 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 202 "src/c_parser.y" /* yacc.c:1646  */
+#line 202 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new MainDeclaration( (yyvsp[-2].dltr), (yyvsp[-1].dltr)); }
-#line 1719 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1719 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 207 "src/c_parser.y" /* yacc.c:1646  */
+#line 207 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new DeclarationSpecifier( (yyvsp[-1].expr), (yyvsp[0].dltr) ); }
-#line 1725 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1725 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 211 "src/c_parser.y" /* yacc.c:1646  */
+#line 211 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new InitDeclarationList(); (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
-#line 1731 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1731 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 212 "src/c_parser.y" /* yacc.c:1646  */
+#line 212 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
-#line 1737 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1737 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 217 "src/c_parser.y" /* yacc.c:1646  */
+#line 217 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new InitDeclarator( (yyvsp[-2].dltr), (yyvsp[0].expr) ); }
-#line 1743 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1743 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 221 "src/c_parser.y" /* yacc.c:1646  */
+#line 221 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
-#line 1749 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1749 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 222 "src/c_parser.y" /* yacc.c:1646  */
+#line 222 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
-#line 1755 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1755 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 223 "src/c_parser.y" /* yacc.c:1646  */
+#line 223 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
-#line 1761 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1761 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 224 "src/c_parser.y" /* yacc.c:1646  */
+#line 224 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
-#line 1767 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1767 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 225 "src/c_parser.y" /* yacc.c:1646  */
+#line 225 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
-#line 1773 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1773 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 226 "src/c_parser.y" /* yacc.c:1646  */
+#line 226 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
-#line 1779 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1779 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 227 "src/c_parser.y" /* yacc.c:1646  */
+#line 227 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
-#line 1785 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1785 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 228 "src/c_parser.y" /* yacc.c:1646  */
+#line 228 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
-#line 1791 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1791 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 229 "src/c_parser.y" /* yacc.c:1646  */
+#line 229 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new TypeSpecifierExpression( *(yyvsp[0].string_value) ); }
-#line 1797 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1797 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 238 "src/c_parser.y" /* yacc.c:1646  */
+#line 238 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new IdentifierDeclarator( new Identifier( *(yyvsp[0].string_value) ) ); }
-#line 1803 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1803 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 239 "src/c_parser.y" /* yacc.c:1646  */
+#line 239 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new BracketedDeclarator( (yyvsp[-1].dltr) ); }
-#line 1809 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1809 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 240 "src/c_parser.y" /* yacc.c:1646  */
+#line 240 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new ExpressionDeclarator( (yyvsp[-3].dltr), (yyvsp[-1].expr) ); }
-#line 1815 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1815 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 241 "src/c_parser.y" /* yacc.c:1646  */
+#line 241 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new ExpressionDeclarator( (yyvsp[-2].dltr), NULL );}
-#line 1821 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1821 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 242 "src/c_parser.y" /* yacc.c:1646  */
+#line 242 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new ExpressionDeclarator( (yyvsp[-3].dltr), (yyvsp[-1].expr) ); }
-#line 1827 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1827 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 243 "src/c_parser.y" /* yacc.c:1646  */
+#line 243 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new ParameterTypeDeclarator( (yyvsp[-3].dltr), (yyvsp[-1].dltr) ); }
-#line 1833 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1833 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 244 "src/c_parser.y" /* yacc.c:1646  */
+#line 244 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new EmptyDeclarator( (yyvsp[-2].dltr) );}
-#line 1839 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1839 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 248 "src/c_parser.y" /* yacc.c:1646  */
+#line 248 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new ParamDeclarationList(); (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
-#line 1845 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1845 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 249 "src/c_parser.y" /* yacc.c:1646  */
+#line 249 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
-#line 1851 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1851 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 253 "src/c_parser.y" /* yacc.c:1646  */
+#line 253 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new ParameterDeclaration( (yyvsp[-1].dltr), (yyvsp[0].dltr) ); }
-#line 1857 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1857 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 90:
-#line 254 "src/c_parser.y" /* yacc.c:1646  */
+#line 254 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new ParameterDeclaration( (yyvsp[0].dltr), NULL ); }
-#line 1863 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1863 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 258 "src/c_parser.y" /* yacc.c:1646  */
+#line 258 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new ExpressionList(); (yyval.expr)->AddItem(new Identifier( *(yyvsp[0].string_value) ) ); }
-#line 1869 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1869 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 259 "src/c_parser.y" /* yacc.c:1646  */
+#line 259 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr)->AddItem(new Identifier( *(yyvsp[0].string_value) ) ); }
-#line 1875 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1875 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 263 "src/c_parser.y" /* yacc.c:1646  */
+#line 263 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.expr) = new Initializer( (yyvsp[0].expr) ); }
-#line 1881 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1881 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 100:
-#line 276 "src/c_parser.y" /* yacc.c:1646  */
+#line 276 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new IdentifierStatement( new Identifier( *(yyvsp[-2].string_value) ), (yyvsp[0].stmt) ); }
-#line 1887 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1887 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 101:
-#line 277 "src/c_parser.y" /* yacc.c:1646  */
+#line 277 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new CaseStatement( (yyvsp[-2].expr), (yyvsp[0].stmt) ); }
-#line 1893 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1893 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 102:
-#line 278 "src/c_parser.y" /* yacc.c:1646  */
+#line 278 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new DefaultStatement( (yyvsp[0].stmt) ); }
-#line 1899 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1899 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 103:
-#line 282 "src/c_parser.y" /* yacc.c:1646  */
+#line 282 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new CompoundStatement( NULL, NULL ); }
-#line 1905 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1905 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 104:
-#line 283 "src/c_parser.y" /* yacc.c:1646  */
+#line 283 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new CompoundStatement( (yyvsp[-1].stmt), NULL ); }
-#line 1911 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1911 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 105:
-#line 284 "src/c_parser.y" /* yacc.c:1646  */
+#line 284 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new CompoundStatement( NULL, (yyvsp[-1].dltr) ); }
-#line 1917 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1917 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 106:
-#line 285 "src/c_parser.y" /* yacc.c:1646  */
+#line 285 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new CompoundStatement( (yyvsp[-1].stmt), (yyvsp[-2].dltr) ); }
-#line 1923 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1923 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 107:
-#line 289 "src/c_parser.y" /* yacc.c:1646  */
+#line 289 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr) = new DeclarationList(); (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
-#line 1929 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1929 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 108:
-#line 290 "src/c_parser.y" /* yacc.c:1646  */
+#line 290 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.dltr)->AddItem( (yyvsp[0].dltr) ); }
-#line 1935 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1935 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 109:
-#line 294 "src/c_parser.y" /* yacc.c:1646  */
+#line 294 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new StatementList(); (yyval.stmt)->AddItem( (yyvsp[0].stmt) ); }
-#line 1941 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1941 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 110:
-#line 295 "src/c_parser.y" /* yacc.c:1646  */
+#line 295 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt)->AddItem( (yyvsp[0].stmt) ); }
-#line 1947 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1947 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 111:
-#line 299 "src/c_parser.y" /* yacc.c:1646  */
+#line 299 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new ExpressionStatement( NULL ); }
-#line 1953 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1953 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 112:
-#line 300 "src/c_parser.y" /* yacc.c:1646  */
+#line 300 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new ExpressionStatement( (yyvsp[-1].expr) ); }
-#line 1959 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1959 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 113:
-#line 305 "src/c_parser.y" /* yacc.c:1646  */
+#line 305 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new IfSelection( (yyvsp[-2].expr), (yyvsp[0].stmt) ); }
-#line 1965 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1965 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 114:
-#line 306 "src/c_parser.y" /* yacc.c:1646  */
+#line 306 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new IfElseSelection( (yyvsp[-4].expr), (yyvsp[-2].stmt), (yyvsp[0].stmt) ); }
-#line 1971 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1971 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 115:
-#line 307 "src/c_parser.y" /* yacc.c:1646  */
+#line 307 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new SwitchSelection( (yyvsp[-2].expr), (yyvsp[0].stmt) ); }
-#line 1977 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1977 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 116:
-#line 311 "src/c_parser.y" /* yacc.c:1646  */
+#line 311 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new WhileIteration( (yyvsp[-2].expr), (yyvsp[0].stmt) ); }
-#line 1983 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1983 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 117:
-#line 312 "src/c_parser.y" /* yacc.c:1646  */
+#line 312 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new DoWhileIteration( (yyvsp[-5].stmt), (yyvsp[-2].expr) ); }
-#line 1989 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1989 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 118:
-#line 313 "src/c_parser.y" /* yacc.c:1646  */
+#line 313 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new ForNoExprIteration( (yyvsp[-3].stmt), (yyvsp[-2].stmt), (yyvsp[0].stmt) ); }
-#line 1995 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 1995 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 119:
-#line 314 "src/c_parser.y" /* yacc.c:1646  */
+#line 314 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new ForExprIteration( (yyvsp[-4].stmt), (yyvsp[-3].stmt), (yyvsp[0].stmt), (yyvsp[-2].expr)); }
-#line 2001 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2001 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 120:
-#line 318 "src/c_parser.y" /* yacc.c:1646  */
+#line 318 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new GotoStatement( new Identifier( *(yyvsp[-1].string_value) ) ); }
-#line 2007 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2007 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 121:
-#line 319 "src/c_parser.y" /* yacc.c:1646  */
+#line 319 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new ContinueStatement( NULL ); }
-#line 2013 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2013 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 122:
-#line 320 "src/c_parser.y" /* yacc.c:1646  */
+#line 320 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new BreakStatement( NULL ); }
-#line 2019 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2019 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 123:
-#line 321 "src/c_parser.y" /* yacc.c:1646  */
+#line 321 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new ReturnStatement( NULL ); }
-#line 2025 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2025 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 124:
-#line 322 "src/c_parser.y" /* yacc.c:1646  */
+#line 322 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.stmt) = new ReturnExprStatement( (yyvsp[-1].expr) ); }
-#line 2031 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2031 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 125:
-#line 326 "src/c_parser.y" /* yacc.c:1646  */
+#line 326 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { }
-#line 2037 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2037 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 126:
-#line 327 "src/c_parser.y" /* yacc.c:1646  */
+#line 327 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { }
-#line 2043 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2043 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 127:
-#line 331 "src/c_parser.y" /* yacc.c:1646  */
+#line 331 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.edln) = new ExternalDeclaration( (yyvsp[0].fdfn), NULL ); }
-#line 2049 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2049 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 128:
-#line 332 "src/c_parser.y" /* yacc.c:1646  */
+#line 332 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.edln) = new ExternalDeclaration( (yyvsp[0].fdfn), (yyvsp[-1].dltr) ); }
-#line 2055 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2055 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 129:
-#line 336 "src/c_parser.y" /* yacc.c:1646  */
+#line 336 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.fdfn) = new FunctionDefinitionList(); (yyval.fdfn)->AddItem( (yyvsp[0].fdfn) ); }
-#line 2061 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2061 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 130:
-#line 337 "src/c_parser.y" /* yacc.c:1646  */
+#line 337 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.fdfn)->AddItem( (yyvsp[0].fdfn) ); }
-#line 2067 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2067 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 131:
-#line 340 "src/c_parser.y" /* yacc.c:1646  */
+#line 340 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.fdfn) = new FunctionDefinitionActual( (yyvsp[-3].dltr), (yyvsp[-2].dltr), (yyvsp[-1].dltr), (yyvsp[0].stmt) ); }
-#line 2073 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2073 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 132:
-#line 341 "src/c_parser.y" /* yacc.c:1646  */
+#line 341 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.fdfn) = new FunctionDefinitionActual( (yyvsp[-2].dltr), (yyvsp[-1].dltr), NULL, (yyvsp[0].stmt) ); }
-#line 2079 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2079 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 133:
-#line 342 "src/c_parser.y" /* yacc.c:1646  */
+#line 342 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.fdfn) = new FunctionDefinitionActual( NULL, (yyvsp[-2].dltr), (yyvsp[-1].dltr), (yyvsp[0].stmt) ); }
-#line 2085 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2085 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 134:
-#line 343 "src/c_parser.y" /* yacc.c:1646  */
+#line 343 "3_compiler/src/c_parser.y" /* yacc.c:1646  */
     { (yyval.fdfn) = new FunctionDefinitionActual( NULL, (yyvsp[-1].dltr), NULL, (yyvsp[0].stmt) ); }
-#line 2091 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2091 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 2095 "src/c_parser.tab.cpp" /* yacc.c:1646  */
+#line 2095 "3_compiler/src/c_parser.tab.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2319,7 +2319,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 348 "src/c_parser.y" /* yacc.c:1906  */
+#line 348 "3_compiler/src/c_parser.y" /* yacc.c:1906  */
 
 
 const Unit *prog_root; // match variable defined earlier

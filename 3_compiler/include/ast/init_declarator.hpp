@@ -45,7 +45,7 @@ const Declarator *getLeft() const
 
   virtual void codegen(Context &_context) const override
   {
-    std::cout << "INIT DEC CODEGEN" << std::endl;
+    //std::cout << "INIT DEC CODEGEN" << std::endl;
     this->getLeft()->codegen(_context);
     //std::cout << this->getLeft()->ReturnName() << std::endl;
     this->getRight()->codegen(_context);
@@ -96,7 +96,7 @@ const Declarator *getLeft() const
     //std::cout << "ASSIGNMENT CODGEN OPERATOR--> =" << std::endl;
     //std::cout << "CONST BOOL--> " << _context.checkAssignment.second << std::endl;
     //std::cout << "CONTEXT MEM OFFSET--> " << _context.getMemOffset() << std::endl;
-    if(_context.checkAssignment.second){
+    if((_context.checkAssignment.second) && (_context.getScopeLevel() > -1)){
       findVar = _context.bindings.find(left);
       //std::cout << "LEFT--> " << left << std::endl;
       std::string regUsed = _context.popRegister("rv");
@@ -145,6 +145,9 @@ const Declarator *getLeft() const
           _context.pushRegister(regUsed,"rv");
           _context.checkAssignment.second = false;
         }
+      }
+      else if(_context.getScopeLevel() == -1){
+        // add to the global variables map in the context
       }
       else{
         right = _context.varInUse;

@@ -36,7 +36,31 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
+      
       //this->getExpression()->codegen(_context);
+      std::string name = this->getExpression()->ReturnName();
+
+
+      // if the scope is -1, add to the global variable map
+      std::map<std::string, GlobalRegisterAllocations*>::iterator findVar;
+
+      if(_context.getScopeLevel() == -1){
+        findVar = _context.globalBindings.find(name);
+
+        if(findVar == _context.globalBindings.end()){
+          // add to the map
+
+          std::string memRef = _context.makeGlobalOffset(name);
+          GlobalRegisterAllocations *tempGlobal = new GlobalRegisterAllocations("", "", memRef);
+          _context.globalBindings.emplace(name, tempGlobal);
+          //_context.addGlobalBinding(name, tempGlobal); <-- doesn't work
+
+        }
+
+      }
+
+
+
     }
 
     virtual std::string ReturnName() const override

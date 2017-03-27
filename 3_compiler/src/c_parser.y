@@ -328,7 +328,7 @@ this_unit
   ;
 
 external_declaration
-  : function_definition_list        { $$ = new ExternalDeclaration( $1, NULL ); }               
+  : function_definition_list        { $$ = new ExternalDeclaration( $1, NULL ); }
   | declaration_list function_definition { $$ = new ExternalDeclaration( $2, $1 ); }
   ;
 

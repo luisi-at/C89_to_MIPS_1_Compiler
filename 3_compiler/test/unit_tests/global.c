@@ -1,7 +1,7 @@
-int global = 0;
+int global;
 
 int main(){
 
-
+  int insideMain;
   return global;
 }

@@ -76,7 +76,7 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-    
+
     _context.checkAssignment = std::make_pair(this->GetValue(), true);
     _context.setAwaitingValue(this->GetValue());
   }
@@ -244,8 +244,6 @@ public:
     //std::cout << type_class << std::endl;
   }
 
-
-
   virtual Expression* *AddItem(const Expression *_item) const override
   {
       return 0;
@@ -253,11 +251,14 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-
+    std::cout << "TYPE SPECIFIER EXPRESSION" << std::endl;
+    std::cout << "TYPE CLASS--> " << this->ReturnName() << std::endl;
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return type_class;
+  }
 
 
 };

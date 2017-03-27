@@ -37,6 +37,36 @@ public:
   }
 };
 
+class GlobalRegisterAllocations{
+private:
+  std::string allocatedRegister;
+  std::string value;
+  std::string globalMemRef;
+  std::string functionName; // for scoping purposes
+  int variableScopeLevel;
+public:
+  GlobalRegisterAllocations(std::string _reg, std::string _val, std::string _offset)
+  : allocatedRegister(_reg)
+  , value(_val)
+  , globalMemRef(_offset)
+  {}
+
+  std::string getCurrentMemOffset()
+  {
+    return globalMemRef;
+  }
+
+  void setValue(std::string _value)
+  {
+    value = _value;
+  }
+
+  std::string getValue()
+  {
+    return value;
+  }
+};
+
 class FunctionAttributes{
 private:
   std::string functionLabel;
@@ -111,6 +141,7 @@ public:
   {}
 
   std::map<std::string, RegisterAllocations*> bindings;
+  std::map<std::string, GlobalRegisterAllocations*> globalBindings;
   std::map<std::string, FunctionAttributes*> func_attributes;
   // checking for constant assignment
   std::pair<std::string, bool> checkAssignment;
@@ -145,6 +176,14 @@ public:
     bindings.emplace(_variableName, _allocated);
 
   }
+
+  std::pair<std::string, GlobalRegisterAllocations*> addGlobalBinding(std::string _variableName, GlobalRegisterAllocations *_allocated)
+  {
+    std::cout << "ADDING BINDING" << std::endl;
+    globalBindings.emplace(_variableName, _allocated);
+
+  }
+
 
   void getBindingDetails(std::string _variableName)
   {
@@ -224,6 +263,10 @@ public:
   int getMemOffset()
   {
     return functionMemOffset;
+  }
+
+  std::string makeGlobalOffset(std::string _variableName){
+    return "("+_variableName+")";
   }
 
   // set to "#" when there is no value to assign

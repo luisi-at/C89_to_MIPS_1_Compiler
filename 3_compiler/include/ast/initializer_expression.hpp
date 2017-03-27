@@ -30,7 +30,7 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-    //std::cout << "INITIALIZER" << std::endl;
+    std::cout << "INITIALIZER" << std::endl;
     this->getLeft()->codegen(_context);
 
   }

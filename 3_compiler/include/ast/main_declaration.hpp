@@ -40,6 +40,7 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
+    std::cout << "MAIN DEC" << std::endl;
     this->getSpecifiers()->codegen(_context);
     this->getInitList()->codegen(_context);
   }

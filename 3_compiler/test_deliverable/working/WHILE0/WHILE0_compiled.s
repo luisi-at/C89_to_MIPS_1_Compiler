@@ -6,13 +6,13 @@
      .module   nooddspreg     
      .abicalls 
      .text     
+$LFB0          = .
      .align    2         
      .globl    whilefalse
      .set      nomips16  
      .set      nomicromips
      .ent      whilefalse
      .type     whilefalse,@function
-$LFB0= .
 whilefalse:
      .frame    $fp,16,$31
      .mask     0x40000000,-4

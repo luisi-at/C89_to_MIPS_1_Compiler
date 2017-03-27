@@ -6,13 +6,13 @@
      .module   nooddspreg     
      .abicalls 
      .text     
+$LFB0          = .
      .align    2         
      .globl    iftrue    
      .set      nomips16  
      .set      nomicromips
      .ent      iftrue    
      .type     iftrue,   @function
-$LFB0= .
 iftrue:
      .frame    $fp,16,$31
      .mask     0x40000000,-4

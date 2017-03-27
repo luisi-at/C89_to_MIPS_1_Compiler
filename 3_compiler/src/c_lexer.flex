@@ -85,37 +85,37 @@ operator                      {single_operator}
 {escape_sequence}             { }
 
 
-auto                          { return AUTO; }
-double                        { return DOUBLE; }
+auto                          { yylval.string_value = new std::string(yytext); return (AUTO); }
+double                        { yylval.string_value = new std::string(yytext); return (DOUBLE); }
 int                           { yylval.string_value = new std::string(yytext); return(INT); }
-struct                        { return STRUCT; }
-break                         { return BREAK; }
-else                          { return ELSE; }
-long                          { return LONG; }
-switch                        { return SWITCH; }
-case                          { return CASE; }
-enum                          { return ENUM; }
-register                      { return REGISTER; }
-typedef                       { return TYPEDEF; }
-char                          { return CHAR; }
-extern                        { return EXTERN; }
-return                        { return RETURN; }
-union                         { return UNION; }
-const                         { return CONST; }
-float                         { return FLOAT; }
-short                         { return SHORT; }
-unsigned                      { return UNSIGNED; }
-continue                      { return CONTINUE; }
-for                           { return FOR; }
-signed                        { return SIGNED; }
-void                          { return VOID; }
-default                       { return DEFAULT; }
-goto                          { return GOTO; }
-sizeof                        { return SIZEOF; }
-volatile                      { return VOLATILE; }
-do                            { return DO; }
-if                            { return IF; }
-static                        { return STATIC; }
+struct                        { yylval.string_value = new std::string(yytext); return (STRUCT); }
+break                         { return (BREAK); }
+else                          { return (ELSE); }
+long                          { yylval.string_value = new std::string(yytext); return (LONG); }
+switch                        { return (SWITCH); }
+case                          { return (CASE); }
+enum                          { yylval.string_value = new std::string(yytext); return (ENUM); }
+register                      { return (REGISTER); }
+typedef                       { return (TYPEDEF); }
+char                          { yylval.string_value = new std::string(yytext); return (CHAR); }
+extern                        { yylval.string_value = new std::string(yytext); return (EXTERN); }
+return                        { return (RETURN); }
+union                         { yylval.string_value = new std::string(yytext); return (UNION); }
+const                         { yylval.string_value = new std::string(yytext); return (CONST); }
+float                         { yylval.string_value = new std::string(yytext); return (FLOAT); }
+short                         { yylval.string_value = new std::string(yytext); return (SHORT); }
+unsigned                      { yylval.string_value = new std::string(yytext); return (UNSIGNED); }
+continue                      { return (CONTINUE); }
+for                           { return (FOR); }
+signed                        { yylval.string_value = new std::string(yytext); return (SIGNED); }
+void                          { yylval.string_value = new std::string(yytext); return (VOID); }
+default                       { return (DEFAULT); }
+goto                          { return (GOTO); }
+sizeof                        { return (SIZEOF); }
+volatile                      { yylval.string_value = new std::string(yytext); return (VOLATILE); }
+do                            { return (DO); }
+if                            { return (IF); }
+static                        { return (STATIC); }
 while                         { return(WHILE); }
 
 {identifier}                  { yylval.string_value = new std::string(yytext); return(IDENTIFIER); } //return identifier

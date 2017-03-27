@@ -98,7 +98,7 @@ enum                          { yylval.string_value = new std::string(yytext); r
 register                      { return (REGISTER); }
 typedef                       { return (TYPEDEF); }
 char                          { yylval.string_value = new std::string(yytext); return (CHAR); }
-extern                        { yylval.string_value = new std::string(yytext); return (EXTERN); }
+extern                        {  }
 return                        { return (RETURN); }
 union                         { yylval.string_value = new std::string(yytext); return (UNION); }
 const                         { yylval.string_value = new std::string(yytext); return (CONST); }

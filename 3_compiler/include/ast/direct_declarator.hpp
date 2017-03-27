@@ -43,6 +43,7 @@ public:
 
       // if the scope is -1, add to the global variable map
       std::map<std::string, GlobalRegisterAllocations*>::iterator findVar;
+      std::map<std::string, RegisterAllocations*>::iterator findVarLocal;
 
       if(_context.getScopeLevel() == -1){
         findVar = _context.globalBindings.find(name);
@@ -65,7 +66,16 @@ public:
 
       }
       else{
-        // add to the map
+        // add local variable to the map
+
+        findVarLocal = _context.bindings.find(name);
+        if(findVarLocal == _context.bindings.end()){
+          int memRef = _context.getMemOffset();
+          _context.updateMemOffset();
+          RegisterAllocations *tempLocal = new RegisterAllocations("", "", memRef);
+          _context.bindings.emplace(name, tempLocal);
+        }
+
       }
 
 

@@ -6,30 +6,33 @@
      .module   nooddspreg     
      .abicalls 
      .text     
-$LFB0          = .
-     .align    2         
-     .globl    globalfunc
+global:        
+     .space    4
+     .text     
+     .align    2
+     .globl    main
+$LFB0= .
      .set      nomips16  
      .set      nomicromips
      .ent      globalfunc
      .type     globalfunc,@function
 globalfunc:
-     .frame    $fp,16,$31
+     .frame    $fp,12,$31
      .mask     0x40000000,-4
      .fmask    0x00000000,0
      .set      noreorder
      .set      nomacro
-     addiu     $sp,$sp,-16
-     sw        $fp,12($sp)
+     addiu     $sp,$sp,-12
+     sw        $fp,8($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
      li          $2,42
      sw          $2,4($fp)
-     move        $2,$0
+     li          $2,1
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
-     lw        $fp,12($sp)
-     addiu     $sp,$sp,16
+     lw        $fp,8($sp)
+     addiu     $sp,$sp,12
      j         $31 
      nop       
      .set      macro     

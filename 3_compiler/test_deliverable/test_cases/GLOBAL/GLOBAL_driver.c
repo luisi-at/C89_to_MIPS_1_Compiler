@@ -1,10 +1,11 @@
-int global;
+int globalfunc();
 
-void globalfunc();
+int global = 0;
 
 int main(){
+  int x;
 
-  globalfunc();
+  x = globalfunc();
   if(global == 42){
     return 0;
   }

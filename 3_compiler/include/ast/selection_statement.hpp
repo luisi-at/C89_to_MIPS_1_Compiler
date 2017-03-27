@@ -137,9 +137,11 @@ public:
 
     //_context.nestedIf.first = label;
     //_context.nestedIf.second = true;
+
     this->getNext()->codegen(_context);
-    //if(!_context.nestedIf.second){
     std::cout << label << ":" << std::endl;
+    //if(!_context.nestedIf.second){
+
     //}
 
     _context.decreaseScopeLevel();

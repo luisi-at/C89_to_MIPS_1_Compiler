@@ -251,8 +251,8 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-    std::cout << "TYPE SPECIFIER EXPRESSION" << std::endl;
-    std::cout << "TYPE CLASS--> " << this->ReturnName() << std::endl;
+    //std::cout << "TYPE SPECIFIER EXPRESSION" << std::endl;
+    //std::cout << "TYPE CLASS--> " << this->ReturnName() << std::endl;
   }
 
   virtual std::string ReturnName() const override

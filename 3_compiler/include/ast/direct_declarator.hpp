@@ -36,7 +36,7 @@ public:
 
     virtual void codegen(Context &_context) const override
     {
-      
+
       //this->getExpression()->codegen(_context);
       std::string name = this->getExpression()->ReturnName();
 
@@ -54,6 +54,7 @@ public:
           GlobalRegisterAllocations *tempGlobal = new GlobalRegisterAllocations("", "", memRef);
           _context.globalBindings.emplace(name, tempGlobal);
           //_context.addGlobalBinding(name, tempGlobal); <-- doesn't work
+          _context.hasGlobal = true;
 
         }
 

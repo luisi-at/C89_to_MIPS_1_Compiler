@@ -55,7 +55,24 @@ const Declarator *getLeft() const
     std::string left = this->getLeft()->ReturnName();
     std::map<std::string, RegisterAllocations*>::iterator findVar;
     std::map<std::string, FunctionAttributes*>::iterator findFunc;
+    std::map<std::string, GlobalRegisterAllocations*>::iterator findGlobal;
     findVar = _context.bindings.find(left);
+    findGlobal = _context.globalBindings.find(left);
+
+    if((findGlobal != _context.globalBindings.end()) && (_context.getScopeLevel() == -1)){
+      // init declarator binding only applies if the scope is negative
+      //std::cout << "FOUND GLOBAL" << std::endl;
+      //std::cout << _context.checkAssignment.second << std::endl;
+      findVar->second->setValue(_context.getAwaitingValue());
+      _context.hasGlobal = true;
+    }
+    else if((findGlobal == _context.globalBindings.end()) && (_context.getScopeLevel() == -1)){
+      //std::cout << "GLOBAL HERE" << std::endl;
+      std::string memRef = _context.makeGlobalOffset(left);
+      GlobalRegisterAllocations *tempGlobal = new GlobalRegisterAllocations("", "", memRef);
+      _context.globalBindings.emplace(left, tempGlobal);
+      _context.hasGlobal = true;
+    }
 
     if(findVar != _context.bindings.end()){
       // variable already exists in context
@@ -96,9 +113,10 @@ const Declarator *getLeft() const
     //std::cout << "ASSIGNMENT CODGEN OPERATOR--> =" << std::endl;
     //std::cout << "CONST BOOL--> " << _context.checkAssignment.second << std::endl;
     //std::cout << "CONTEXT MEM OFFSET--> " << _context.getMemOffset() << std::endl;
+    //std::cout << "SCOPE LEVEL" <<_context.getScopeLevel() << std::endl;
     if((_context.checkAssignment.second) && (_context.getScopeLevel() > -1)){
       findVar = _context.bindings.find(left);
-      //std::cout << "LEFT--> " << left << std::endl;
+      //std::cout << "SCOPE LEVEL > -1 " << left << std::endl;
       std::string regUsed = _context.popRegister("rv");
       currentVarMem = findVar->second->getCurrentMemOffset();
 
@@ -118,7 +136,17 @@ const Declarator *getLeft() const
       _context.pushRegister(regUsed,"rv");
       _context.checkAssignment.second = false;
     }
-    else if (!_context.operationInAssignment){
+    else if((_context.checkAssignment.second) && (_context.getScopeLevel() == -1)){
+      // bind global variables
+      //std::cout << "BIND GLOBAL" << std::endl;
+      std::cout << left+":" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".word " << std::setw(1) << std::right << right << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".text " << std::setw(1) << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".align " << std::setw(1) << std::right << "2" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".globl " << std::setw(1) << std::right << "main" << std::endl;
+
+    }
+    else if ((!_context.operationInAssignment) && (_context.getScopeLevel() > -1)){
       // assign a variable that is being assigned
       findVar = _context.bindings.find(left);
       //std::cout << "LEFT NAME--> " << left << std::endl;
@@ -146,9 +174,8 @@ const Declarator *getLeft() const
           _context.checkAssignment.second = false;
         }
       }
-      else if(_context.getScopeLevel() == -1){
-        // add to the global variables map in the context
-      }
+
+
       else{
         right = _context.varInUse;
         //std::cout << "RIGHT NAME--> " << right << std::endl;
@@ -165,7 +192,7 @@ const Declarator *getLeft() const
       }
 
     }
-    else{
+    else if(_context.getScopeLevel() > -1){
       findVar = _context.bindings.find(left);
       //std::cout << "LEFT NAME--> " << left << std::endl;
       int memOffsetLeft = findVar->second->getCurrentMemOffset();

@@ -142,6 +142,7 @@ public:
 
   std::map<std::string, RegisterAllocations*> bindings;
   std::map<std::string, GlobalRegisterAllocations*> globalBindings;
+  bool hasGlobal = false;
   std::map<std::string, FunctionAttributes*> func_attributes;
   // checking for constant assignment
   std::pair<std::string, bool> checkAssignment;
@@ -179,7 +180,7 @@ public:
 
   std::pair<std::string, GlobalRegisterAllocations*> addGlobalBinding(std::string _variableName, GlobalRegisterAllocations *_allocated)
   {
-    std::cout << "ADDING BINDING" << std::endl;
+
     globalBindings.emplace(_variableName, _allocated);
 
   }

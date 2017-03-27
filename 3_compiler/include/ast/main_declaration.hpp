@@ -40,7 +40,7 @@ public:
 
   virtual void codegen(Context &_context) const override
   {
-    std::cout << "MAIN DEC" << std::endl;
+    //std::cout << "MAIN DEC" << std::endl;
     this->getSpecifiers()->codegen(_context);
     this->getInitList()->codegen(_context);
   }
@@ -194,6 +194,7 @@ public:
 
       virtual void codegen(Context &_context) const override
       {
+        //std::cout << "INIT DEC LIST" << std::endl;
         for(int i = 0; i < init_declarations_list.size(); i++){
           init_declarations_list[i]->codegen(_context);
         }

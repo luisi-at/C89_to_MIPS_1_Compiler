@@ -221,11 +221,14 @@ public:
             std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << "$0" << "," << "%lo"+currentGlobalMem+"("+regUsed+")" << std::endl;
           }
           else if (!_context.operationInAssignment){
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << right << std::endl;
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << currentGlobalMem << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsed << "," << "%hi"+currentGlobalMem << std::endl;
+            std::string secondRegUsed = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << secondRegUsed << "," << right << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << "%lo"+currentGlobalMem+"("+regUsed+")"  << std::endl;
+            _context.pushRegister(secondRegUsed,"rv");
           }
           else{
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << currentGlobalMem << "($fp)"  << std::endl;
+            //std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << "%lo"+currentGlobalMem+"("+regUsed+")"  << std::endl;
           }
           _context.pushRegister(regUsed,"rv");
           _context.checkAssignment.second = false;
@@ -253,11 +256,16 @@ public:
             if(findFunc != _context.func_attributes.end()){
               functionJumpLabel = findFunc->second->getFunctionLabel();
               //this->getRight()->codegen(_context); <-- don't need to do this again
+              std::string currentGlobalMem = findGlobal->second->getCurrentMemOffset();
 
               //std::cout << "POP REGISTER "<< std::endl;
               std::string regUsed = _context.popRegister("rv");
-              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
+              std::string secondRegUsed = _context.popRegister("rv");
+              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(4) << std::right << secondRegUsed << "," << regUsed << std::endl;
+              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsed << "," << "%hi"+currentGlobalMem << std::endl;
+              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << "%lo"+currentGlobalMem+"("+regUsed+")"  << std::endl;
               _context.pushRegister(regUsed,"rv");
+              _context.pushRegister(secondRegUsed,"rv");
               _context.checkAssignment.second = false;
             }
           }
@@ -269,14 +277,15 @@ public:
             //std::cout << "RIGHT NAME--> " << right << std::endl;
             findVar = _context.bindings.find(right);
             int memOffsetRight = findVar->second->getCurrentMemOffset();
-
+            std::string currentGlobalMem = findGlobal->second->getCurrentMemOffset();
 
             std::string regUsed = _context.popRegister("rv");
-
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << memOffsetRight << "($fp)"  << std::endl;
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
-
+            std::string secondRegUsed = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsed << "," << "%hi"+currentGlobalMem << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << secondRegUsed << "," << memOffsetRight << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << "%lo"+currentGlobalMem+"("+regUsed+")"  << std::endl;
             _context.pushRegister(regUsed,"rv");
+            _context.pushRegister(secondRegUsed,"rv");
           }
 
         }

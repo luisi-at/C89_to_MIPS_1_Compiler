@@ -32,6 +32,7 @@ Rules useless in grammar
 
 
 State 21 conflicts: 11 shift/reduce
+State 37 conflicts: 11 shift/reduce
 State 218 conflicts: 1 shift/reduce
 
 
@@ -205,7 +206,7 @@ Grammar
   125          | this_unit external_declaration
 
   126 external_declaration: function_definition_list
-  127                     | declaration_list function_definition
+  127                     | declaration_list function_definition_list
 
   128 function_definition_list: function_definition
   129                         | function_definition_list function_definition
@@ -391,9 +392,9 @@ this_unit (124)
 external_declaration (125)
     on left: 126 127, on right: 124 125
 function_definition_list (126)
-    on left: 128 129, on right: 126 129
+    on left: 128 129, on right: 126 127 129
 function_definition (127)
-    on left: 130 131 132 133, on right: 127 128 129
+    on left: 130 131 132 133, on right: 128 129
 
 
 State 0
@@ -599,7 +600,7 @@ State 17
 State 18
 
   107 declaration_list: declaration_list . declaration
-  127 external_declaration: declaration_list . function_definition
+  127 external_declaration: declaration_list . function_definition_list
 
     IDENTIFIER  shift, and go to state 1
     CHAR        shift, and go to state 2
@@ -613,12 +614,13 @@ State 18
     VOID        shift, and go to state 10
     '('         shift, and go to state 11
 
-    declaration             go to state 36
-    declaration_specifiers  go to state 14
-    type_specifier          go to state 15
-    declarator              go to state 16
-    direct_declarator       go to state 17
-    function_definition     go to state 37
+    declaration               go to state 36
+    declaration_specifiers    go to state 14
+    type_specifier            go to state 15
+    declarator                go to state 16
+    direct_declarator         go to state 17
+    function_definition_list  go to state 37
+    function_definition       go to state 22
 
 
 State 19
@@ -950,9 +952,39 @@ State 36
 
 State 37
 
-  127 external_declaration: declaration_list function_definition .
+  127 external_declaration: declaration_list function_definition_list .
+  129 function_definition_list: function_definition_list . function_definition
 
-    $default  reduce using rule 127 (external_declaration)
+    IDENTIFIER  shift, and go to state 1
+    CHAR        shift, and go to state 2
+    SHORT       shift, and go to state 3
+    INT         shift, and go to state 4
+    LONG        shift, and go to state 5
+    SIGNED      shift, and go to state 6
+    UNSIGNED    shift, and go to state 7
+    FLOAT       shift, and go to state 8
+    DOUBLE      shift, and go to state 9
+    VOID        shift, and go to state 10
+    '('         shift, and go to state 11
+
+    IDENTIFIER  [reduce using rule 127 (external_declaration)]
+    CHAR        [reduce using rule 127 (external_declaration)]
+    SHORT       [reduce using rule 127 (external_declaration)]
+    INT         [reduce using rule 127 (external_declaration)]
+    LONG        [reduce using rule 127 (external_declaration)]
+    SIGNED      [reduce using rule 127 (external_declaration)]
+    UNSIGNED    [reduce using rule 127 (external_declaration)]
+    FLOAT       [reduce using rule 127 (external_declaration)]
+    DOUBLE      [reduce using rule 127 (external_declaration)]
+    VOID        [reduce using rule 127 (external_declaration)]
+    '('         [reduce using rule 127 (external_declaration)]
+    $default    reduce using rule 127 (external_declaration)
+
+    declaration_specifiers  go to state 39
+    type_specifier          go to state 15
+    declarator              go to state 16
+    direct_declarator       go to state 17
+    function_definition     go to state 40
 
 
 State 38

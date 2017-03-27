@@ -1,4 +1,4 @@
-int global = 1;
+int global;
 
 int main(){
 

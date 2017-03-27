@@ -1,7 +1,12 @@
 int global;
+int global2;
 
 int main(){
+  int local;
 
-  int insideMain = 13;
+  local = 42;
+
+  global = 0;
+  global2 = 0;
   return 0;
 }

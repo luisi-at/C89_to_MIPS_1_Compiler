@@ -6,13 +6,13 @@
      .module   nooddspreg     
      .abicalls 
      .text     
+$LFB0= .       
      .align    2         
      .globl    main      
      .set      nomips16  
      .set      nomicromips
      .ent      main      
      .type     main,     @function
-$LFB0= .
 main:
      .frame    $fp,24,$31
      .mask     0x40000000,-4
@@ -26,7 +26,7 @@ main:
      sw          $0,4($fp)
      li          $2,3
      sw          $2,8($fp)
-     lw          $2,8($fp)
+     lw          $2,34447968($fp)
      sw          $2,4($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======

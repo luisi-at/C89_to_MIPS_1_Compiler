@@ -228,10 +228,14 @@ public:
     // print out a jump then a no op and then the assignment
     _context.assignFunction = true;
     std::string funcName = this->getLeft()->ReturnName();
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "jal " << std::setw(4) << std::right << funcName << "()"  << std::endl;
+    std::string picOne = _context.getPic();
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << picOne << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "jal " << std::setw(4) << std::right << funcName << std::endl;
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::endl;
     std::cout << std::endl;
     //std::cout << "DONE POSTFIX EMPTY "<< std::endl;
+    std::string picTwo = _context.getPic();
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << picTwo << std::endl;
 
   }
 

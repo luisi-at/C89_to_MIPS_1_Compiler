@@ -89,6 +89,7 @@ private:
   std::vector<int> params;
   int labelCount;
   int functionLabelCount;
+  int picCount;
   int allocatedRegisters;
 
   // need to have a stack of available registers so can push on and push off
@@ -110,6 +111,7 @@ public:
     functionMemOffset = 4;
     labelCount = 2;
     functionLabelCount = 0;
+    picCount = 0;
 
     scopeLevel = -1;
 
@@ -143,6 +145,7 @@ public:
   std::map<std::string, RegisterAllocations*> bindings;
   std::map<std::string, GlobalRegisterAllocations*> globalBindings;
   bool hasGlobal = false;
+  bool notJustMain = false;
   std::map<std::string, FunctionAttributes*> func_attributes;
   // checking for constant assignment
   std::pair<std::string, bool> checkAssignment;
@@ -202,6 +205,18 @@ public:
     //make a label
     return "$LFB"+std::to_string(functionLabelCount++);
     functionLabelCount++;
+  }
+
+  //needed for function calls
+  std::string getPic(){
+    //make a label
+    std::string pic;
+    pic = ".option pic"+std::to_string(picCount);
+    picCount++;
+    if(picCount == 1){
+      picCount++;
+    }
+    return pic;
   }
 
   // remove a register in use

@@ -68,15 +68,15 @@ for i in test/programs/*; do
 
 
     #compile own assembly to binary
-    #mips-linux-gnu-gcc -static working/$b/c_compiled.s -o working/$b/c_compiled
+    mips-linux-gnu-gcc -static working/$b/compiled.s -o working/$b/compiled
     #run own assembly on qemu
-    #qemu-mips working/$b/c_compiled
+    qemu-mips working/$b/compiled
     #get result
     GOT_RESULT=$?;
     #echo result to text file
     echo "${GOT_RESULT}" > working/$b/got.result.txt
 
-    OK=1;
+    OK=0;
 
     #REF_RESULT=$(head -n 1 $i/ref.result.txt | ${DOS2UNIX} );
 
@@ -88,6 +88,9 @@ for i in test/programs/*; do
     fi
 
     if [[ "$OK" -eq "0" ]]; then
+      echo "  got result : ${GOT_RESULT}"
+      echo "  ref result : ${REF_RESULT}"
+      echo "  PASS!";
         PASSED=$(( ${PASSED}+1 ));
     fi
 

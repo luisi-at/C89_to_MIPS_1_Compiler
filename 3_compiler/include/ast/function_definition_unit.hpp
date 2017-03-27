@@ -81,8 +81,15 @@ public:
       functionLabel = this->getDeclarator()->ReturnName();
       this->setFunctionName(functionLabel);
       functionProgramLabel = _context.makeFunctionLabel();
+      if(functionLabel != "main"){
+        stackAllocation = stackAllocation + 4;
+        _context.notJustMain = true;
+      }
 
       stackAllocation = stackAllocation + (4* this->getStatement()->statementCount());
+      if((_context.notJustMain) && (functionLabel == "main")){
+        stackAllocation = (stackAllocation * 2);
+      }
       this->setAllocatedStack(stackAllocation);
 
       // add function label to map in context detailing functions
@@ -91,7 +98,7 @@ public:
 
 
       _context.setRegisterCount(stackAllocation);
-      std::cout << functionProgramLabel << "= ." << std::endl;
+      std::cout << functionProgramLabel+"= ." << std::endl;
       if(!_context.hasGlobal){
         std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".align " << std::setw(10) << std::left << "2" << std::endl;
         std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".globl " << std::setw(10) << std::left << functionLabel << std::endl;
@@ -99,10 +106,9 @@ public:
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "nomips16" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "nomicromips" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".ent " << std::setw(10) << std::left << functionLabel << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".type " << std::setw(10) << std::left << functionLabel + "," << "@function" << std::endl;
+      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".type " << std::setw(10) << std::left << functionLabel + ", " << "@function" << std::endl;
 
 
-      // print function label here!
       std::cout << functionLabel << ":" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".frame " << std::setw(4) << std::right << "$fp," << stackAllocation << ",$31" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".mask " << std::setw(4) << std::right << "0x40000000,-4" << std::endl;

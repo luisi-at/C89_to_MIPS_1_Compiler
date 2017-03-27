@@ -6,55 +6,57 @@
      .module   nooddspreg     
      .abicalls 
      .text     
+$LFB0= .       
      .align    2         
      .globl    function  
      .set      nomips16  
      .set      nomicromips
      .ent      function  
      .type     function, @function
-$LFB0= .
 function:
-     .frame    $fp,12,$31
+     .frame    $fp,16,$31
      .mask     0x40000000,-4
      .fmask    0x00000000,0
      .set      noreorder
      .set      nomacro
-     addiu     $sp,$sp,-12
-     sw        $fp,8($sp)
+     addiu     $sp,$sp,-16
+     sw        $fp,12($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
      li          $2,18
      sw          $2,4($fp)
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
-     lw        $fp,8($sp)
-     addiu     $sp,$sp,12
+     lw        $fp,12($sp)
+     addiu     $sp,$sp,16
      j         $31 
      nop       
      .set      macro     
      .set      reorder   
      .end      function  
      .size     function, .-function
+$LFB1= .
      .align    2         
      .globl    main      
      .set      nomips16  
      .set      nomicromips
      .ent      main      
      .type     main,     @function
-$LFB1= .
 main:
-     .frame    $fp,20,$31
+     .frame    $fp,40,$31
      .mask     0x40000000,-4
      .fmask    0x00000000,0
      .set      noreorder
      .set      nomacro
-     addiu     $sp,$sp,-20
-     sw        $fp,16($sp)
+     addiu     $sp,$sp,-40
+     sw        $fp,36($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
-     jal       function()
+     .option pic0
+     jal       function
      nop       
 
+     .option pic2
      sw          $2,8($fp)
      lw          $2,8($fp)
      slt         $2,$2,10
@@ -69,8 +71,8 @@ $L2:
      move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
-     lw        $fp,16($sp)
-     addiu     $sp,$sp,20
+     lw        $fp,36($sp)
+     addiu     $sp,$sp,40
      j         $31 
      nop       
      .set      macro     

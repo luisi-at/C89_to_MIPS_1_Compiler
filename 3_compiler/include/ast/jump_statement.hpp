@@ -32,7 +32,9 @@ public:
     }
 
     virtual std::string ReturnName() const override
-    {}
+    {
+      return "";
+    }
 
     virtual int statementCount() const override
     {
@@ -70,7 +72,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
     virtual int statementCount() const override
     {
@@ -109,7 +113,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
   virtual int statementCount() const override
   {
@@ -147,7 +153,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
   virtual int statementCount() const override
   {
@@ -245,10 +253,10 @@ public:
         _context.pushRegister(returnReg,"rv");
       }
       else if(isGlobal){
-        std::string globalVarMemLeft = findGlobalVar->second->getCurrentMemOffset();
+        int globalVarMemLeft = findGlobalVar->second->getCurrentMemOffset();
         returnReg = _context.popRegister("rv");
-        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << returnReg << "," << "%hi"+globalVarMemLeft << std::endl;
-        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << returnReg << "," << "%lo"+globalVarMemLeft+"("+returnReg+")" << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << returnReg << "," << "%hi" << globalVarMemLeft << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << returnReg << "," << "%lo" << globalVarMemLeft << "("+returnReg+")" << std::endl;
         _context.pushRegister(returnReg,"rv");
       }
 
@@ -272,7 +280,7 @@ public:
 
   virtual std::string ReturnName() const override
   {
-
+    return "";
   }
 
   virtual int statementCount() const override

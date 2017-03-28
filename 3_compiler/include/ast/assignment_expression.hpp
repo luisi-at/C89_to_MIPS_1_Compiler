@@ -116,7 +116,7 @@ public:
     }
 
     std::string right = this->getRight()->ReturnName();
-    //std::cout << "RIGHT--> " << right << std::endl;
+    std::cout << "#RIGHT--> " << right << std::endl;
     int currentVarMem;
 
     if((localExists) && (globalExists)){
@@ -178,26 +178,55 @@ public:
               _context.pushRegister(regUsed,"rv");
               _context.checkAssignment.second = false;
             }
+            // =======================================================
+            // GLOBAL TO LOCAL
+            // =======================================================
+            std::cout << "#GLOBAL TO LOCAL" << std::endl;
+            findGlobal = _context.globalBindings.find(right);
+            if(findGlobal != _context.globalBindings.end()){
+              int memOffsetRight = findGlobal->second->getCurrentMemOffset();
+              findVar = _context.bindings.find(left);
+              int memOffsetLeft = findVar->second->getCurrentMemOffset();
+
+              std::string regUsed = _context.popRegister("rv");
+              std::string secondRegUsed = _context.popRegister("rv");
+
+              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << "%got("+left+")($28)" << std::endl;
+              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << memOffsetRight << "("+regUsed+")" << std::endl;
+              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << memOffsetLeft << "($fp)" << std::endl;
+
+              _context.pushRegister(secondRegUsed,"rv");
+              _context.pushRegister(regUsed,"rv");
+            }
+
+
           }
           else{
-            right = _context.varInUse;
-            //std::cout << "RIGHT NAME--> " << right << std::endl;
+
+            // =======================================================
+            // LOCAL TO LOCAL
+            // =======================================================
             findVar = _context.bindings.find(right);
-            int memOffsetRight = findVar->second->getCurrentMemOffset();
+            if(findVar != _context.bindings.end()){
+              int memOffsetRight = findVar->second->getCurrentMemOffset();
+              findVar = _context.bindings.find(left);
+              int memOffsetLeft = findVar->second->getCurrentMemOffset();
 
+              std::string regUsed = _context.popRegister("rv");
 
-            std::string regUsed = _context.popRegister("rv");
+              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << memOffsetRight << "($fp)"  << std::endl;
+              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
 
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << memOffsetRight << "($fp)"  << std::endl;
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
+              _context.pushRegister(regUsed,"rv");
+            }
 
-            _context.pushRegister(regUsed,"rv");
           }
 
         }
         else{
           findVar = _context.bindings.find(left);
           //std::cout << "LEFT NAME--> " << left << std::endl;
+          // result of assignment previously
           int memOffsetLeft = findVar->second->getCurrentMemOffset();
           std::string regUsed = _context.popRegister("rv");
           std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << memOffsetLeft << "($fp)"  << std::endl;
@@ -211,21 +240,23 @@ public:
           findGlobal = _context.globalBindings.find(left);
           //std::cout << "LEFT--> " << left << std::endl;
           std::string regUsed = _context.popRegister("rv");
-          std::string currentGlobalMem = findGlobal->second->getCurrentMemOffset();
-
+          int currentMemOffset = 0;
+          int currentGlobalMem = findGlobal->second->getCurrentMemOffset();
           // write out
           //std::cout << "THIS STORED OFFSET--> " << currentVarMem << std::endl;
-          //std::cout << "RIGHT--> " << right << std::endl;
+          std::cout << "#RIGHT CONST--> " << right << std::endl;
           if(right == "0"){
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsed << "," << "%hi"+currentGlobalMem << std::endl;
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << "$0" << "," << "%lo"+currentGlobalMem+"("+regUsed+")" << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << "%got("+left+")($28)" << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << "$0" << "," << currentMemOffset << "("+regUsed+")" << std::endl;
+            _context.operationInAssignment = false;
           }
           else if (!_context.operationInAssignment){
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsed << "," << "%hi"+currentGlobalMem << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << "%got("+left+")($28)" << std::endl;
             std::string secondRegUsed = _context.popRegister("rv");
             std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << secondRegUsed << "," << right << std::endl;
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << "%lo"+currentGlobalMem+"("+regUsed+")"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << currentGlobalMem << "("+regUsed+")" << std::endl;
             _context.pushRegister(secondRegUsed,"rv");
+            _context.operationInAssignment = false;
           }
           else{
             //std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << "%lo"+currentGlobalMem+"("+regUsed+")"  << std::endl;
@@ -233,57 +264,79 @@ public:
           _context.pushRegister(regUsed,"rv");
           _context.checkAssignment.second = false;
         }
-        else if (!_context.operationInAssignment){
-          // assign a variable that is being assigned
-          findGlobal = _context.globalBindings.find(left);
-          //std::cout << "LEFT NAME--> " << left << std::endl;
-          std::string memOffsetLeft = findGlobal->second->getCurrentMemOffset();
-          //td::cout << "MEM OFFSET LEFT--> " << memOffsetLeft << std::endl;
-          //================================================================
-          // ASSIGN FUNCTION TO GLOBAL
-          //================================================================
-          findVar = _context.bindings.find(right);
-          if(findVar == _context.bindings.end()){
-            std::string functionJumpLabel;
-            //std::cout << "RIGHT--> " << right << std::endl;
-            // =======================================================
-            // FUNCTION ASSIGNMENTS
-            // =======================================================
-            // look for the function name in the functions
-            // call codegen on this->getRight()
-            // then assign via a an sw with memOffsetLeft
-            findFunc = _context.func_attributes.find(right);
-            if(findFunc != _context.func_attributes.end()){
-              functionJumpLabel = findFunc->second->getFunctionLabel();
-              //this->getRight()->codegen(_context); <-- don't need to do this again
-              std::string currentGlobalMem = findGlobal->second->getCurrentMemOffset();
 
-              //std::cout << "POP REGISTER "<< std::endl;
-              std::string regUsed = _context.popRegister("rv");
-              std::string secondRegUsed = _context.popRegister("rv");
-              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(4) << std::right << secondRegUsed << "," << regUsed << std::endl;
-              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsed << "," << "%hi"+currentGlobalMem << std::endl;
-              std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << "%lo"+currentGlobalMem+"("+regUsed+")"  << std::endl;
-              _context.pushRegister(regUsed,"rv");
-              _context.pushRegister(secondRegUsed,"rv");
-              _context.checkAssignment.second = false;
-            }
-          }
-          //================================================================
-          // ASSIGN LOCAL TO GLOBAL
-          //================================================================
+
           else{
-            right = _context.varInUse;
+
+            (!_context.operationInAssignment){
+              // assign a variable that is being assigned
+              findGlobal = _context.globalBindings.find(left);
+              //std::cout << "LEFT NAME--> " << left << std::endl;
+              int memOffsetLeft = findGlobal->second->getCurrentMemOffset();
+              //td::cout << "MEM OFFSET LEFT--> " << memOffsetLeft << std::endl;
+              //================================================================
+              // ASSIGN FUNCTION TO GLOBAL
+              //================================================================
+              std::cout << "#RIGHT VAR--> " << right << std::endl;
+              findVar = _context.bindings.find(right);
+              if(findVar == _context.bindings.end()){
+                std::string functionJumpLabel;
+                //std::cout << "RIGHT--> " << right << std::endl;
+                // =======================================================
+                // FUNCTION ASSIGNMENTS
+                // =======================================================
+                // look for the function name in the functions
+                // call codegen on this->getRight()
+                // then assign via a an sw with memOffsetLeft
+                findFunc = _context.func_attributes.find(right);
+                if(findFunc != _context.func_attributes.end()){
+                  functionJumpLabel = findFunc->second->getFunctionLabel();
+                  //this->getRight()->codegen(_context); <-- don't need to do this again
+                  int currentGlobalMem = findGlobal->second->getCurrentMemOffset();
+
+                  //std::cout << "POP REGISTER "<< std::endl;
+                  std::string regUsed = _context.popRegister("rv");
+                  std::string secondRegUsed = _context.popRegister("rv");
+                  std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << "%got("+left+")($28)" << std::endl;
+                  std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << currentGlobalMem << "("+regUsed+")" << std::endl;
+
+                  _context.pushRegister(regUsed,"rv");
+                  _context.pushRegister(secondRegUsed,"rv");
+                  _context.checkAssignment.second = false;
+                }
+              }
+              else if(findVar != _context.bindings.end())
+              // =======================================================
+              // LOCAL TO GLOBAL
+              // =======================================================
+              std::cout << "#LOCAL TO GLOBAL" << std::endl;
+              findVar = _context.bindings.find(right);
+              if(findVar != _context.bindings.end()){
+                int memOffsetRight = findGlobal->second->getCurrentMemOffset();
+                findVar = _context.bindings.find(left);
+                int memOffsetLeft = findVar->second->getCurrentMemOffset();
+
+                std::string regUsed = _context.popRegister("rv");
+                std::string secondRegUsed = _context.popRegister("rv");
+
+                std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << "%got("+left+")($28)" << std::endl;
+                std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsed << "," << memOffsetRight << "("+regUsed+")" << std::endl;
+                std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << memOffsetLeft << "($fp)" << std::endl;
+
+                _context.pushRegister(secondRegUsed,"rv");
+                _context.pushRegister(regUsed,"rv");
+              }
+
             //std::cout << "RIGHT NAME--> " << right << std::endl;
-            findVar = _context.bindings.find(right);
-            int memOffsetRight = findVar->second->getCurrentMemOffset();
-            std::string currentGlobalMem = findGlobal->second->getCurrentMemOffset();
+            findGlobal = _context.globalBindings.find(left);
+            int memOffsetRight = findGlobal->second->getCurrentMemOffset();
+            findGlobal = _context.globalBindings.find(right);
+            int currentGlobalMem = findGlobal->second->getCurrentMemOffset();
 
             std::string regUsed = _context.popRegister("rv");
             std::string secondRegUsed = _context.popRegister("rv");
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsed << "," << "%hi"+currentGlobalMem << std::endl;
             std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << secondRegUsed << "," << memOffsetRight << "($fp)"  << std::endl;
-            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << "%lo"+currentGlobalMem+"("+regUsed+")"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << currentGlobalMem << "($28)" << std::endl;
             _context.pushRegister(regUsed,"rv");
             _context.pushRegister(secondRegUsed,"rv");
           }
@@ -292,18 +345,18 @@ public:
         else{
           findGlobal = _context.globalBindings.find(left);
           //std::cout << "LEFT NAME--> " << left << std::endl;
-          std::string currentGlobalMem = findGlobal->second->getCurrentMemOffset();
+          int currentGlobalMem = findGlobal->second->getCurrentMemOffset();
           std::string regUsed = _context.popRegister("rv");
-          std::string secondRegUsed = _context.popRegister("rv");
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsed << "," << "%hi"+currentGlobalMem << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << secondRegUsed << "," << "%lo"+currentGlobalMem+"("+regUsed+")" << std::endl;
+
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsed << "," << currentGlobalMem << "("+regUsed+")" << std::endl;
 
           _context.pushRegister(regUsed,"rv");
+
           _context.operationInAssignment = false;
         }
       }
 
-
+}
 
 
     }
@@ -345,8 +398,7 @@ public:
 
   virtual std::string ReturnName() const override
   {
-
-
+    return "";
   }
 
 };

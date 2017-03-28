@@ -42,7 +42,9 @@ public:
     }
 
     virtual std::string ReturnName() const override
-    {}
+    {
+      return "";
+    }
 
     virtual int statementCount() const override
     {
@@ -77,7 +79,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
 };
 
@@ -108,7 +112,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
 };
 
@@ -140,7 +146,9 @@ public:
     }
 
     virtual std::string ReturnName() const override
-    {}
+    {
+      return "";
+    }
 
 };
 

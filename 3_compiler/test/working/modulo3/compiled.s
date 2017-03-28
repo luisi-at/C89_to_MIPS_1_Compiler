@@ -23,6 +23,7 @@ main:
      sw        $fp,4($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
+     li          $2,0
      sw          $2,4($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======

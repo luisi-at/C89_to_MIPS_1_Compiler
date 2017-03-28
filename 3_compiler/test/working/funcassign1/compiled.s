@@ -54,6 +54,7 @@ main:
      sw        $31,36($sp)
      sw        $fp,32($sp)
      move      $fp,$sp
+     .cprestore  16
 #====== ASSEMBLY COMING ======
 #VOID FUNCTION!
      .option pic0
@@ -62,6 +63,7 @@ main:
 
      .option pic2
      sw          $2,24($fp)
+#GLOBAL TO LOCAL
      lw          $2,24($fp)
      slt         $2,$2,11
      bne         $2,$0,$L2

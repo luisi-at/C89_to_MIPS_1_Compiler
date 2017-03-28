@@ -32,6 +32,7 @@ main:
      addiu     $3,$2,1
      sw         $3,12($fp)
      sw          $2,8($fp)
+#GLOBAL TO LOCAL
      move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp

@@ -68,7 +68,8 @@ const Declarator *getLeft() const
     }
     else if((findGlobal == _context.globalBindings.end()) && (_context.getScopeLevel() == -1)){
       //std::cout << "GLOBAL HERE" << std::endl;
-      std::string memRef = _context.makeGlobalOffset(left);
+      int memRef = _context.getMemOffset();
+      _context.updateMemOffset();
       GlobalRegisterAllocations *tempGlobal = new GlobalRegisterAllocations("", "", memRef);
       _context.globalBindings.emplace(left, tempGlobal);
       _context.hasGlobal = true;
@@ -205,7 +206,9 @@ const Declarator *getLeft() const
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
 };
 

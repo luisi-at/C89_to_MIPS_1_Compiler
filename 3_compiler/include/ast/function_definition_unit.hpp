@@ -90,6 +90,8 @@ public:
         stackAllocation = stackAllocation - 4;
       }
 
+      _context.currentFuncName = functionLabel;
+
       // get the current offset
       stackAllocation = stackAllocation + _context.getFrameOffset();
       topNextFunc = stackAllocation;
@@ -138,8 +140,13 @@ public:
         std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(3) << std::right << "$28,%hi(__gnu_local_gp)" << std::endl;
         std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(3) << std::right << "$28," << "$28,%lo(__gnu_local_gp)"  << std::endl;
       }
-      else if((_context.hasGlobal) && functionLabel == "main")){
+      else if((_context.hasGlobal) && (functionLabel == "main")){
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(3) << std::right << "$28,%hi(__gnu_local_gp)" << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(3) << std::right << "$28," << "$28,%lo(__gnu_local_gp)"  << std::endl;
 
+      }
+      if((_context.notJustMain) && (functionLabel == "main")){
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".cprestore " << std::setw(3) << std::right << "16" << std::endl;
       }
 
 
@@ -239,7 +246,9 @@ public:
     }
 
     virtual std::string ReturnName() const override
-    {}
+    {
+      return "";
+    }
 
 };
 

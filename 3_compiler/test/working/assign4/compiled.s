@@ -26,6 +26,7 @@ main:
      sw          $0,4($fp)
      li          $2,13
      sw          $2,8($fp)
+#GLOBAL TO LOCAL
      move        $2,$0
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp

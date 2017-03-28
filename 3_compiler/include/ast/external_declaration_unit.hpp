@@ -55,7 +55,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
 };
 

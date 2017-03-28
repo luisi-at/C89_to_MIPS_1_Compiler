@@ -51,16 +51,15 @@ public:
         if(findVar == _context.globalBindings.end()){
           // add to the map
 
-          std::string memRef = _context.makeGlobalOffset(name);
+          int memRef = _context.getMemOffset();
+          _context.updateMemOffset();
           GlobalRegisterAllocations *tempGlobal = new GlobalRegisterAllocations("", "", memRef);
           _context.globalBindings.emplace(name, tempGlobal);
           //_context.addGlobalBinding(name, tempGlobal); <-- doesn't work
           _context.hasGlobal = true;
-          std::cout << name+":" << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".space " << std::setw(1) << std::right << "4" << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".text " << std::setw(1) << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".align " << std::setw(1) << std::right << "2" << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".globl " << std::setw(1) << std::right << "main" << std::endl;
+          _context.globalCount++;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".comm " << std::setw(1) << std::right << "name,4,4" << std::endl;
+          std::cout << std::endl;
 
         }
 

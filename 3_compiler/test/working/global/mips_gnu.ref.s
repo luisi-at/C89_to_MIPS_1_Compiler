@@ -5,6 +5,8 @@
 	.module	fp=xx
 	.module	nooddspreg
 	.abicalls
+
+	.comm	x,4,4
 	.text
 	.align	2
 	.globl	main
@@ -21,12 +23,17 @@ main:
 	addiu	$sp,$sp,-16
 	sw	$fp,12($sp)
 	move	$fp,$sp
+	lui	$28,%hi(__gnu_local_gp)
+	addiu	$28,$28,%lo(__gnu_local_gp)
 	li	$2,3			# 0x3
-	sw	$2,0($fp)
-	lw	$2,0($fp)
-	addiu	$2,$2,4
 	sw	$2,4($fp)
-	lw	$2,4($fp)
+	lw	$2,%got(x)($28)
+	li	$3,3			# 0x3
+	sw	$3,0($2)
+	lw	$2,%got(x)($28)
+	lw	$3,4($fp)
+	sw	$3,0($2)
+	li	$2,1			# 0x1
 	move	$sp,$fp
 	lw	$fp,12($sp)
 	addiu	$sp,$sp,16

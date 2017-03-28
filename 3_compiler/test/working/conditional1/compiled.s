@@ -25,4 +25,4 @@ main:
 #====== ASSEMBLY COMING ======
      li          $2,2
      sw          $2,4($fp)
-CONDITIONAL EXPRESSION
+#CONDITIONAL EXPRESSION

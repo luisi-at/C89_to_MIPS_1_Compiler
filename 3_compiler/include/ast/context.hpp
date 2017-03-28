@@ -41,17 +41,17 @@ class GlobalRegisterAllocations{
 private:
   std::string allocatedRegister;
   std::string value;
-  std::string globalMemRef;
+  int globalMemRef;
   std::string functionName; // for scoping purposes
   int variableScopeLevel;
 public:
-  GlobalRegisterAllocations(std::string _reg, std::string _val, std::string _offset)
+  GlobalRegisterAllocations(std::string _reg, std::string _val, int _offset)
   : allocatedRegister(_reg)
   , value(_val)
   , globalMemRef(_offset)
   {}
 
-  std::string getCurrentMemOffset()
+  int getCurrentMemOffset()
   {
     return globalMemRef;
   }
@@ -150,12 +150,14 @@ public:
   std::map<std::string, RegisterAllocations*> bindings;
   std::map<std::string, GlobalRegisterAllocations*> globalBindings;
   bool hasGlobal = false;
+  int globalCount = 0;
   bool notJustMain = false;
   std::map<std::string, FunctionAttributes*> func_attributes;
   // checking for constant assignment
   std::pair<std::string, bool> checkAssignment;
   std::string varInUse;
   std::string currentLabel;
+  std::string currentFuncName;
   bool multipleCodegen = false;
   bool operationInAssignment = false;
   bool assignFunction = false;

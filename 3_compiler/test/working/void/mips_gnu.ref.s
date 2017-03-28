@@ -5,10 +5,6 @@
 	.module	fp=xx
 	.module	nooddspreg
 	.abicalls
-
-	.comm	x,4,4
-
-	.comm	y,4,4
 	.text
 	.align	2
 	.globl	function
@@ -17,23 +13,22 @@
 	.ent	function
 	.type	function, @function
 function:
-	.frame	$fp,8,$31		# vars= 0, regs= 1/0, args= 0, gp= 0
+	.frame	$fp,16,$31		# vars= 8, regs= 1/0, args= 0, gp= 0
 	.mask	0x40000000,-4
 	.fmask	0x00000000,0
 	.set	noreorder
 	.set	nomacro
-	addiu	$sp,$sp,-8
-	sw	$fp,4($sp)
+	addiu	$sp,$sp,-16
+	sw	$fp,12($sp)
 	move	$fp,$sp
-	lui	$28,%hi(__gnu_local_gp)
-	addiu	$28,$28,%lo(__gnu_local_gp)
-	lw	$2,%got(x)($28)
-	li	$3,3			# 0x3
-	sw	$3,0($2)
+	li	$2,5			# 0x5
+	sw	$2,4($fp)
+	li	$2,4			# 0x4
+	sw	$2,4($fp)
 	nop
 	move	$sp,$fp
-	lw	$fp,4($sp)
-	addiu	$sp,$sp,8
+	lw	$fp,12($sp)
+	addiu	$sp,$sp,16
 	j	$31
 	nop
 
@@ -57,31 +52,12 @@ main:
 	sw	$31,28($sp)
 	sw	$fp,24($sp)
 	move	$fp,$sp
-	lui	$28,%hi(__gnu_local_gp)
-	addiu	$28,$28,%lo(__gnu_local_gp)
-	.cprestore	16
 	.option	pic0
 	jal	function
 	nop
 
 	.option	pic2
-	lw	$28,16($fp)
-	lw	$2,%got(x)($28)
-	lw	$3,0($2)
-	li	$2,3			# 0x3
-	bne	$3,$2,$L3
-	nop
-
-	lw	$2,%got(y)($28)
-	li	$3,4			# 0x4
-	sw	$3,0($2)
 	move	$2,$0
-	b	$L4
-	nop
-
-$L3:
-	move	$2,$0
-$L4:
 	move	$sp,$fp
 	lw	$31,28($sp)
 	lw	$fp,24($sp)

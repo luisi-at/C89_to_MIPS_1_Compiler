@@ -27,6 +27,10 @@ main:
      sw          $2,4($fp)
      li          $2,6
      sw          $2,8($fp)
+     lw          $2,4($fp)
+     lw          $3,8($fp)
+     div         $2,$3
+     mfhi        $2
      sw          $2,8($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======

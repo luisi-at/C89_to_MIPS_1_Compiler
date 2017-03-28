@@ -148,7 +148,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return this->GetValue()->ReturnName();
+  }
 
 };
 
@@ -169,7 +171,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
 };
 
@@ -195,7 +199,9 @@ public:
     }
 
     virtual std::string ReturnName() const override
-    {}
+    {
+      return "";
+    }
 
 };
 
@@ -224,7 +230,9 @@ public:
     }
 
     virtual std::string ReturnName() const override
-    {}
+    {
+      return "";
+    }
 
 
 };
@@ -281,7 +289,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
 };
 

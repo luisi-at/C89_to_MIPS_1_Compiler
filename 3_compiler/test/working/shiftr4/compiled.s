@@ -29,7 +29,7 @@ main:
      sw          $2,8($fp)
      lw          $3,4($fp)
      lw          $2,8($fp)
-     sll         $2,$3,$2
+     sra         $2,$3,$2
      sw          $2,8($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======

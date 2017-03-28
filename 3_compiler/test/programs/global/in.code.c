@@ -1,11 +1,11 @@
 int x;
-int y;
 
 int main()
 {
-  x = 3;
-  if(x == 3){
-    return 0;
-  }
+  int y;
+  int t = 3;
+  x = 12;
+  x = t;
+
   return 1;
 }

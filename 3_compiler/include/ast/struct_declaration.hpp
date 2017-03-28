@@ -35,7 +35,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
 };
 
@@ -69,7 +71,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
 };
 
@@ -103,7 +107,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
 };
 

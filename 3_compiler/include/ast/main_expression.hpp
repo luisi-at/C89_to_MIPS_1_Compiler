@@ -43,7 +43,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
   virtual Expression* *AddItem(const Expression *_item) const override
   {
@@ -96,7 +98,9 @@ public:
   }
 
   virtual std::string ReturnName() const override
-  {}
+  {
+    return "";
+  }
 
 };
 

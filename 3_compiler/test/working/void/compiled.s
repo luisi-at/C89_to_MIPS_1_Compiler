@@ -6,17 +6,9 @@
      .module   nooddspreg     
      .abicalls 
      .text     
-x:             
-     .space    4
-     .text     
-     .align    2
-     .globl    main
-y:
-     .space    4
-     .text     
-     .align    2
-     .globl    main
-$LFB0= .
+$LFB0= .       
+     .align    2         
+     .globl    function  
      .set      nomips16  
      .set      nomicromips
      .ent      function  
@@ -32,9 +24,10 @@ function:
      sw        $fp,8($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
-     lui         $2,%hi(x)
-     li          $3,3
-     sw          $3,%lo(x)($2)
+     li          $2,5
+     sw          $2,4($fp)
+     li          $2,4
+     sw          $2,4($fp)
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $31,12($sp)
@@ -47,20 +40,23 @@ function:
      .end      function  
      .size     function, .-function
 $LFB1= .
+     .align    2         
+     .globl    main      
      .set      nomips16  
      .set      nomicromips
      .ent      main      
      .type     main,     @function
 main:
-     .frame    $fp,40,$31
+     .frame    $fp,36,$31
      .mask     0x40000000,-4
      .fmask    0x00000000,0
      .set      noreorder
      .set      nomacro
-     addiu     $sp,$sp,-40
-     sw        $31,36($sp)
-     sw        $fp,32($sp)
+     addiu     $sp,$sp,-36
+     sw        $31,32($sp)
+     sw        $fp,28($sp)
      move      $fp,$sp
+     .cprestore  16
 #====== ASSEMBLY COMING ======
 #VOID FUNCTION!
      .option pic0
@@ -68,30 +64,12 @@ main:
      nop       
 
      .option pic2
-     lui         $2,%hi(x)
-     lw          $3,%lo(x)($2)
-     li          $2,3
-     bne         $2,$3,$L2
-     nop       
-
-     lui         $2,%hi(y)
-     li          $3,4
-     sw          $3,%lo(y)($2)
      move        $2,$0
-     b          $L3
-     nop       
-
-$L2:
-     move        $2,$0
-     b          $L3
-     nop       
-
-$L3:
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
-     lw        $31,36($sp)
-     lw        $fp,32($sp)
-     addiu     $sp,$sp,40
+     lw        $31,32($sp)
+     lw        $fp,28($sp)
+     addiu     $sp,$sp,36
      j         $31 
      nop       
      .set      macro     

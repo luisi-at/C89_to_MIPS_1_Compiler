@@ -237,6 +237,9 @@ public:
       //std::cout << "DONE POSTFIX EMPTY "<< std::endl;
       std::string picTwo = _context.getPic();
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << picTwo << std::endl;
+      if(_context.hasGlobal){
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << "%28,16(%fp)" << std::endl;
+      }
     }
     else{
       std::cout << "#VOID FUNCTION!" << std::endl;
@@ -249,6 +252,9 @@ public:
       //std::cout << "DONE POSTFIX EMPTY "<< std::endl;
       std::string picTwo = _context.getPic();
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << picTwo << std::endl;
+      if(_context.hasGlobal){
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << "%28,16(%fp)" << std::endl;
+      }
     }
 
 

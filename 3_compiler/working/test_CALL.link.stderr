@@ -1,0 +1,5 @@
+3_compiler/working/test_CALL.s: Assembler messages:
+3_compiler/working/test_CALL.s:35: Error: bad expression
+3_compiler/working/test_CALL.s:35: Error: bad expression
+3_compiler/working/test_CALL.s:35: Error: missing ')'
+3_compiler/working/test_CALL.s:35: Error: invalid operands `lw %28,16(%fp)'

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p working
+mkdir -p test/working
 
 # Try to find a portable way of getting rid of
 # any stray carriage returns
@@ -45,7 +45,7 @@ CHECKED=0
 
 for i in test/programs/*; do
     b=$(basename ${i});
-    mkdir -p working/$b
+    mkdir -p test/working/$b
 
     echo "==========================="
     echo ""
@@ -53,28 +53,28 @@ for i in test/programs/*; do
     echo "Testing $b"
 
     #compile to actual mips assembly:
-    mips-linux-gnu-gcc -c -S -x c $i/in.code.c -o working/$b/mips_gnu.ref.s
+    mips-linux-gnu-gcc -c -S -x c $i/in.code.c -o test/working/$b/mips_gnu.ref.s
     #now compile to mips binary:
-    mips-linux-gnu-gcc -static working/$b/mips_gnu.ref.s -o working/$b/mips_gnu.output
+    mips-linux-gnu-gcc -static test/working/$b/mips_gnu.ref.s -o test/working/$b/mips_gnu.output
     # single hyphen gives stdin/stdout
     #compile now to an object file and then run in qemu and get result
     #output result to file
-    qemu-mips working/$b/mips_gnu.output
+    qemu-mips test/working/$b/mips_gnu.output
 
     REF_RESULT=$?;
     echo "${REF_RESULT}" > $i/ref.result.txt
 
-    cat $i/in.code.c | bin/c_compiler > working/$b/compiled.s
+    cat $i/in.code.c | bin/c_compiler > test/working/$b/compiled.s
 
 
     #compile own assembly to binary
-    mips-linux-gnu-gcc -static working/$b/compiled.s -o working/$b/compiled
+    mips-linux-gnu-gcc -static test/working/$b/compiled.s -o test/working/$b/compiled
     #run own assembly on qemu
-    qemu-mips working/$b/compiled
+    qemu-mips test/working/$b/compiled
     #get result
     GOT_RESULT=$?;
     #echo result to text file
-    echo "${GOT_RESULT}" > working/$b/got.result.txt
+    echo "${GOT_RESULT}" > test/working/$b/got.result.txt
 
     OK=0;
 

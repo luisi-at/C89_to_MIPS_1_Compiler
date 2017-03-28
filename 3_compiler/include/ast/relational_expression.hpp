@@ -290,6 +290,12 @@ public:
             // load the left and load immediate right
             _context.opUsedInIf.second = false;
             findVar = _context.bindings.find(left);
+
+            int rightValue = std::stoi(right, nullptr, 0);
+            rightValue++;
+            right = std::to_string(rightValue);
+            
+
             //std::cout << "LEFT--> " << left << std::endl;
             std::string regUsedFirst = _context.popRegister("rv");
             currentVarMem = findVar->second->getCurrentMemOffset();
@@ -352,6 +358,11 @@ public:
           _context.canIgnore.first = false;
           // load the left and load immediate right
           _context.opUsedInIf.second = false;
+
+          int rightValue = std::stoi(right, nullptr, 0);
+          rightValue++;
+          right = std::to_string(rightValue);
+          //std::cout << "RIGHT--> " << right << std::endl;
           //findVar = _context.bindings.find(left);
           //std::cout << "LEFT--> " << left << std::endl;
           std::string regUsedFirst = _context.popRegister("rv");

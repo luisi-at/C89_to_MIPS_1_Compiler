@@ -74,7 +74,8 @@ public:
     {
       std::string functionLabel;
       std::string functionProgramLabel;
-      int stackAllocation = 8;
+      int stackAllocation = 0;
+      int topNextFunc = 0;
       _context.resetScopeLevel();
       //std::cout << "CODEGEN FUNCTION DEF" << std::endl;
       // set function name/label here
@@ -82,14 +83,22 @@ public:
       this->setFunctionName(functionLabel);
       functionProgramLabel = _context.makeFunctionLabel();
       if(functionLabel != "main"){
-        stackAllocation = stackAllocation + 4;
         _context.notJustMain = true;
+        stackAllocation = stackAllocation + 8;
+      }
+      if(functionLabel == "main"){
+        stackAllocation = stackAllocation - 4;
       }
 
+      // get the current offset
+      stackAllocation = stackAllocation + _context.getFrameOffset();
+      topNextFunc = stackAllocation;
       stackAllocation = stackAllocation + (4* this->getStatement()->statementCount());
-      if((_context.notJustMain) && (functionLabel == "main")){
+      _context.setFrameOffset(stackAllocation);
+
+      /*if((_context.notJustMain) && (functionLabel == "main")){
         stackAllocation = (stackAllocation * 2);
-      }
+      }*/
       this->setAllocatedStack(stackAllocation);
 
       // add function label to map in context detailing functions
@@ -117,7 +126,13 @@ public:
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(5) << std::right << "nomacro" << std::endl;
 
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(4) << std::right << "$sp,$sp,-" << stackAllocation  << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(3) << std::right << "$fp," << stackAllocation - 4 << "($sp)"  << std::endl;
+      if(_context.notJustMain){
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(3) << std::right << "$31," << stackAllocation - 4 << "($sp)"  << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(3) << std::right << "$fp," << stackAllocation - 8 << "($sp)"  << std::endl;
+      }
+      else{
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(3) << std::right << "$fp," << stackAllocation - 4 << "($sp)"  << std::endl;
+      }
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(3) << std::right << "$fp,"<< "$sp"  << std::endl;
 
       std::cout << "#====== ASSEMBLY COMING ======" << std::endl;
@@ -145,7 +160,13 @@ public:
       std::cout << "#====== ASSEMBLY ENDING ======" << std::endl;
 
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(4) << std::left << "$sp,$fp" << std::endl;
-      std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::left << "$fp," << stackAllocation - 4 << "($sp)" << std::endl;
+      if(_context.notJustMain){
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(3) << std::right << "$31," << stackAllocation - 4 << "($sp)"  << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(3) << std::right << "$fp," << stackAllocation - 8 << "($sp)"  << std::endl;
+      }
+      else{
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::left << "$fp," << stackAllocation - 4 << "($sp)" << std::endl;
+      }
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(4) << std::left << "$sp,$sp," << stackAllocation << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "j " << std::setw(4) << std::left << "$31" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "nop " << std::endl;
@@ -155,6 +176,8 @@ public:
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".set " << std::setw(10) << std::left << "reorder" << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".end " << std::setw(10) << std::left << functionLabel << std::endl;
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << ".size " << std::setw(10) << std::left << functionLabel + "," + " " ".-" + functionLabel << std::endl;
+
+      _context.setMemOffset(topNextFunc - 4);
 
     }
 

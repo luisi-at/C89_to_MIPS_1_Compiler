@@ -15,14 +15,15 @@ $LFB0= .
      .set      nomips16  
      .set      nomicromips
      .ent      globalfunc
-     .type     globalfunc,@function
+     .type     globalfunc, @function
 globalfunc:
-     .frame    $fp,12,$31
+     .frame    $fp,16,$31
      .mask     0x40000000,-4
      .fmask    0x00000000,0
      .set      noreorder
      .set      nomacro
-     addiu     $sp,$sp,-12
+     addiu     $sp,$sp,-16
+     sw        $31,12($sp)
      sw        $fp,8($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
@@ -31,8 +32,9 @@ globalfunc:
      li          $2,1
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
+     lw        $31,12($sp)
      lw        $fp,8($sp)
-     addiu     $sp,$sp,12
+     addiu     $sp,$sp,16
      j         $31 
      nop       
      .set      macro     

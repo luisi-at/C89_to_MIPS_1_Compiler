@@ -91,6 +91,9 @@ private:
   int functionLabelCount;
   int picCount;
   int allocatedRegisters;
+  int allocatedMemory;
+  int functionMemOffset; // global memory offset for the function
+  int frameOffset;
 
   // need to have a stack of available registers so can push on and push off
   // initialize when create context object
@@ -100,7 +103,8 @@ private:
   std::stack<std::string> availableRegisters_tp; // temporaries $8-$15 and $24-$25
 
   // every time a pop occurs, increase the reg count, even if returned to the stack?
-  int functionMemOffset; // global memory offset for the function
+
+
   std::string valueAwaitingBinding; // used for assignments
 
   int scopeLevel;
@@ -108,6 +112,7 @@ private:
 public:
   Context()
   {
+    frameOffset = 4;
     functionMemOffset = 4;
     labelCount = 2;
     functionLabelCount = 0;
@@ -271,9 +276,21 @@ public:
     return allocatedRegisters;
   }
 
+  void setFrameOffset(int mem){
+    frameOffset = mem + 16; // gets the last level from the stack frame
+  }
+
+  int getFrameOffset(){
+    return frameOffset;
+  }
+
   void updateMemOffset()
   {
     functionMemOffset += 4;
+  }
+
+  void setMemOffset(int mem){
+    functionMemOffset = mem + 16;
   }
 
   int getMemOffset()
@@ -315,6 +332,8 @@ public:
   void resetScopeLevel(){
     scopeLevel = 0;
   }
+
+
 
 };
 

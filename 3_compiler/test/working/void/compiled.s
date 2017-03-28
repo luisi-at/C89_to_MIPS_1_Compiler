@@ -6,9 +6,17 @@
      .module   nooddspreg     
      .abicalls 
      .text     
-$LFB0= .       
-     .align    2         
-     .globl    function  
+x:             
+     .space    4
+     .text     
+     .align    2
+     .globl    main
+y:
+     .space    4
+     .text     
+     .align    2
+     .globl    main
+$LFB0= .
      .set      nomips16  
      .set      nomicromips
      .ent      function  
@@ -24,8 +32,9 @@ function:
      sw        $fp,8($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
-     li          $2,18
-     sw          $2,4($fp)
+     lui         $2,%hi(x)
+     li          $3,3
+     sw          $3,%lo(x)($2)
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $31,12($sp)
@@ -38,8 +47,6 @@ function:
      .end      function  
      .size     function, .-function
 $LFB1= .
-     .align    2         
-     .globl    main      
      .set      nomips16  
      .set      nomicromips
      .ent      main      
@@ -61,18 +68,25 @@ main:
      nop       
 
      .option pic2
-     sw          $2,24($fp)
-     lw          $2,24($fp)
-     slt         $2,$2,11
-     bne         $2,$0,$L2
+     lui         $2,%hi(x)
+     lw          $3,%lo(x)($2)
+     li          $2,3
+     bne         $2,$3,$L2
      nop       
 
-     li          $2,2
-     sw          $2,28($fp)
-     li          $2,3
-     sw          $2,28($fp)
+     lui         $2,%hi(y)
+     li          $3,4
+     sw          $3,%lo(y)($2)
+     move        $2,$0
+     b          $L3
+     nop       
+
 $L2:
      move        $2,$0
+     b          $L3
+     nop       
+
+$L3:
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $31,36($sp)

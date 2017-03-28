@@ -1,6 +1,7 @@
 if((!globalExistsLeft) && (!globalExistsRight)){
 
   // check if a constant on the right
+  // check if a constant on the right
   if((!isLeftConst) && (isRightConst)){
     // load the left and load immediate right
     findVar = _context.bindings.find(left);
@@ -10,12 +11,7 @@ if((!globalExistsLeft) && (!globalExistsRight)){
 
     // load the word
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
-    std::string regUsedSecond = _context.popRegister("rv");
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << right  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
-    _context.pushRegister(regUsedSecond, "rv");
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
-    //std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedFirst << "," << regUsedFirst << right  << std::endl;
     _context.pushRegister(regUsedFirst, "rv");
 
   }
@@ -26,7 +22,7 @@ if((!globalExistsLeft) && (!globalExistsRight)){
     int rightValue = std::stoi(right, nullptr, 0);
     std::string regUsed = _context.popRegister("rv");
 
-    inLineConstFold = leftValue / rightValue;
+    inLineConstFold = leftValue << rightValue;
 
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << inLineConstFold << std::endl;
     _context.pushRegister(regUsed, "rv");
@@ -39,10 +35,9 @@ if((!globalExistsLeft) && (!globalExistsRight)){
     std::string regUsedSecond = _context.popRegister("rv");
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedSecond << "," << regUsedFirst  << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
     _context.pushRegister(regUsedSecond, "rv");
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
-    //std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+
     _context.pushRegister(regUsedFirst, "rv");
   }
   // both variables
@@ -59,10 +54,9 @@ if((!globalExistsLeft) && (!globalExistsRight)){
     findVar = _context.bindings.find(right);
     int memOffsetRight = findVar->second->getCurrentMemOffset();
 
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetLeft << "($fp)"  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << memOffsetRight << "($fp)"  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << memOffsetLeft << "($fp)"  << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetRight << "($fp)"  << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
 
     _context.pushRegister(regUsedSecond, "rv");
     _context.pushRegister(regUsedFirst, "rv");
@@ -81,11 +75,9 @@ else if((globalExistsLeft) && (!globalExistsRight)){
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
     std::string regUsedSecond = _context.popRegister("rv");
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << right  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedSecond << "," << regUsedFirst << "," << right << std::endl;
+
     _context.pushRegister(regUsedSecond, "rv");
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
-    //std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
     _context.pushRegister(regUsedFirst, "rv");
   }
 
@@ -101,8 +93,7 @@ else if((globalExistsLeft) && (!globalExistsRight)){
     std::string regUsedSecond = _context.popRegister("rv");
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst << std::endl;
 
     _context.pushRegister(regUsedSecond, "rv");
     _context.pushRegister(regUsedFirst, "rv");
@@ -122,10 +113,9 @@ else if((!globalExistsLeft) && (globalExistsRight)){
     std::string regUsedSecond = _context.popRegister("rv");
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
+
     _context.pushRegister(regUsedSecond, "rv");
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
-    //std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
     _context.pushRegister(regUsedFirst, "rv");
   }
 
@@ -141,8 +131,7 @@ else if((!globalExistsLeft) && (globalExistsRight)){
     std::string regUsedSecond = _context.popRegister("rv");
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
     std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
-    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
+    std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst << std::endl;
 
     _context.pushRegister(regUsedSecond, "rv");
     _context.pushRegister(regUsedFirst, "rv");
@@ -167,8 +156,7 @@ else if((globalExistsLeft) && (globalExistsRight)){
   std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
   std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
 
-  std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "div " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond  << std::endl;
-  std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "mflo " << std::setw(4) << std::right << regUsedFirst  << std::endl;
+  std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst << std::endl;
 
   _context.pushRegister(regUsedSecond, "rv");
   _context.pushRegister(regUsedFirst, "rv");

@@ -54,13 +54,28 @@ public:
 
       int inLineConstFold; // used to hold constants after being folded, may need to type check (look for "")
 
+      bool globalExistsLeft = false;
+      bool globalExistsRight = false;
+      bool localExistsLeft = false;
+      bool localExistsRight = false;
+
       std::map<std::string, RegisterAllocations*>::iterator findVar;
+      std::map<std::string, GlobalRegisterAllocations*>::iterator findGlobal;
+
       std::string left = this->getLeft()->ReturnName();
       std::string right = this->getRight()->ReturnName();
-      int currentVarMem;
 
-      if(!isLeftConst){
+      int currentVarMem;
+      std::string globalVarMemLeft;
+      std::string globalVarMemRight;
+
+      if((!isLeftConst) && (isRightConst)){
         // check if the left side exists in the context:
+        findGlobal = _context.globalBindings.find(left);
+        if(findGlobal != _context.globalBindings.end()){
+          globalVarMemLeft = findGlobal->second->getCurrentMemOffset();
+          globalExistsLeft = true;
+        }
 
         findVar = _context.bindings.find(left);
         if(findVar != _context.bindings.end()){
@@ -76,81 +91,207 @@ public:
           _context.varInUse = left; // need this?
         }
       }
+
       else if((isLeftConst) && (!isRightConst)){
+        // check if the left side exists in the context:
+        findGlobal = _context.globalBindings.find(right);
+        if(findGlobal != _context.globalBindings.end()){
+          globalVarMemRight = findGlobal->second->getCurrentMemOffset();
+          globalExistsRight = true;
+        }
+
         findVar = _context.bindings.find(right);
         if(findVar != _context.bindings.end()){
           // get memory location
            currentVarMem = findVar->second->getCurrentMemOffset();
         }
         else{
-          // variable does not exist, implement somewhat undefined behaviour
+          // local nor variable does not exist, implement somewhat undefined behaviour
           RegisterAllocations *tempAlloc = new RegisterAllocations("", "0xDEADBEEF", _context.getMemOffset());
 
           _context.updateMemOffset();
           _context.bindings.emplace(left,tempAlloc);
           _context.varInUse = left; // need this?
         }
+
+      }
+      else if((!isLeftConst) && (!isRightConst)){
+        findGlobal = _context.globalBindings.find(right);
+        if(findGlobal != _context.globalBindings.end()){
+          globalVarMemRight = findGlobal->second->getCurrentMemOffset();
+          globalExistsRight = true;
+        }
+        findGlobal = _context.globalBindings.find(left);
+        if(findGlobal != _context.globalBindings.end()){
+          globalVarMemLeft = findGlobal->second->getCurrentMemOffset();
+          globalExistsLeft = true;
+        }
+
       }
 
 
       if(this->getOperator() == ">>"){
 
         // check if a constant on the right
-        if((!isLeftConst) && (isRightConst)){
-          // load the left and load immediate right
-          findVar = _context.bindings.find(left);
-          //std::cout << "LEFT--> " << left << std::endl;
-          std::string regUsedFirst = _context.popRegister("rv");
-          currentVarMem = findVar->second->getCurrentMemOffset();
+        if((!globalExistsLeft) && (!globalExistsRight)){
 
-          // load the word
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sra " << std::setw(4) << std::right << regUsedFirst << "," << regUsedFirst << right  << std::endl;
+          // check if a constant on the right
+          // check if a constant on the right
+          if((!isLeftConst) && (isRightConst)){
+            // load the left and load immediate right
+            findVar = _context.bindings.find(left);
+            //std::cout << "LEFT--> " << left << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            currentVarMem = findVar->second->getCurrentMemOffset();
+
+            // load the word
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sra " << std::setw(4) << std::right << regUsedFirst << "," << regUsedFirst << right  << std::endl;
+            _context.pushRegister(regUsedFirst, "rv");
+
+          }
+          // check if both constants
+          else if((isLeftConst) && (isRightConst)){
+            // constant fold and load immediate value
+            int leftValue = std::stoi(left, nullptr, 0); // automatically converts ints and hex etc...
+            int rightValue = std::stoi(right, nullptr, 0);
+            std::string regUsed = _context.popRegister("rv");
+
+            inLineConstFold = leftValue >> rightValue;
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << inLineConstFold << std::endl;
+            _context.pushRegister(regUsed, "rv");
+
+          }
+          else if((isLeftConst) && (!isRightConst)){
+            std::string regUsedFirst = _context.popRegister("rv");
+            currentVarMem = findVar->second->getCurrentMemOffset();
+            // load the word
+            std::string regUsedSecond = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sra " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
+            _context.pushRegister(regUsedSecond, "rv");
+
+            _context.pushRegister(regUsedFirst, "rv");
+          }
+          // both variables
+          else{
+            // load value from left register
+            // load value from right register
+            findVar = _context.bindings.find(left);
+            //std::cout << "LEFT--> " << left << std::endl;
+            //std::cout << "RIGHT--> " << right << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            std::string regUsedSecond = _context.popRegister("rv");
+            findVar = _context.bindings.find(left);
+            int memOffsetLeft = findVar->second->getCurrentMemOffset();
+            findVar = _context.bindings.find(right);
+            int memOffsetRight = findVar->second->getCurrentMemOffset();
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << memOffsetLeft << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetRight << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sra " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
+
+            _context.pushRegister(regUsedSecond, "rv");
+            _context.pushRegister(regUsedFirst, "rv");
+
+          }
+        }
+        else if((globalExistsLeft) && (!globalExistsRight)){
+          if((!isLeftConst) && (isRightConst)){
+
+            //findVar = _context.bindings.find(left);
+            //std::cout << "LEFT--> " << left << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            //currentVarMem = findVar->second->getCurrentMemOffset();
+            globalVarMemLeft = findGlobal->second->getCurrentMemOffset();
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+            std::string regUsedSecond = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sra " << std::setw(4) << std::right << regUsedSecond << "," << regUsedFirst << "," << right << std::endl;
+
+            _context.pushRegister(regUsedSecond, "rv");
+            _context.pushRegister(regUsedFirst, "rv");
+          }
+
+          else if((!isLeftConst) && (!isRightConst)){
+
+            findVar = _context.bindings.find(right);
+            //std::cout << "LEFT--> " << left << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            currentVarMem = findVar->second->getCurrentMemOffset();
+            globalVarMemLeft = findGlobal->second->getCurrentMemOffset();
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+            std::string regUsedSecond = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sra " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst << std::endl;
+
+            _context.pushRegister(regUsedSecond, "rv");
+            _context.pushRegister(regUsedFirst, "rv");
+          }
+
+        }
+        else if((!globalExistsLeft) && (globalExistsRight)){
+          if((isLeftConst) && (!isRightConst)){
+
+            //findVar = _context.bindings.find(left);
+            //std::cout << "LEFT--> " << left << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            //currentVarMem = findVar->second->getCurrentMemOffset();
+            globalVarMemRight = findGlobal->second->getCurrentMemOffset();
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+            std::string regUsedSecond = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sra " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
+
+            _context.pushRegister(regUsedSecond, "rv");
+            _context.pushRegister(regUsedFirst, "rv");
+          }
+
+          else if((!isLeftConst) && (!isRightConst)){
+
+            findVar = _context.bindings.find(left);
+            //std::cout << "LEFT--> " << left << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            currentVarMem = findVar->second->getCurrentMemOffset();
+            globalVarMemRight = findGlobal->second->getCurrentMemOffset();
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+            std::string regUsedSecond = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sra " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst << std::endl;
+
+            _context.pushRegister(regUsedSecond, "rv");
+            _context.pushRegister(regUsedFirst, "rv");
+          }
+        }
+        else if((globalExistsLeft) && (globalExistsRight)){
+
+          findGlobal = _context.globalBindings.find(left);
+          globalVarMemLeft = findGlobal->second->getCurrentMemOffset();
+          std::map<std::string, GlobalRegisterAllocations*>::iterator findGlobalRight;
+          findGlobalRight = _context.globalBindings.find(right);
+          globalVarMemRight = findGlobalRight->second->getCurrentMemOffset();
+
+          std::string regUsedFirst = _context.popRegister("rv");
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+          std::string regUsedSecond = _context.popRegister("rv");
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
+
           _context.pushRegister(regUsedFirst, "rv");
 
-        }
-        // check if both constants
-        else if((isLeftConst) && (isRightConst)){
-          // constant fold and load immediate value
-          int leftValue = std::stoi(left, nullptr, 0); // automatically converts ints and hex etc...
-          int rightValue = std::stoi(right, nullptr, 0);
-          std::string regUsed = _context.popRegister("rv");
+          regUsedFirst = _context.popRegister("rv");
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
 
-          inLineConstFold = leftValue >> rightValue;
-
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << inLineConstFold << std::endl;
-          _context.pushRegister(regUsed, "rv");
-
-        }
-        else if((isLeftConst) && (!isRightConst)){
-          std::string regUsedFirst = _context.popRegister("rv");
-          currentVarMem = findVar->second->getCurrentMemOffset();
-          // load the word
-          std::string regUsedSecond = _context.popRegister("rv");
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sra " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
-          _context.pushRegister(regUsedSecond, "rv");
-
-          _context.pushRegister(regUsedFirst, "rv");
-        }
-        // both variables
-        else{
-          // load value from left register
-          // load value from right register
-          findVar = _context.bindings.find(left);
-          //std::cout << "LEFT--> " << left << std::endl;
-          //std::cout << "RIGHT--> " << right << std::endl;
-          std::string regUsedFirst = _context.popRegister("rv");
-          std::string regUsedSecond = _context.popRegister("rv");
-          findVar = _context.bindings.find(left);
-          int memOffsetLeft = findVar->second->getCurrentMemOffset();
-          findVar = _context.bindings.find(right);
-          int memOffsetRight = findVar->second->getCurrentMemOffset();
-
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << memOffsetLeft << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetRight << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sra " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst << std::endl;
 
           _context.pushRegister(regUsedSecond, "rv");
           _context.pushRegister(regUsedFirst, "rv");
@@ -161,75 +302,178 @@ public:
 
       if(this->getOperator() == "<<"){
 
-        // check if a constant on the right
-        if((!isLeftConst) && (isRightConst)){
-          // load the left and load immediate right
-          findVar = _context.bindings.find(left);
-          //std::cout << "LEFT--> " << left << std::endl;
-          std::string regUsedFirst = _context.popRegister("rv");
-          currentVarMem = findVar->second->getCurrentMemOffset();
+        if((!globalExistsLeft) && (!globalExistsRight)){
 
-          // load the word
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedFirst << "," << regUsedFirst << right  << std::endl;
-          _context.pushRegister(regUsedFirst, "rv");
+          // check if a constant on the right
+          // check if a constant on the right
+          if((!isLeftConst) && (isRightConst)){
+            // load the left and load immediate right
+            findVar = _context.bindings.find(left);
+            //std::cout << "LEFT--> " << left << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            currentVarMem = findVar->second->getCurrentMemOffset();
+
+            // load the word
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedFirst << "," << regUsedFirst << right  << std::endl;
+            _context.pushRegister(regUsedFirst, "rv");
+
+          }
+          // check if both constants
+          else if((isLeftConst) && (isRightConst)){
+            // constant fold and load immediate value
+            int leftValue = std::stoi(left, nullptr, 0); // automatically converts ints and hex etc...
+            int rightValue = std::stoi(right, nullptr, 0);
+            std::string regUsed = _context.popRegister("rv");
+
+            inLineConstFold = leftValue << rightValue;
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << inLineConstFold << std::endl;
+            _context.pushRegister(regUsed, "rv");
+
+          }
+          else if((isLeftConst) && (!isRightConst)){
+            std::string regUsedFirst = _context.popRegister("rv");
+            currentVarMem = findVar->second->getCurrentMemOffset();
+            // load the word
+            std::string regUsedSecond = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
+            _context.pushRegister(regUsedSecond, "rv");
+
+            _context.pushRegister(regUsedFirst, "rv");
+          }
+          // both variables
+          else{
+            // load value from left register
+            // load value from right register
+            findVar = _context.bindings.find(left);
+            //std::cout << "LEFT--> " << left << std::endl;
+            //std::cout << "RIGHT--> " << right << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            std::string regUsedSecond = _context.popRegister("rv");
+            findVar = _context.bindings.find(left);
+            int memOffsetLeft = findVar->second->getCurrentMemOffset();
+            findVar = _context.bindings.find(right);
+            int memOffsetRight = findVar->second->getCurrentMemOffset();
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << memOffsetLeft << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetRight << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
+
+            _context.pushRegister(regUsedSecond, "rv");
+            _context.pushRegister(regUsedFirst, "rv");
+
+          }
+        }
+        else if((globalExistsLeft) && (!globalExistsRight)){
+          if((!isLeftConst) && (isRightConst)){
+
+            //findVar = _context.bindings.find(left);
+            //std::cout << "LEFT--> " << left << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            //currentVarMem = findVar->second->getCurrentMemOffset();
+            globalVarMemLeft = findGlobal->second->getCurrentMemOffset();
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+            std::string regUsedSecond = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedSecond << "," << regUsedFirst << "," << right << std::endl;
+
+            _context.pushRegister(regUsedSecond, "rv");
+            _context.pushRegister(regUsedFirst, "rv");
+          }
+
+          else if((!isLeftConst) && (!isRightConst)){
+
+            findVar = _context.bindings.find(right);
+            //std::cout << "LEFT--> " << left << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            currentVarMem = findVar->second->getCurrentMemOffset();
+            globalVarMemLeft = findGlobal->second->getCurrentMemOffset();
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+            std::string regUsedSecond = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst << std::endl;
+
+            _context.pushRegister(regUsedSecond, "rv");
+            _context.pushRegister(regUsedFirst, "rv");
+          }
 
         }
-        // check if both constants
-        else if((isLeftConst) && (isRightConst)){
-          // constant fold and load immediate value
-          int leftValue = std::stoi(left, nullptr, 0); // automatically converts ints and hex etc...
-          int rightValue = std::stoi(right, nullptr, 0);
-          std::string regUsed = _context.popRegister("rv");
+        else if((!globalExistsLeft) && (globalExistsRight)){
+          if((isLeftConst) && (!isRightConst)){
 
-          inLineConstFold = leftValue << rightValue;
+            //findVar = _context.bindings.find(left);
+            //std::cout << "LEFT--> " << left << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            //currentVarMem = findVar->second->getCurrentMemOffset();
+            globalVarMemRight = findGlobal->second->getCurrentMemOffset();
 
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsed << "," << inLineConstFold << std::endl;
-          _context.pushRegister(regUsed, "rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+            std::string regUsedSecond = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
 
+            _context.pushRegister(regUsedSecond, "rv");
+            _context.pushRegister(regUsedFirst, "rv");
+          }
+
+          else if((!isLeftConst) && (!isRightConst)){
+
+            findVar = _context.bindings.find(left);
+            //std::cout << "LEFT--> " << left << std::endl;
+            std::string regUsedFirst = _context.popRegister("rv");
+            currentVarMem = findVar->second->getCurrentMemOffset();
+            globalVarMemRight = findGlobal->second->getCurrentMemOffset();
+
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+            std::string regUsedSecond = _context.popRegister("rv");
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
+            std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst << std::endl;
+
+            _context.pushRegister(regUsedSecond, "rv");
+            _context.pushRegister(regUsedFirst, "rv");
+          }
         }
-        else if((isLeftConst) && (!isRightConst)){
+        else if((globalExistsLeft) && (globalExistsRight)){
+
+          findGlobal = _context.globalBindings.find(left);
+          globalVarMemLeft = findGlobal->second->getCurrentMemOffset();
+          std::map<std::string, GlobalRegisterAllocations*>::iterator findGlobalRight;
+          findGlobalRight = _context.globalBindings.find(right);
+          globalVarMemRight = findGlobalRight->second->getCurrentMemOffset();
+
           std::string regUsedFirst = _context.popRegister("rv");
-          currentVarMem = findVar->second->getCurrentMemOffset();
-          // load the word
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
           std::string regUsedSecond = _context.popRegister("rv");
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "li " << std::setw(4) << std::right << regUsedSecond << "," << left  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << currentVarMem << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
-          _context.pushRegister(regUsedSecond, "rv");
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
 
           _context.pushRegister(regUsedFirst, "rv");
-        }
-        // both variables
-        else{
-          // load value from left register
-          // load value from right register
-          findVar = _context.bindings.find(left);
-          //std::cout << "LEFT--> " << left << std::endl;
-          //std::cout << "RIGHT--> " << right << std::endl;
-          std::string regUsedFirst = _context.popRegister("rv");
-          std::string regUsedSecond = _context.popRegister("rv");
-          findVar = _context.bindings.find(left);
-          int memOffsetLeft = findVar->second->getCurrentMemOffset();
-          findVar = _context.bindings.find(right);
-          int memOffsetRight = findVar->second->getCurrentMemOffset();
 
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedSecond << "," << memOffsetLeft << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << memOffsetRight << "($fp)"  << std::endl;
-          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedFirst << "," << regUsedSecond << "," << regUsedFirst  << std::endl;
+          regUsedFirst = _context.popRegister("rv");
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(4) << std::right << regUsedFirst << "," << "%hi"+globalVarMemLeft << std::endl;
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lw " << std::setw(4) << std::right << regUsedFirst << "," << "%lo"+globalVarMemLeft+"("+regUsedFirst+")" << std::endl;
+
+          std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sll " << std::setw(4) << std::right << regUsedSecond << "," << regUsedSecond << "," << regUsedFirst << std::endl;
 
           _context.pushRegister(regUsedSecond, "rv");
           _context.pushRegister(regUsedFirst, "rv");
 
         }
 
-      }
 
       //_context.checkAssignment.second = false;
       _context.checkAssignment.first = "#";
 
 
     }
+  }
 
     virtual std::string ReturnName() const override
     {

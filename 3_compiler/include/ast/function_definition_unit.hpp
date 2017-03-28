@@ -134,6 +134,15 @@ public:
         std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "sw " << std::setw(3) << std::right << "$fp," << stackAllocation - 4 << "($sp)"  << std::endl;
       }
       std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "move " << std::setw(3) << std::right << "$fp,"<< "$sp"  << std::endl;
+      if((_context.hasGlobal) && (functionLabel != "main")){
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "lui " << std::setw(3) << std::right << "$28,%hi(__gnu_local_gp)" << std::endl;
+        std::cout << std::setw(5) << std::left << "" << std::setw(10) << std::left << "addiu " << std::setw(3) << std::right << "$28," << "$28,%lo(__gnu_local_gp)"  << std::endl;
+      }
+      else if((_context.hasGlobal) && functionLabel == "main")){
+
+      }
+
+
 
       std::cout << "#====== ASSEMBLY COMING ======" << std::endl;
 

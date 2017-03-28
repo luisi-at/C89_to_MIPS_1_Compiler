@@ -26,7 +26,7 @@ main:
      sw          $0,4($fp)
      li          $2,3
      sw          $2,8($fp)
-     lw          $2,29069920($fp)
+     lw          $2,25891424($fp)
      sw          $2,4($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======

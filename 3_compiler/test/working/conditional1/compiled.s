@@ -23,6 +23,10 @@ main:
      sw        $fp,8($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
+#LEFT--> x
+#RIGHT--> 2
+#LEFT LOCAL--> x
      li          $2,2
      sw          $2,4($fp)
 #CONDITIONAL EXPRESSION
+#LEFT--> x

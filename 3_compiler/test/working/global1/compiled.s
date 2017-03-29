@@ -28,6 +28,10 @@ function:
      lui       $28,%hi(__gnu_local_gp)
      addiu     $28,$28,%lo(__gnu_local_gp)
 #====== ASSEMBLY COMING ======
+#LEFT--> x
+#RIGHT--> 14
+#GLOBAL EXISTS--> x
+#RIGHT CONST--> 14
      lw          $2,%got(x)($28)
      li          $3,14
      sw          $3,4($2)
@@ -60,6 +64,10 @@ function2:
      lui       $28,%hi(__gnu_local_gp)
      addiu     $28,$28,%lo(__gnu_local_gp)
 #====== ASSEMBLY COMING ======
+#LEFT--> x
+#RIGHT--> 13
+#GLOBAL EXISTS--> x
+#RIGHT CONST--> 13
      lw          $2,%got(x)($28)
      li          $3,13
      sw          $3,4($2)
@@ -93,13 +101,20 @@ main:
      addiu     $28,$28,%lo(__gnu_local_gp)
      .cprestore  16
 #====== ASSEMBLY COMING ======
+#LEFT--> x
+#RIGHT--> 3
+#GLOBAL EXISTS--> x
+#RIGHT CONST--> 3
      lw          $2,%got(x)($28)
      li          $3,3
      sw          $3,4($2)
      lui         $2,%hi
      lw          $2,%lo($2)
      addiu       $3,$2,5
-     sw          $2,56($fp)
+#LEFT--> y
+#RIGHT--> x
+#GLOBAL EXISTS--> y
+     sw          $2,8($2)
 #VOID FUNCTION!
      .option pic0
      jal       function
@@ -120,8 +135,13 @@ main:
      bne         $2,$0,$L2
      nop       
 
-     li          $2,3
-     sw          $2,56($fp)
+#LEFT--> y
+#RIGHT--> 3
+#GLOBAL EXISTS--> y
+#RIGHT CONST--> 3
+     lw          $2,%got(y)($28)
+     li          $3,3
+     sw          $3,8($2)
      move        $2,$0
      b          $L3
      nop       

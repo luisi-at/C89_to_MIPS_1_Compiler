@@ -28,7 +28,7 @@ main:
 	li	$2,3			# 0x3
 	sw	$2,4($fp)
 	lw	$2,%got(x)($28)
-	li	$3,3			# 0x3
+	li	$3,12			# 0xc
 	sw	$3,0($2)
 	lw	$2,%got(x)($28)
 	lw	$3,4($fp)

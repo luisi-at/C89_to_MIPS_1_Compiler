@@ -22,24 +22,24 @@ main:
 	sw	$fp,12($sp)
 	move	$fp,$sp
 	li	$2,4			# 0x4
-	sw	$2,0($fp)
-	li	$2,2			# 0x2
 	sw	$2,4($fp)
-	lw	$3,4($fp)
-	lw	$2,0($fp)
+	li	$2,2			# 0x2
+	sw	$2,0($fp)
+	lw	$3,0($fp)
+	lw	$2,4($fp)
 	slt	$2,$3,$2
 	beq	$2,$0,$L2
 	nop
 
 	li	$2,30			# 0x1e
-	sw	$2,4($fp)
+	sw	$2,0($fp)
 	b	$L3
 	nop
 
 $L2:
-	sw	$0,4($fp)
+	sw	$0,0($fp)
 $L3:
-	move	$2,$0
+	lw	$2,0($fp)
 	move	$sp,$fp
 	lw	$fp,12($sp)
 	addiu	$sp,$sp,16

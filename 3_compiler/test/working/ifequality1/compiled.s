@@ -23,6 +23,9 @@ main:
      sw        $fp,12($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
+#LEFT--> x
+#RIGHT--> 2
+#LEFT LOCAL--> x
      li          $2,2
      sw          $2,4($fp)
      lw          $2,4($fp)
@@ -30,11 +33,17 @@ main:
      bne         $2,$3,$L2
      nop       
 
+#LEFT--> x
+#RIGHT--> 30
+#LEFT LOCAL--> x
      li          $2,30
      sw          $2,4($fp)
 $L2:
      lw          $2,4($fp)
      addiu       $2,$2,4
+#LEFT--> x
+#RIGHT--> x
+#LEFT LOCAL--> x
      sw          $2,4($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======

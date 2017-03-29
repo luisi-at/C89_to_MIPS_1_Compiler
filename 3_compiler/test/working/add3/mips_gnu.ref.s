@@ -23,7 +23,7 @@ main:
 	move	$fp,$sp
 	li	$2,15			# 0xf
 	sw	$2,4($fp)
-	move	$2,$0
+	lw	$2,4($fp)
 	move	$sp,$fp
 	lw	$fp,12($sp)
 	addiu	$sp,$sp,16

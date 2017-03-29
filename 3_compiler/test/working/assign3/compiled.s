@@ -23,9 +23,18 @@ main:
      sw        $fp,12($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
+#LEFT--> x
+#RIGHT--> 0
+#LEFT LOCAL--> x
      sw          $0,4($fp)
+#LEFT--> y
+#RIGHT--> 3
+#LEFT LOCAL--> y
      li          $2,3
      sw          $2,8($fp)
+#LEFT--> x
+#RIGHT--> y
+#LEFT LOCAL--> x
      lw          $2,8($fp)
      sw          $2,4($fp)
      move        $2,$0

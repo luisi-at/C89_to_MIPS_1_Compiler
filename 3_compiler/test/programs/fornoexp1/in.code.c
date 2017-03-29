@@ -9,5 +9,5 @@ int main()
     y++;
   }
 
-  return 0;
+  return y;
 }

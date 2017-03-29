@@ -55,18 +55,18 @@ main:
 	nop
 
 	.option	pic2
-	sw	$2,24($fp)
-	lw	$2,24($fp)
+	sw	$2,28($fp)
+	lw	$2,28($fp)
 	slt	$2,$2,11
 	bne	$2,$0,$L3
 	nop
 
 	li	$2,2			# 0x2
-	sw	$2,28($fp)
+	sw	$2,24($fp)
 	li	$2,3			# 0x3
-	sw	$2,28($fp)
+	sw	$2,24($fp)
 $L3:
-	move	$2,$0
+	lw	$2,24($fp)
 	move	$sp,$fp
 	lw	$31,36($sp)
 	lw	$fp,32($sp)

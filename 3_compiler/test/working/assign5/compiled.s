@@ -23,12 +23,21 @@ main:
      sw        $fp,12($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
+#LEFT--> x
+#RIGHT--> 0
+#LEFT LOCAL--> x
      sw          $0,4($fp)
+#LEFT--> y
+#RIGHT--> 13
+#LEFT LOCAL--> y
      li          $2,13
      sw          $2,8($fp)
      lw         $2,8($fp)
      addiu     $3,$2,1
      sw         $3,8($fp)
+#LEFT--> x
+#RIGHT--> y
+#LEFT LOCAL--> x
      sw          $2,4($fp)
      move        $2,$0
 #====== ASSEMBLY ENDING ======

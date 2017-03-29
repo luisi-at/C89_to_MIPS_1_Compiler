@@ -24,8 +24,11 @@ main:
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
      li          $2,15
+#LEFT--> x
+#RIGHT--> 12
+#LEFT LOCAL--> x
      sw          $2,4($fp)
-     move        $2,$0
+     lw          $2,4($fp)
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $fp,4($sp)

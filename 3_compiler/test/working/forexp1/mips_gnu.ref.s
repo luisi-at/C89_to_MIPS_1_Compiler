@@ -36,11 +36,11 @@ $L3:
 	sw	$2,0($fp)
 $L2:
 	lw	$2,0($fp)
-	slt	$2,$2,5
-	beq	$2,$0,$L3
+	slt	$2,$2,4
+	bne	$2,$0,$L3
 	nop
 
-	move	$2,$0
+	lw	$2,4($fp)
 	move	$sp,$fp
 	lw	$fp,12($sp)
 	addiu	$sp,$sp,16

@@ -26,6 +26,9 @@ function:
 #====== ASSEMBLY COMING ======
      li          $2,5
      sw          $2,4($fp)
+#LEFT--> t
+#RIGHT--> 4
+#LEFT LOCAL--> t
      li          $2,4
      sw          $2,4($fp)
 #====== ASSEMBLY ENDING ======

@@ -37,7 +37,7 @@ $L2:
 	beq	$2,$0,$L3
 	nop
 
-	move	$2,$0
+	lw	$2,0($fp)
 	move	$sp,$fp
 	lw	$fp,12($sp)
 	addiu	$sp,$sp,16

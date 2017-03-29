@@ -6,5 +6,5 @@ int main()
   x = 3;
   y = 13 + x;
 
-  return 0;
+  return y;
 }

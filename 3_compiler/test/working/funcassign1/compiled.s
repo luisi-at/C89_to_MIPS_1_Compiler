@@ -24,6 +24,9 @@ function:
      sw        $fp,8($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
+#LEFT--> t
+#RIGHT--> 18
+#LEFT LOCAL--> t
      li          $2,18
      sw          $2,4($fp)
 #====== ASSEMBLY ENDING ======
@@ -62,6 +65,9 @@ main:
      nop       
 
      .option pic2
+#LEFT--> x
+#RIGHT--> function
+#LEFT LOCAL--> x
      sw          $2,24($fp)
 #GLOBAL TO LOCAL
      lw          $2,24($fp)
@@ -69,12 +75,18 @@ main:
      bne         $2,$0,$L2
      nop       
 
+#LEFT--> y
+#RIGHT--> 2
+#LEFT LOCAL--> y
      li          $2,2
      sw          $2,28($fp)
+#LEFT--> y
+#RIGHT--> 3
+#LEFT LOCAL--> y
      li          $2,3
      sw          $2,28($fp)
 $L2:
-     move        $2,$0
+     lw          $2,28($fp)
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp
      lw        $31,36($sp)

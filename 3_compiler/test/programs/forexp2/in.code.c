@@ -5,7 +5,7 @@ int main()
 
   y = 1;
 
-  for(x = 0; x > 4; x++){
+  for(x = 0; x < 4; x++){
     if(x == 3){
       y = y + 4;
     }

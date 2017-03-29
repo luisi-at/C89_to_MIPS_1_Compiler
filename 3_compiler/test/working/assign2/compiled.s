@@ -23,6 +23,9 @@ main:
      sw        $fp,4($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
+#LEFT--> xname
+#RIGHT--> 1
+#LEFT LOCAL--> xname
      li          $2,1
      sw          $2,4($fp)
      move        $2,$0

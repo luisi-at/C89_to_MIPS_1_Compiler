@@ -27,11 +27,21 @@ main:
 #====== ASSEMBLY COMING ======
      li          $2,3
      sw          $2,12($fp)
+#LEFT--> x
+#RIGHT--> 12
+#GLOBAL EXISTS--> x
+#RIGHT CONST--> 12
      lw          $2,%got(x)($28)
-     li          $3,3
+     li          $3,12
      sw          $3,4($2)
-     lw          $2,12($fp)
-     sw          $2,16($fp)
+#LEFT--> x
+#RIGHT--> t
+#GLOBAL EXISTS--> x
+#RIGHT VAR--> t
+#LOCAL TO GLOBAL
+     lw          $2,%got(x)($28)
+     lw          $2,12($2)
+     sw          $3,4($fp)
      li          $2,1
 #====== ASSEMBLY ENDING ======
      move      $sp,$fp

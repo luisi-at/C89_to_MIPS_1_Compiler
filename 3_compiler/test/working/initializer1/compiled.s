@@ -25,6 +25,9 @@ main:
 #====== ASSEMBLY COMING ======
      li          $2,13
      sw          $2,4($fp)
+#LEFT--> x
+#RIGHT--> 3
+#LEFT LOCAL--> x
      li          $2,3
      sw          $2,4($fp)
      lw          $2,4($fp)

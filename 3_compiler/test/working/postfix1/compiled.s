@@ -23,6 +23,9 @@ main:
      sw        $fp,8($sp)
      move      $fp,$sp
 #====== ASSEMBLY COMING ======
+#LEFT--> x
+#RIGHT--> 0
+#LEFT LOCAL--> x
      sw          $0,4($fp)
      lw         $2,4($fp)
      addiu     $2,$2,1

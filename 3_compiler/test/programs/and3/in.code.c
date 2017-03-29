@@ -4,5 +4,5 @@ int main()
 
  x = 12 & 3;
 
- return 0;
+ return x;
 }

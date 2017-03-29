@@ -31,6 +31,9 @@ $L3:
 
      lw          $2,4($fp)
      addiu       $2,$2,1
+#LEFT--> x
+#RIGHT--> x
+#LEFT LOCAL--> x
      sw          $2,4($fp)
      b          $L3
      nop       

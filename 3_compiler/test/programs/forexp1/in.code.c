@@ -5,9 +5,9 @@ int main()
 
   y = 1;
 
-  for(x = 0; x > 4; x++){
+  for(x = 0; x < 4; x++){
     y++;
   }
 
-  return 0;
+  return y;
 }

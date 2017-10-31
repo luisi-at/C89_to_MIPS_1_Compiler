@@ -4,15 +4,12 @@ Compiles C89 specification code to the MIPS I ISA.
 
 ## Functional Components
 
-  * Arithmetic and Logic Expressions (including rudimentary constant folding)
+  * Arithmetic and Logic Expressions, including rudimentary constant folding
   * If, If-Else and Switch
   * For and While Looping
   * Void function calls
-
-
-
-
-
+  * Global Variables, implementing precidence with local variables
+ 
 
 
 

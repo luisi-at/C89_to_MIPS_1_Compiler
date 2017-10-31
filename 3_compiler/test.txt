@@ -1,0 +1,113 @@
+223
+205
+237--> x
+223
+205
+237--> empty
+252 PARAMS!
+247 PARAM LIST!
+242 FUNCTION WITH PARAMS
+78--> empty
+84
+93
+79--> 0
+84
+93
+136
+266
+289
+278
+79--> 0
+84
+93
+306
+279
+267
+341
+336
+223
+205
+237--> f
+223
+205
+237--> test
+252 PARAMS!
+247 PARAM LIST!
+242 FUNCTION WITH PARAMS
+223
+205
+237--> y
+215
+210
+200
+273
+78--> x
+84
+93
+79--> 1
+84
+93
+136
+223
+205
+237--> x
+79--> 1
+84
+93
+216
+210
+200
+273
+78--> x
+84
+93
+78--> x
+84
+93
+79--> 1
+84
+93
+116
+173
+284
+278
+269
+289
+278
+78--> x
+84
+93
+306
+279
+269
+341
+336
+331
+311
+
+<?xml version= "1.0"?>
+<Program>
+FUNCTION_DEC2_1---> Specifiers
+FUNCTION_DEC2_2---> Declarator
+<Function id = "x "/>
+<Parameter id= "empty" />
+<Scope>
+FUNCTION_DEC2_3---> Statements
+<Scope>
+</Scope>
+</Scope>
+</Function>
+FUNCTION_DEC2_1---> Specifiers
+FUNCTION_DEC2_2---> Declarator
+<Function id = "f "/>
+<Parameter id= "test" />
+<Scope>
+FUNCTION_DEC2_3---> Statements
+<Variable id= "y" />
+<Scope>
+<Variable id= "x" />
+</Scope>
+</Scope>
+</Function>
+</Program>
+

@@ -13,6 +13,6 @@ Compiles C89 specification code to the MIPS I ISA.
 ### A Note:
 The repo has been left in a 'working state' but with all final changes merged into Master. Just to reflect the evolution of the code and the development process, thought it was a nice thing to do.
 
-Alexander Luisi  
+Alexander Luisi.  
 Imperial College London  
 March 2017

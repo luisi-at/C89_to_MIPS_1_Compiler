@@ -10,6 +10,7 @@ Compiles C89 specification code to the MIPS I ISA.
   * Void function calls
   * Global Variables, implementing precidence with local variables
  
+### A Note:
 The repo has been left in a 'working state' but with all final changes merged into Master. Just to reflect the evolution of the code and the development process, thought it was a nice thing to do.
 
 Alexander Luisi at Imperial College London
